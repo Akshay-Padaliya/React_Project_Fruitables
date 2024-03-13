@@ -1,7 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
 
 function Header(props) {
+
+  const {fname} = useParams()
+
     return (
             <div>
   {/* Spinner Start */}
@@ -52,9 +57,9 @@ function Header(props) {
               <i className="fa fa-shopping-bag fa-2x" />
               <span className="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style={{top: '-5px', left: 15, height: 20, minWidth: 20}}>3</span>
             </a>
-            <a href="#" className="my-auto">
+            <NavLink to="/fname" className="my-auto">{fname}
               <i className="fas fa-user fa-2x" />
-            </a>
+            </NavLink>
           </div>
         </div>
       </nav>

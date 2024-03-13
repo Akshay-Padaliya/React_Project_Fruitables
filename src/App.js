@@ -11,12 +11,16 @@ import CheckOut from './user/Container/CheckOut/CheckOut';
 import Testimonial from './user/Container/Testimonial/Testimonial';
 import ErrorPage from './user/Container/404Page/404Page';
 import Contact from './user/Container/Contact/Contact';
+import UseParams from './user/Container/useparams/UseParams';
 
 function App() {
   return (
     <>
+
     <Header/>
+    {/* <Route exact path="/" element={<Header/>}/> */}
     <Routes>
+    <Route exact path="/:fname" element={<UseParams/>}/>
       <Route exact path="/" element={<Home/>}/>
       <Route exact path="/shop" element={<Shop/>}/>
       <Route exact path="/shop_details" element={<ShopDetails/>}/>
