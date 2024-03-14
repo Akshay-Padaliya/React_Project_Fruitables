@@ -1,9 +1,10 @@
 import React from 'react';
-import { useMatch, Link, useParams, Switch, Route, Routes, useRoute , useRoutesMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+// import { useMatch, Link, useParams, Switch, Route, Routes, useRoute , useRoutesMatch } from 'react-router-dom';
 
 function Shop(props) {
 
-    const { URL } = useRoutesMatch(); //get the current route path
+    // const { URL } = useRoutesMatch(); //get the current route path
 
     return (
         <div>
@@ -190,10 +191,8 @@ function Shop(props) {
                                 </div>
                                 <div className="col-lg-9">
                                     <div className="row g-4 justify-content-center">
-                                        <Routes>
-                                            <Route  path= {URL}>
-                                                <>
                                                     <div className="col-md-6 col-lg-6 col-xl-4">
+                                                        <Link to='/shop/1'>
                                                         <div className="rounded position-relative fruite-item">
                                                             <div className="fruite-img">
                                                                 <img src="img/fruite-item-5.jpg" className="img-fluid w-100 rounded-top" alt />
@@ -208,6 +207,7 @@ function Shop(props) {
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        </Link>
                                                     </div>
                                                     <div className="col-md-6 col-lg-6 col-xl-4">
                                                         <div className="rounded position-relative fruite-item">
@@ -337,16 +337,17 @@ function Shop(props) {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </>
-                                            </Route>
-                                        </Routes>
+                                               
 
                                         <div className="col-12">
                                             <div className="pagination d-flex justify-content-center mt-5">
                                                 <a href="#" className="rounded">«</a>
-                                                <Link to={URL} className="active rounded">1</Link>
+                                                {/* <Link to={URL} className="active rounded">1</Link>
                                                 <Link to={`${URL}/2`} className="rounded">2</Link>
-                                                <Link to={`${URL}/3`} className="rounded">3</Link>
+                                                <Link to={`${URL}/3`} className="rounded">3</Link> */}
+                                                <a href="#" className="active rounded">1</a>
+                                                <a href="#" className="rounded">2</a>
+                                                <a href="#" className="rounded">3</a>
                                                 <a href="#" className="rounded">4</a>
                                                 <a href="#" className="rounded">5</a>
                                                 <a href="#" className="rounded">6</a>
