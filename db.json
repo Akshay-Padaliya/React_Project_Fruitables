@@ -1,0 +1,159 @@
+{
+  "Fruits": [
+    {
+      "id": "1",
+      "name": "Grapes",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 4.99,
+      "image": "img/fruite-item-5.jpg",
+      "category": "Fruits",
+      "title": "Fresh Fruits"
+    },
+    {
+      "id": "2",
+      "name": "Grapes",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 4.99,
+      "image": "img/fruite-item-5.jpg",
+      "category": "Fruits",
+      "title": "Fresh Fruits"
+    },
+    {
+      "id": "3",
+      "name": "Raspberries",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 4.99,
+      "image": "img/fruite-item-2.jpg",
+      "category": "Fruits",
+      "title": "Fresh Fruits"
+    },
+    {
+      "id": "4",
+      "name": "Apricots",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 4.99,
+      "image": "img/fruite-item-4.jpg",
+      "category": "Fruits",
+      "title": "Fresh Fruits"
+    },
+    {
+      "id": "5",
+      "name": "Banana",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 4.99,
+      "image": "img/fruite-item-3.jpg",
+      "category": "Fruits",
+      "title": "Fresh Fruits"
+    },
+    {
+      "id": "6",
+      "name": "Oranges",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 4.99,
+      "image": "img/fruite-item-1.jpg",
+      "category": "Fruits",
+      "title": "Fresh Fruits"
+    },
+    {
+      "id": "7",
+      "name": "Raspberries",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 4.99,
+      "image": "img/fruite-item-2.jpg",
+      "category": "Fruits",
+      "title": "Fresh Fruits"
+    },
+    {
+      "id": "8",
+      "name": "Grapes",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 4.99,
+      "image": "img/fruite-item-5.jpg",
+      "category": "Fruits",
+      "title": "Fresh Fruits"
+    },
+    {
+      "id": "9",
+      "name": "Oranges",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 4.99,
+      "image": "img/fruite-item-1.jpg",
+      "category": "Fruits",
+      "title": "Fresh Fruits"
+    }
+  ],
+  "Vegetables": [
+    {
+      "id": "1",
+      "name": "Parsely",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 4.99,
+      "image": "img/vegetable-item-6.jpg",
+      "category": "Vegetables",
+      "title": "Fresh Vegetables"
+    },
+    {
+      "id": "2",
+      "name": "Tomato",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 4.99,
+      "image": "img/vegetable-item-1.jpg",
+      "category": "Vegetables",
+      "title": "Fresh Vegetables"
+    },
+    {
+      "id": "3",
+      "name": "Banana",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 7.99,
+      "image": "img/vegetable-item-3.png",
+      "category": "Vegetables",
+      "title": "Fresh Vegetables"
+    },
+    {
+      "id": "4",
+      "name": "Bell Papper",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 7.99,
+      "image": "img/vegetable-item-4.jpg",
+      "category": "Vegetables",
+      "title": "Fresh Vegetables"
+    },
+    {
+      "id": "5",
+      "name": "Potatoes",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 7.99,
+      "image": "img/vegetable-item-5jpg",
+      "category": "Vegetables",
+      "title": "Fresh Vegetables"
+    },
+    {
+      "id": "6",
+      "name": "Parsely",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 4.99,
+      "image": "img/vegetable-item-6.jpg",
+      "category": "Vegetables",
+      "title": "Fresh Vegetables"
+    },
+    {
+      "id": "7",
+      "name": "Potatoes",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 7.99,
+      "image": "img/vegetable-item-5.jpg",
+      "category": "Vegetables",
+      "title": "Fresh Vegetables"
+    },
+    {
+      "id": "8",
+      "name": "Parsely",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 7.99,
+      "image": "img/vegetable-item-6.jpg",
+      "category": "Vegetables",
+      "title": "Fresh Vegetables"
+    }
+  ]
+}

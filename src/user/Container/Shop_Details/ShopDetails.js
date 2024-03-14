@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
@@ -8,6 +8,44 @@ function ShopDetails(props) {
 
   const {id} = useParams();
   console.log(id);
+
+  const [fruitDetails, setFruitDetails] = useState('');
+
+    useEffect(() => {
+        getdata()
+    }, []);
+
+    const getdata = async () => {
+
+      try {
+        
+        const response = await fetch('http://localhost:8000/Fruits')
+        const data = await response.json()
+        console.log(data);
+
+        const finddata = data.find((v)=> v.id == id);
+        console.log(finddata);
+        
+        setFruitDetails(finddata);
+
+      } catch (error) {
+        console.log(error);
+      }
+        
+
+    }
+
+    console.log(fruitDetails);
+
+     
+
+
+
+
+
+
+
+
 
     const vegetableCarousel = {
         autoplay: true,
@@ -62,6 +100,45 @@ function ShopDetails(props) {
         <div className="col-lg-8 col-xl-9">
           <div className="row g-4">
             <div className="col-lg-6">
+
+            {/* <div className="border rounded">
+                <a href="#">
+                  <img src={fruitDetails.image} className="img-fluid rounded" alt="Image" />
+                </a>
+              </div>
+            </div>
+            <div className="col-lg-6">
+              <h4 className="fw-bold mb-3">{fruitDetails.name}</h4>
+              <p className="mb-3">Category: {fruitDetails.category}</p>
+              <h5 className="fw-bold mb-3">{fruitDetails.price} $</h5>
+              <div className="d-flex mb-4">
+                <i className="fa fa-star text-secondary" />
+                <i className="fa fa-star text-secondary" />
+                <i className="fa fa-star text-secondary" />
+                <i className="fa fa-star text-secondary" />
+                <i className="fa fa-star" />
+              </div>
+              <p className="mb-4">{fruitDetails.discription}</p>
+              <p className="mb-4">{fruitDetails.discription}</p>
+              <div className="input-group quantity mb-5" style={{width: 100}}>
+                <div className="input-group-btn">
+                  <button className="btn btn-sm btn-minus rounded-circle bg-light border">
+                    <i className="fa fa-minus" />
+                  </button>
+                </div>
+                <input type="text" className="form-control form-control-sm text-center border-0" defaultValue={1} />
+                <div className="input-group-btn">
+                  <button className="btn btn-sm btn-plus rounded-circle bg-light border">
+                    <i className="fa fa-plus" />
+                  </button>
+                </div>
+              </div>
+              <a href="#" className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
+            </div> */}
+
+
+
+
               <div className="border rounded">
                 <a href="#">
                   <img src="img/single-item.jpg" className="img-fluid rounded" alt="Image" />
