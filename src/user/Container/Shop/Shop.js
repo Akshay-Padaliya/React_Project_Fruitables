@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 function Shop(props) {
 
     const [Fruitesdata, setFruitesdata] = useState([]);
+    const [catagory, setCatagory] = useState([]);
 
     useEffect(() => {
         getdata()
@@ -15,7 +16,18 @@ function Shop(props) {
         const data = await response.json()
         console.log(data);
         setFruitesdata(data);
+
+        const unique = [];
+        data.map((v) => {
+            if (!unique.includes(v.name)) {
+                unique.push(v.name)
+            }
+        });
+
+        setCatagory(unique);
+        console.log(unique, catagory);
     }
+    console.log(catagory);
 
     // const { URL } = useRoutesMatch(); //get the current route path
 
@@ -64,36 +76,46 @@ function Shop(props) {
                                             <div className="mb-3">
                                                 <h4>Categories</h4>
                                                 <ul className="list-unstyled fruite-categorie">
-                                                    <li>
+                                                    {
+                                                        catagory.map((n) => (
+                                                            <li>
+                                                                <div className="d-flex justify-content-between fruite-name">
+                                                                    <a href="#"><i className="fas fa-apple-alt me-2" />{n}</a>
+                                                                    <span>({Fruitesdata.filter((v) => (v.name == n)).length})</span>
+                                                                </div>
+                                                            </li>
+                                                        ))
+                                                    }
+                                                    {/* <li>
                                                         <div className="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i className="fas fa-apple-alt me-2" />Apples</a>
-                                                            <span>(3)</span>
+                                                            <a href="#"><i className="fas fa-apple-alt me-2" />Grapes</a>
+                                                            <span>({Fruitesdata.filter((v)=> v.name === 'Grapes').length})</span>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div className="d-flex justify-content-between fruite-name">
                                                             <a href="#"><i className="fas fa-apple-alt me-2" />Oranges</a>
-                                                            <span>(5)</span>
+                                                            <span>({Fruitesdata.filter((v)=> v.name === 'Oranges').length})</span>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div className="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i className="fas fa-apple-alt me-2" />Strawbery</a>
-                                                            <span>(2)</span>
+                                                            <a href="#"><i className="fas fa-apple-alt me-2" />Raspberries</a>
+                                                            <span>({Fruitesdata.filter((v)=> v.name === 'Raspberries').length})</span>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div className="d-flex justify-content-between fruite-name">
                                                             <a href="#"><i className="fas fa-apple-alt me-2" />Banana</a>
-                                                            <span>(8)</span>
+                                                            <span>({Fruitesdata.filter((v)=> v.name === 'Banana').length})</span>
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div className="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i className="fas fa-apple-alt me-2" />Pumpkin</a>
-                                                            <span>(5)</span>
+                                                            <a href="#"><i className="fas fa-apple-alt me-2" />Apricots</a>
+                                                            <span>({Fruitesdata.filter((v)=> v.name === 'Apricots').length})</span>
                                                         </div>
-                                                    </li>
+                                                    </li> */}
                                                 </ul>
                                             </div>
                                         </div>
@@ -205,28 +227,28 @@ function Shop(props) {
                                 <div className="col-lg-9">
                                     <div className="row g-4 justify-content-center">
                                         {
-                                            Fruitesdata.map((v)=>(
+                                            Fruitesdata.map((v) => (
                                                 <div className="col-md-6 col-lg-6 col-xl-4">
-                                                <Link to= {`/shop/${v.id}`}>
-                                                <div className="rounded position-relative fruite-item">
-                                                    <div className="fruite-img">
-                                                        <img src= {v.image} className="img-fluid w-100 rounded-top" alt />
-                                                    </div>
-                                                    <div className="text-white bg-secondary px-3 py-1 rounded position-absolute" style={{ top: 10, left: 10 }}>{v.category}</div>
-                                                    <div className="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                        <h4>{v.name}</h4>
-                                                        <p>{v.discription}</p>
-                                                        <div className="d-flex justify-content-between flex-lg-wrap">
-                                                            <p className="text-dark fs-5 fw-bold mb-0">${v.price} / kg</p>
-                                                            <a href="#" className="btn border border-secondary rounded-pill px-3 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
+                                                    <Link to={`/shop/${v.id}`}>
+                                                        <div className="rounded position-relative fruite-item">
+                                                            <div className="fruite-img">
+                                                                <img src={v.image} className="img-fluid w-100 rounded-top" alt />
+                                                            </div>
+                                                            <div className="text-white bg-secondary px-3 py-1 rounded position-absolute" style={{ top: 10, left: 10 }}>{v.category}</div>
+                                                            <div className="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                                <h4>{v.name}</h4>
+                                                                <p>{v.discription}</p>
+                                                                <div className="d-flex justify-content-between flex-lg-wrap">
+                                                                    <p className="text-dark fs-5 fw-bold mb-0">${v.price} / kg</p>
+                                                                    <a href="#" className="btn border border-secondary rounded-pill px-3 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </Link>
                                                 </div>
-                                                </Link>
-                                            </div>
                                             ))
                                         }
-                                                    {/* <div className="col-md-6 col-lg-6 col-xl-4">
+                                        {/* <div className="col-md-6 col-lg-6 col-xl-4">
                                                         <Link to='/shop/1'>
                                                         <div className="rounded position-relative fruite-item">
                                                             <div className="fruite-img">
@@ -372,7 +394,7 @@ function Shop(props) {
                                                             </div>
                                                         </div>
                                                     </div> */}
-                                               
+
 
                                         <div className="col-12">
                                             <div className="pagination d-flex justify-content-center mt-5">

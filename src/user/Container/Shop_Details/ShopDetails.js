@@ -37,16 +37,6 @@ function ShopDetails(props) {
 
     console.log(fruitDetails);
 
-     
-
-
-
-
-
-
-
-
-
     const vegetableCarousel = {
         autoplay: true,
         smartSpeed: 1500,
@@ -101,16 +91,16 @@ function ShopDetails(props) {
           <div className="row g-4">
             <div className="col-lg-6">
 
-            {/* <div className="border rounded">
+            <div className="border rounded">
                 <a href="#">
-                  <img src={fruitDetails.image} className="img-fluid rounded" alt="Image" />
+                  <img src={`../${fruitDetails?.image}`} className="img-fluid rounded" alt="Image" />
                 </a>
               </div>
             </div>
             <div className="col-lg-6">
-              <h4 className="fw-bold mb-3">{fruitDetails.name}</h4>
-              <p className="mb-3">Category: {fruitDetails.category}</p>
-              <h5 className="fw-bold mb-3">{fruitDetails.price} $</h5>
+              <h4 className="fw-bold mb-3">{fruitDetails?.name}</h4>
+              <p className="mb-3">Category: {fruitDetails?.category}</p>
+              <h5 className="fw-bold mb-3">{fruitDetails?.price} $</h5>
               <div className="d-flex mb-4">
                 <i className="fa fa-star text-secondary" />
                 <i className="fa fa-star text-secondary" />
@@ -118,8 +108,8 @@ function ShopDetails(props) {
                 <i className="fa fa-star text-secondary" />
                 <i className="fa fa-star" />
               </div>
-              <p className="mb-4">{fruitDetails.discription}</p>
-              <p className="mb-4">{fruitDetails.discription}</p>
+              <p className="mb-4">{fruitDetails?.discription}</p>
+              <p className="mb-4">{fruitDetails?.discription}</p>
               <div className="input-group quantity mb-5" style={{width: 100}}>
                 <div className="input-group-btn">
                   <button className="btn btn-sm btn-minus rounded-circle bg-light border">
@@ -134,12 +124,12 @@ function ShopDetails(props) {
                 </div>
               </div>
               <a href="#" className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
-            </div> */}
+            </div>
 
 
 
 
-              <div className="border rounded">
+              {/* <div className="border rounded">
                 <a href="#">
                   <img src="img/single-item.jpg" className="img-fluid rounded" alt="Image" />
                 </a>
@@ -172,7 +162,7 @@ function ShopDetails(props) {
                 </div>
               </div>
               <a href="#" className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
-            </div>
+            </div> */}
             <div className="col-lg-12">
               <nav>
                 <div className="nav nav-tabs mb-3">
@@ -481,7 +471,7 @@ function ShopDetails(props) {
             </div>
             <div className="col-lg-12">
               <div className="position-relative">
-                <img src="img/banner-fruits.jpg" className="img-fluid w-100 rounded" alt />
+                <img src="../img/banner-fruits.jpg" className="img-fluid w-100 rounded" alt />
                 <div className="position-absolute" style={{top: '50%', right: 10, transform: 'translateY(-50%)'}}>
                   <h3 className="text-secondary fw-bold">Fresh <br /> Fruits <br /> Banner</h3>
                 </div>
