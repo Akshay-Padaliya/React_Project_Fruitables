@@ -6,6 +6,7 @@ function Shop(props) {
 
     const [Fruitesdata, setFruitesdata] = useState([]);
     const [catagory, setCatagory] = useState([]);
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
         getdata()
@@ -27,7 +28,16 @@ function Shop(props) {
         setCatagory(unique);
         console.log(unique, catagory);
     }
-    console.log(catagory);
+    console.log(catagory,search);
+
+    const filterCatagory = () =>{
+
+        if(search === "") return Fruitesdata;
+        
+        else return Fruitesdata.filter(e=> e.name === search);
+    }
+
+    const finalData = filterCatagory()
 
     // const { URL } = useRoutesMatch(); //get the current route path
 
@@ -77,10 +87,10 @@ function Shop(props) {
                                                 <h4>Categories</h4>
                                                 <ul className="list-unstyled fruite-categorie">
                                                     {
-                                                        catagory.map((n) => (
+                                                        finalData.map((n) => (
                                                             <li>
                                                                 <div className="d-flex justify-content-between fruite-name">
-                                                                    <a href="#"><i className="fas fa-apple-alt me-2" />{n}</a>
+                                                                    <a href="#"><i className="fas fa-apple-alt me-2" onClick={setSearch(n)} />{n}</a>
                                                                     <span>({Fruitesdata.filter((v) => (v.name == n)).length})</span>
                                                                 </div>
                                                             </li>
