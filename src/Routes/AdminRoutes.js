@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Products from './../Admin/Componets/Products/Products';
+import Products from '../admin/Componets/Products/Products';
 
 function AdminRoutes(props) {
     return (

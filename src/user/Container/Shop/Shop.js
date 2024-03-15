@@ -34,7 +34,7 @@ function Shop(props) {
 
         if(search === "") return Fruitesdata;
         
-        else return Fruitesdata.filter(e=> e.name === search);
+        else return Fruitesdata.filter((e)=> e.name === search);
     }
 
     const finalData = filterCatagory()
@@ -87,10 +87,10 @@ function Shop(props) {
                                                 <h4>Categories</h4>
                                                 <ul className="list-unstyled fruite-categorie">
                                                     {
-                                                        finalData.map((n) => (
+                                                        catagory.map((n) => (
                                                             <li>
-                                                                <div className="d-flex justify-content-between fruite-name">
-                                                                    <a href="#"><i className="fas fa-apple-alt me-2" onClick={setSearch(n)} />{n}</a>
+                                                                <div className="d-flex justify-content-between fruite-name" onClick={() => setSearch(n)}>
+                                                                    <a href="#"><i className="fas fa-apple-alt me-2" />{n}</a>
                                                                     <span>({Fruitesdata.filter((v) => (v.name == n)).length})</span>
                                                                 </div>
                                                             </li>
@@ -237,7 +237,7 @@ function Shop(props) {
                                 <div className="col-lg-9">
                                     <div className="row g-4 justify-content-center">
                                         {
-                                            Fruitesdata.map((v) => (
+                                            finalData.map((v) => (
                                                 <div className="col-md-6 col-lg-6 col-xl-4">
                                                     <Link to={`/shop/${v.id}`}>
                                                         <div className="rounded position-relative fruite-item">

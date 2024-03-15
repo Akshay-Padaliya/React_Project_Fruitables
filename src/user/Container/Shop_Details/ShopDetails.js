@@ -93,7 +93,7 @@ function ShopDetails(props) {
 
             <div className="border rounded">
                 <a href="#">
-                  <img src={`../${fruitDetails?.image}`} className="img-fluid rounded" alt="Image" />
+                  <img src={`${fruitDetails?.image}`} className="img-fluid rounded" alt="Image" />
                 </a>
               </div>
             </div>
