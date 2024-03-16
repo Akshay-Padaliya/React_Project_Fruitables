@@ -7,43 +7,49 @@
       "price": 4.99,
       "image": "../img/fruite-item-5.jpg",
       "category": "Fruits",
-      "title": "Fresh Fruits"
+      "title": "Fresh Fruits",
+      "type" : "Organic"
     },
     {
       "id": "2",
       "name": "Grapes",
       "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-      "price": 4.99,
+      "price": 2.99,
       "image": "../img/fruite-item-5.jpg",
       "category": "Fruits",
-      "title": "Fresh Fruits"
+      "title": "Fresh Fruits",
+      "type" : "Fresh"
+
     },
     {
       "id": "3",
       "name": "Raspberries",
       "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-      "price": 4.99,
+      "price": 7.99,
       "image": "../img/fruite-item-2.jpg",
       "category": "Fruits",
-      "title": "Fresh Fruits"
+      "title": "Fresh Fruits",
+      "type" : "Sales"
     },
     {
       "id": "4",
       "name": "Apricots",
       "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-      "price": 4.99,
+      "price": 9.99,
       "image": "../img/fruite-item-4.jpg",
       "category": "Fruits",
-      "title": "Fresh Fruits"
+      "title": "Fresh Fruits",
+      "type" : "Discount"
     },
     {
       "id": "5",
       "name": "Banana",
       "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-      "price": 4.99,
+      "price": 3.99,
       "image": "../img/fruite-item-3.jpg",
       "category": "Fruits",
-      "title": "Fresh Fruits"
+      "title": "Fresh Fruits",
+      "type" : "Expired"
     },
     {
       "id": "6",
@@ -52,34 +58,38 @@
       "price": 4.99,
       "image": "../img/fruite-item-1.jpg",
       "category": "Fruits",
-      "title": "Fresh Fruits"
+      "title": "Fresh Fruits",
+      "type" : "Organic"
     },
     {
       "id": "7",
       "name": "Raspberries",
       "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-      "price": 4.99,
+      "price": 8.99,
       "image": "../img/fruite-item-2.jpg",
       "category": "Fruits",
-      "title": "Fresh Fruits"
+      "title": "Fresh Fruits",
+      "type" : "Sales"
     },
     {
       "id": "8",
       "name": "Grapes",
       "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-      "price": 4.99,
+      "price": 3.99,
       "image": "../img/fruite-item-5.jpg",
       "category": "Fruits",
-      "title": "Fresh Fruits"
+      "title": "Fresh Fruits",
+      "type" : "Fresh"
     },
     {
       "id": "9",
       "name": "Oranges",
       "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-      "price": 4.99,
+      "price": 5.99,
       "image": "../img/fruite-item-1.jpg",
       "category": "Fruits",
-      "title": "Fresh Fruits"
+      "title": "Fresh Fruits",
+      "type" : "Fresh"
     }
   ],
   "Vegetables": [

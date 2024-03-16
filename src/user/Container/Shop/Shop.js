@@ -6,8 +6,15 @@ function Shop(props) {
 
     const [Fruitesdata, setFruitesdata] = useState([]);
     const [catagory, setCatagory] = useState([]);
-    const [search, setSearch] = useState("");
+    const [selectCat, setselectCat] = useState("");
+    const [search, setSearch] = useState('');
+    const [price, setPrice] = useState('');
+    const [type, setType] = useState('');
+    const [sortdata, setSortData] = useState('');
 
+    // console.log(price);
+
+    console.log(search, price, type, sortdata);
     useEffect(() => {
         getdata()
     }, []);
@@ -28,13 +35,55 @@ function Shop(props) {
         setCatagory(unique);
         console.log(unique, catagory);
     }
-    console.log(catagory,search);
+    console.log(catagory, selectCat);
 
-    const filterCatagory = () =>{
+    const filterCatagory = () => {
 
-        if(search === "") return Fruitesdata;
-        
-        else return Fruitesdata.filter((e)=> e.name === search);
+        let filterData = '';
+
+
+
+        if (search) {
+            filterData = Fruitesdata.filter((v) => v.name.toLocaleLowerCase().includes(search));
+        } else {
+            filterData = Fruitesdata
+        }
+
+        if (selectCat !== "") {
+            filterData = filterData.filter((e) => e.name === selectCat)
+        }
+
+
+        if (price !== '') {
+            filterData = filterData.filter((v) => Math.round(v.price) <= price);
+        }
+
+        if (type !== '') {
+            filterData = filterData.filter((v) => v.type === type);
+        }
+
+
+        let sorting = filterData ;
+
+        if (sortdata !== '') {
+
+            sorting = filterData.sort((a, b) => {
+
+                if (sortdata == 'lh') {
+                    return (a.price - b.price);
+                } else if (sortdata == 'hl') {
+                    return (b.price - a.price);
+                }
+
+             
+            })
+        } else {
+           sorting = filterData;
+          
+        }
+
+        return sorting;
+
     }
 
     const finalData = filterCatagory()
@@ -62,7 +111,7 @@ function Shop(props) {
                             <div className="row g-4">
                                 <div className="col-xl-3">
                                     <div className="input-group w-100 mx-auto d-flex">
-                                        <input type="search" className="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1" />
+                                        <input type="search" className="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1" onChange={(e => setSearch(e.target.value.toLocaleLowerCase()))} />
                                         <span id="search-icon-1" className="input-group-text p-3"><i className="fa fa-search" /></span>
                                     </div>
                                 </div>
@@ -70,11 +119,10 @@ function Shop(props) {
                                 <div className="col-xl-3">
                                     <div className="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
                                         <label htmlFor="fruits">Default Sorting:</label>
-                                        <select id="fruits" name="fruitlist" className="border-0 form-select-sm bg-light me-3" form="fruitform">
-                                            <option value="volvo">Nothing</option>
-                                            <option value="saab">Popularity</option>
-                                            <option value="opel">Organic</option>
-                                            <option value="audi">Fantastic</option>
+                                        <select id="fruits" name="fruitlist" className="border-0 form-select-sm bg-light me-3" form="fruitform" onChange={(e) => setSortData(e.target.value)}>
+                                            <option value="">----select----</option>
+                                            <option value="lh">Price:Low to High</option>
+                                            <option value="hl">Price:High to Low</option>
                                         </select>
                                     </div>
                                 </div>
@@ -86,10 +134,16 @@ function Shop(props) {
                                             <div className="mb-3">
                                                 <h4>Categories</h4>
                                                 <ul className="list-unstyled fruite-categorie">
+                                                    <li>
+                                                        <div className="d-flex justify-content-between fruite-name" onClick={() => setselectCat('')}>
+                                                            <a href="#"><i className="fas fa-apple-alt me-2" />All</a>
+                                                            <span>({Fruitesdata.length})</span>
+                                                        </div>
+                                                    </li>
                                                     {
                                                         catagory.map((n) => (
                                                             <li>
-                                                                <div className="d-flex justify-content-between fruite-name" onClick={() => setSearch(n)}>
+                                                                <div className="d-flex justify-content-between fruite-name" onClick={() => setselectCat(n)}>
                                                                     <a href="#"><i className="fas fa-apple-alt me-2" />{n}</a>
                                                                     <span>({Fruitesdata.filter((v) => (v.name == n)).length})</span>
                                                                 </div>
@@ -132,31 +186,31 @@ function Shop(props) {
                                         <div className="col-lg-12">
                                             <div className="mb-3">
                                                 <h4 className="mb-2">Price</h4>
-                                                <input type="range" className="form-range w-100" id="rangeInput" name="rangeInput" min={0} max={500} defaultValue={0} oninput="amount.value=rangeInput.value" />
-                                                <output id="amount" name="amount" min-velue={0} max-value={500} htmlFor="rangeInput">0</output>
+                                                <input type="range" className="form-range w-100" id="rangeInput" name="rangeInput" min={0} max={10} defaultValue={0} oninput="amount.value=rangeInput.value" onChange={(e) => setPrice(parseInt(e.target.value))} />
+                                                <output id="amount" name="amount" min-velue={0} max-value={10} htmlFor="rangeInput">{price == '' ? 0 : price}</output>
                                             </div>
                                         </div>
                                         <div className="col-lg-12">
                                             <div className="mb-3">
                                                 <h4>Additional</h4>
                                                 <div className="mb-2">
-                                                    <input type="radio" className="me-2" id="Categories-1" name="Categories-1" defaultValue="Beverages" />
+                                                    <input type="radio" className="me-2" id="Categories-1" name="Categories-1" defaultValue="Organic" onClick={(e) => setType(e.target.value)} />
                                                     <label htmlFor="Categories-1"> Organic</label>
                                                 </div>
                                                 <div className="mb-2">
-                                                    <input type="radio" className="me-2" id="Categories-2" name="Categories-1" defaultValue="Beverages" />
+                                                    <input type="radio" className="me-2" id="Categories-2" name="Categories-1" defaultValue="Fresh" onClick={(e) => setType(e.target.value)} />
                                                     <label htmlFor="Categories-2"> Fresh</label>
                                                 </div>
                                                 <div className="mb-2">
-                                                    <input type="radio" className="me-2" id="Categories-3" name="Categories-1" defaultValue="Beverages" />
+                                                    <input type="radio" className="me-2" id="Categories-3" name="Categories-1" defaultValue="Sales" onClick={(e) => setType(e.target.value)} />
                                                     <label htmlFor="Categories-3"> Sales</label>
                                                 </div>
                                                 <div className="mb-2">
-                                                    <input type="radio" className="me-2" id="Categories-4" name="Categories-1" defaultValue="Beverages" />
+                                                    <input type="radio" className="me-2" id="Categories-4" name="Categories-1" defaultValue="Discount" onClick={(e) => setType(e.target.value)} />
                                                     <label htmlFor="Categories-4"> Discount</label>
                                                 </div>
                                                 <div className="mb-2">
-                                                    <input type="radio" className="me-2" id="Categories-5" name="Categories-1" defaultValue="Beverages" />
+                                                    <input type="radio" className="me-2" id="Categories-5" name="Categories-1" defaultValue="Expired" onClick={(e) => setType(e.target.value)} />
                                                     <label htmlFor="Categories-5"> Expired</label>
                                                 </div>
                                             </div>
