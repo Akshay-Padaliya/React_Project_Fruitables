@@ -35,7 +35,7 @@ const rows = [
 
 
 
-function Products(props) {
+function Fruites(props) {
 
     const [open, setOpen] = React.useState(false);
 
@@ -52,7 +52,7 @@ function Products(props) {
         <>
             <React.Fragment>
                 <div className='m-4 mx-5 d-flex justify-content-end'>
-                <Button variant="outlined"  onClick={handleClickOpen}>
+                <Button variant="outlined" color='primary'  onClick={handleClickOpen}>
                     Add Data
                 </Button>
                 </div>
@@ -78,7 +78,6 @@ function Products(props) {
                             autoFocus
                             required
                             margin="dense"
-                            id= {(Math.random()*1000).toFixed(0)}
                             name="Fruite name"
                             label="Enter Fruite Name"
                             type="text"
@@ -89,7 +88,6 @@ function Products(props) {
                             autoFocus
                             required
                             margin="dense"
-                            id= {(Math.random()*1000).toFixed(0)}
                             name= "discription"
                             label="Enter discription"
                             type="text"
@@ -100,7 +98,6 @@ function Products(props) {
                             autoFocus
                             required
                             margin="dense"
-                            id= {(Math.random()*1000).toFixed(0)}
                             name= "price"
                             label="Enter price"
                             type="number"
@@ -111,7 +108,6 @@ function Products(props) {
                             autoFocus
                             required
                             margin="dense"
-                            id= {(Math.random()*1000).toFixed(0)}
                             name= "type"
                             label="Enter Type"
                             type="text"
@@ -122,7 +118,6 @@ function Products(props) {
                             autoFocus
                             required
                             margin="dense"
-                            id= {(Math.random()*1000).toFixed(0)}
                             name= "category"
                             label="Enter category"
                             type="text"
@@ -133,7 +128,6 @@ function Products(props) {
                             autoFocus
                             required
                             margin="dense"
-                            id= {(Math.random()*1000).toFixed(0)}
                             name= "image"
                             label="Enter image"
                             type="file"
@@ -164,4 +158,4 @@ function Products(props) {
         </>
     );
 }
-export default Products;
+export default Fruites;
