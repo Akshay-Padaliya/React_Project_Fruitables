@@ -23,7 +23,7 @@ function Category(props) {
     };
 
     let contactSchema = object({
-        category: string().required(),
+        category: string().required().matches(/^[a-zA-Z'-\s]*$/, 'Invalid name').min(2, 'use a valid name').max(15, 'use a valid name'),
         discription: string().required().min(10, 'Message is  too short')
     });
 
