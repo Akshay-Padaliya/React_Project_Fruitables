@@ -494,4 +494,8 @@
     line-height: 35px;
 }
 /*** Footer End ***/
+.error{
+    color: red;
+    margin: 0;
+}
 
