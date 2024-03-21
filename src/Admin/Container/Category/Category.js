@@ -9,13 +9,15 @@ import { object, string, number, date, InferType } from 'yup';
 import { useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
 import { useEffect } from 'react';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 function Category(props) {
 
     const [open, setOpen] = useState(false);
     const [data , setData] = useState([]);
-
+   
     const getdata = ()=>{
         let ldata = JSON.parse(localStorage.getItem('category'));
 
@@ -35,6 +37,15 @@ function Category(props) {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleDelete = (id) =>{
+        console.log(id);
+
+        let newData = data.filter((item) => item.id !== id);
+        localStorage.setItem('category', JSON.stringify(newData));
+
+        setData(newData);
+    }
 
     let categorySchema = object({
         category: string().required().matches(/^[a-zA-Z'-\s]*$/, 'Invalid name').min(2, 'use a valid name').max(15, 'use a valid name'),
@@ -74,7 +85,14 @@ function Category(props) {
     });
     const columns = [
         { field: 'category', headerName: 'category', width: 200 },
-        { field: 'discription', headerName: 'discription', width: 200 }
+        { field: 'discription', headerName: 'discription', width: 200 },
+        {
+            field: 'action',
+            headerName: 'Delete',
+            sortable: false,
+            renderCell: ({row}) => (<><DeleteIcon onClick={()=>handleDelete(row.id)} /></>),
+        },
+
     ];  
     
     const { handleSubmit, handleChange, handleBlur, errors, values, touched } = formik;
@@ -124,34 +142,7 @@ function Category(props) {
                                 helperText={errors.discription}
                             />
 
-                            {/* <form onSubmit={handleSubmit} >
-                            <div className='mb-4' >
-                                <input
-                                    name='category'
-                                    type="text"
-                                    className="w-100 form-control border-1 py-3"
-                                    placeholder="Please enter category"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.category}
-                                />
-                                <span className='error'>{errors.category && touched.category ? errors.category : ''}</span>
-                            </div>
-                            <div className='mb-4'>
-                                <textarea
-                                    name='discription'
-                                    className="w-100 form-control border-1"
-                                    rows={5} cols={10}
-                                    placeholder="Your Message"
-                                    defaultValue={""}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.discription}
-                                />
-                                <span className='error'>{errors.discription && touched.discription ? errors.discription : ''}</span>
-                            </div>
-
-                        </form> */}
+                        
                             <DialogActions>
                                 <Button onClick={handleClose}>Cancel</Button>
                                 <Button type="submit">Add</Button>
