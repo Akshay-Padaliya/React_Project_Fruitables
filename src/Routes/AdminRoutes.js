@@ -10,13 +10,13 @@ function AdminRoutes(props) {
     return (
         <>
             <Layout>
-            <Routes>
-                <Route element= {<PriveteRoutes />}>
-                    <Route exact path='/Fruites' element={<Fruites />} />
-                    <Route exact path='/Vegitable' element={<Vegitable />} />
-                    <Route exact path='/category' element={<Category />} />
-                </Route>
-            </Routes>
+                <Routes>
+                    <Route element={<PriveteRoutes />}>
+                        <Route exact path='/category' element={<Category />} />
+                        <Route exact path='/Fruites' element={<Fruites />} />
+                        <Route exact path='/Vegitable' element={<Vegitable />} />
+                    </Route>
+                </Routes>
             </Layout>
         </>
     );

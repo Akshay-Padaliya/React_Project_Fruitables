@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -7,11 +7,26 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { object, string, number, date, InferType } from 'yup';
 import { useFormik } from 'formik';
+import { DataGrid } from '@mui/x-data-grid';
+import { useEffect } from 'react';
 
 
 function Category(props) {
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [data , setData] = useState([]);
+
+    const getdata = ()=>{
+        let ldata = JSON.parse(localStorage.getItem('category'));
+
+        if(ldata){
+            setData(ldata);
+        }
+    }
+
+    useEffect(()=>{
+        getdata();
+    },[])
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -26,17 +41,42 @@ function Category(props) {
         discription: string().required().min(10, 'Message is  too short')
     });
 
+    const handleAdd = (data) => {
+
+        const rNo = Math.floor(Math.random()*1000);
+        console.log(data);
+
+        let localData = JSON.parse(localStorage.getItem('category'));
+
+        if (localData) {
+            localData.push({...data , id: rNo});
+            localStorage.setItem('category', JSON.stringify(localData));
+        } else {
+            localStorage.setItem('category', JSON.stringify([{...data , id: rNo}]));
+        }
+
+        getdata();
+
+    }
+
     const formik = useFormik({
         initialValues: {
             category: '',
             discription: '',
         },
         validationSchema: categorySchema,
-        onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+        onSubmit: (values, { resetForm }) => {
+            handleClose();
+            resetForm();
+            handleAdd(values);
+
         },
     });
-
+    const columns = [
+        { field: 'category', headerName: 'category', width: 200 },
+        { field: 'discription', headerName: 'discription', width: 200 }
+    ];  
+    
     const { handleSubmit, handleChange, handleBlur, errors, values, touched } = formik;
 
     return (
@@ -51,21 +91,12 @@ function Category(props) {
                 <Dialog
                     open={open}
                     onClose={handleClose}
-                    PaperProps={{
-                        component: 'form',
-                        onSubmit: (event) => {
-                            event.preventDefault();
-                            handleClose();
-                            handleSubmit();
-                        },
-                    }}
                 >
                     <DialogTitle className='text-center'>Add Category</DialogTitle>
-                    <DialogContent style={{width:500}}>
-                        {/* <div>
+                    <form onSubmit={handleSubmit}>
+                        <DialogContent style={{ width: 500 }}>
+
                             <TextField
-                                autoFocus
-                                required
                                 margin="dense"
                                 name="category"
                                 label="Enter category"
@@ -75,13 +106,11 @@ function Category(props) {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.category}
+                                error={errors.category && touched.category ? true : false}
+                                helperText={errors.category}
                             />
-                            <span className='error'>{errors.category && touched.category ? errors.category : ''}</span>
-                        </div>
-                        <div>
+
                             <TextField
-                                autoFocus
-                                required
                                 margin="dense"
                                 name="discription"
                                 label="Enter category discription"
@@ -90,12 +119,12 @@ function Category(props) {
                                 variant="standard"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.name}
+                                value={values.discription}
+                                error={errors.discription && touched.discription ? true : false}
+                                helperText={errors.discription}
                             />
-                            <span className='error'>{errors.discription && touched.discription ? errors.discription : ''}</span>
-                        </div> */}
 
-                        <form onSubmit={handleSubmit} >
+                            {/* <form onSubmit={handleSubmit} >
                             <div className='mb-4' >
                                 <input
                                     name='category'
@@ -122,16 +151,30 @@ function Category(props) {
                                 <span className='error'>{errors.discription && touched.discription ? errors.discription : ''}</span>
                             </div>
 
-                        </form>
-                    </DialogContent>
-                    <DialogActions>
-                        {/* <button className="btn form-control border-secondary py-2 mb-3 bg-white text-primary " onClick={handleClose} type="submit">Submit</button>
-                        <button className="btn form-control border-secondary py-2 mb-3 bg-white text-primary " onClick={handleClose} >Cancel</button> */}
-                        <Button onClick={handleClose}>Cancel</Button>
-                        <Button type="submit">Add</Button>
-                    </DialogActions>
+                        </form> */}
+                            <DialogActions>
+                                <Button onClick={handleClose}>Cancel</Button>
+                                <Button type="submit">Add</Button>
+                            </DialogActions>
+                        </DialogContent>
+
+                    </form>
                 </Dialog>
             </React.Fragment>
+
+            <div className='p-5' style={{ width: '100%' }}>
+                <DataGrid
+                    rows={data}
+                    columns={columns}
+                    initialState={{
+                        pagination: {
+                            paginationModel: { page: 0, pageSize: 5 },
+                        },
+                    }}
+                    pageSizeOptions={[5, 10]}
+                    checkboxSelection
+                />
+            </div>
         </>
     );
 }

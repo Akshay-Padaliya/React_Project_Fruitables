@@ -103,9 +103,10 @@ export default function Layout({children}) {
   };
 
   const pagelink =[
+    {title : "Category" , link:"/admin/category" , icon: <AppleIcon sx={{ color: 'Darkgreen' }}/>},
     {title : "Fruites" ,  link:"/admin/Fruites", icon: <AppleIcon sx={{ color: 'green' }}/>},
-    {title : "Vegetables" , link:"/admin/Vegitable" , icon: <AppleIcon sx={{ color: 'Darkgreen' }}/>},
-    {title : "Category" , link:"/admin/category" , icon: <AppleIcon sx={{ color: 'Darkgreen' }}/>}
+    {title : "Vegetables" , link:"/admin/Vegitable" , icon: <AppleIcon sx={{ color: 'Darkgreen' }}/>}
+    
   ]
 
   return (
