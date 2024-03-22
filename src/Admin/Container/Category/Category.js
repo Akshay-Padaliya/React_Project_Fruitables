@@ -17,6 +17,8 @@ function Category(props) {
 
     const [open, setOpen] = useState(false);
     const [data , setData] = useState([]);
+    const [update , setUpdate] = useState(null);
+    // console.log(update);
    
     const getdata = ()=>{
         let ldata = JSON.parse(localStorage.getItem('category'));
@@ -36,6 +38,8 @@ function Category(props) {
 
     const handleClose = () => {
         setOpen(false);
+        setUpdate(null);
+        formik.resetForm();
     };
 
     const handleDelete = (id) =>{
@@ -45,6 +49,29 @@ function Category(props) {
         localStorage.setItem('category', JSON.stringify(newData));
 
         setData(newData);
+    }
+
+    const handleEdit = (data) =>{
+        console.log(data);
+        formik.setValues(data);
+        setOpen(true);
+
+        setUpdate(data.id);
+
+    }
+    const handleUpdate = (data) =>{
+        console.log(data);
+        
+        let localData = JSON.parse(localStorage.getItem('category'));
+        console.log(localData);
+  
+        let index = localData.findIndex((a)=> a.id == update);
+        console.log(index);
+
+        localData[index] = values;
+        localStorage.setItem('category', JSON.stringify(localData));
+
+        getdata();
     }
 
     let categorySchema = object({
@@ -58,6 +85,7 @@ function Category(props) {
         console.log(data);
 
         let localData = JSON.parse(localStorage.getItem('category'));
+        console.log(localData);
 
         if (localData) {
             localData.push({...data , id: rNo});
@@ -79,8 +107,12 @@ function Category(props) {
         onSubmit: (values, { resetForm }) => {
             handleClose();
             resetForm();
-            handleAdd(values);
 
+            if(update){
+                handleUpdate(values);
+            }else{
+                handleAdd(values);
+            }
         },
  
     });
@@ -91,7 +123,11 @@ function Category(props) {
             field: 'action',
             headerName: 'Delete',
             sortable: false,
-            renderCell: ({row}) => (<><DeleteIcon onClick={()=>handleDelete(row.id)} /></>),
+            renderCell: (params) => (
+            <>
+            <DeleteIcon onClick={()=>handleDelete(params.row.id)} />
+            <EditIcon onClick={()=>handleEdit(params.row)} />
+            </>),
         },
 
     ];  
@@ -144,7 +180,7 @@ function Category(props) {
                             />
                             <DialogActions>
                                 <Button onClick={handleClose}>Cancel</Button>
-                                <Button type="submit">Add</Button>
+                                <Button type="submit">{update ? 'Update' : 'Add'}</Button>
                             </DialogActions>
                         </DialogContent>
 
