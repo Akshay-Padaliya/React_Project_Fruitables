@@ -111,7 +111,7 @@ function Category(props) {
                     open={open}
                     onClose={handleClose}
                 >
-                    <DialogTitle className='text-cente/DialogTitle>
+                    <DialogTitle className='text-cente'> Category </DialogTitle>
                     <form onSubmit={handleSubmit}>
                         <DialogContent style={{ width: 500 }}>
 
@@ -142,35 +142,6 @@ function Category(props) {
                                 error={errors.discription && touched.discription ? true : false}
                                 helperText={errors.discription}
                             />
-
-                            {/* <form onSubmit={handleSubmit} >
-                            <div className='mb-4' >
-                                <input
-                                    name='category'
-                                    type="text"
-                                    className="w-100 form-control border-1 py-3"
-                                    placeholder="Please enter category"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.category}
-                                />
-                                <span className='error'>{errors.category && touched.category ? errors.category : ''}</span>
-                            </div>
-                            <div className='mb-4'>
-                                <textarea
-                                    name='discription'
-                                    className="w-100 form-control border-1"
-                                    rows={5} cols={10}
-                                    placeholder="Your Message"
-                                    defaultValue={""}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.discription}
-                                />
-                                <span className='error'>{errors.discription && touched.discription ? errors.discription : ''}</span>
-                            </div>
-
-                        </form> */}
                             <DialogActions>
                                 <Button onClick={handleClose}>Cancel</Button>
                                 <Button type="submit">Add</Button>
