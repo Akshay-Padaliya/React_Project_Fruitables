@@ -71,12 +71,7 @@ function Category(props) {
             handleAdd(values);
 
         },
-    });
-    const columns = [
-        { field: 'category', headerName: 'category', width: 200 },
-        { field: 'discription', headerName: 'discription', width: 200 }
-    ];  
-    
+ 
     const { handleSubmit, handleChange, handleBlur, errors, values, touched } = formik;
 
     return (
@@ -92,7 +87,7 @@ function Category(props) {
                     open={open}
                     onClose={handleClose}
                 >
-                    <DialogTitle className='text-center'>Add Category</DialogTitle>
+                    <DialogTitle className='text-cente/DialogTitle>
                     <form onSubmit={handleSubmit}>
                         <DialogContent style={{ width: 500 }}>
 
@@ -142,8 +137,7 @@ function Category(props) {
                                     name='discription'
                                     className="w-100 form-control border-1"
                                     rows={5} cols={10}
-                                    placeholder="Your Message"
-                                    defaultValue={""}
+                                    placeholder="Your Mess={""}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     value={values.discription}
