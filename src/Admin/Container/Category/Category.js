@@ -77,7 +77,7 @@ function Category(props) {
     let categorySchema = object({
         category: string().required().matches(/^[a-zA-Z'-\s]*$/, 'Invalid name').min(2, 'use a valid name').max(15, 'use a valid name'),
         discription: string().required().min(10, 'Message is  too short')
-    });
+    })
 
     const handleAdd = (data) => {
 
