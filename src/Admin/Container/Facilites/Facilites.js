@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -11,11 +11,14 @@ import { useFormik } from 'formik';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFacilities } from '../../../Redux/Action/facilities.action';
+import { addFacilities, deleteRow, editedData } from '../../../Redux/Action/facilities.action';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Facilites(props) {
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [update , setUpdate] = useState();
 
     const dispatch = useDispatch();
 
@@ -23,15 +26,19 @@ function Facilites(props) {
     console.log(facilitesVal);
 
     const columns = [
-        { field: 'firstName', headerName: 'First name', width: 150, editable: true, },
-        { field: 'lastName', headerName: 'Last name', width: 150, editable: true, }
+        { field: 'name', headerName: 'Name', width: 150, editable: true, },
+        { field: 'discription', headerName: 'Discription', width: 150, editable: true, },
+        { field: 'Action', 
+        headerName: 'Action', 
+        width: 150,
+        renderCell: (params) => 
+        <div>
+            <EditIcon onClick = {()=>handleEdit(params.row)} />
+            <DeleteIcon onClick = {()=>handleDel(params.row.id)}/>
+            </div>,
+        editable: false, }
     ];
-    const rows = [
-        { id: 1, lastName: 'Snow', firstName: 'Jon', },
-        { id: 2, lastName: 'Lannister', firstName: 'Cersei', },
-
-    ];
-
+   
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -39,6 +46,20 @@ function Facilites(props) {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleEdit  = (raw) =>{
+        dispatch(editedData(raw));
+        handleClickOpen();
+        formik.setValues(raw);
+        setUpdate(raw.id);
+    }
+
+    const handleDel =(id)=>{
+        console.log('dadad');
+        dispatch(deleteRow(id));
+
+    }
+
 
     let facilitesSchema = object({
         name: string().required(),
@@ -53,8 +74,12 @@ function Facilites(props) {
 
         },
         validationSchema: facilitesSchema,
-        onSubmit: values => {
-            dispatch(addFacilities(values))
+        onSubmit: (values , { resetForm }) => {
+           const  id = Math.floor(Math.random() * 1000) 
+            dispatch(addFacilities({...values, id }))
+
+            formik.resetForm();
+            setOpen(false);
         }
     });
 
@@ -112,7 +137,7 @@ function Facilites(props) {
             <br></br>
             <Box sx={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={rows}
+                    rows={facilitesVal.Facilities}
                     columns={columns}
                     initialState={{
                         pagination: {
