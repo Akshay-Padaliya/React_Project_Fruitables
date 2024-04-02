@@ -11,12 +11,13 @@ import { useFormik } from 'formik';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFacilities, deleteFacilities, deleteRow, editFacilities, editedData } from '../../../Redux/Action/facilities.action';
+import { addFacilities, deleteFacilities, deleteRow, editFacilities, editedData, isLodingFacilities } from '../../../Redux/Action/facilities.action';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
+import { IS_LODING } from '../../../Redux/ActionType';
 
 function Facilites(props) {
 
@@ -81,6 +82,7 @@ function Facilites(props) {
     }
 
     const handleDelet = (id) => {
+        dispatch(isLodingFacilities(false));
         console.log('dadad');
         dispatch(deleteFacilities(id));
         getdata();
@@ -102,6 +104,7 @@ function Facilites(props) {
         },
         validationSchema: facilitesSchema,
         onSubmit: (values, { resetForm }) => {
+            dispatch(isLodingFacilities(false));
 
             if (update) {
                 dispatch(editFacilities(values));

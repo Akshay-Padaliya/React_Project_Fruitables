@@ -2,7 +2,7 @@ import axios from "axios";
 import { ADD_FACILITIES, DELETE_FACILITIES, EDITE_FACILITIES, IS_LODING } from "../ActionType";
 
 const initialFacilities = {
-    isLoding: true,
+    isLoding: false,
     error: null,
     Facilities: []
 }
@@ -20,6 +20,7 @@ export const facilitesReducer = (state = initialFacilities, action) => {
                     })
                 return {
                     ...state,
+                    isLoding: false,
                     Facilities: state.Facilities.concat(action.payload)
 
                 };
@@ -31,6 +32,7 @@ export const facilitesReducer = (state = initialFacilities, action) => {
 
             return {
                 ...state,
+                isLoding: false,
                 Facilities: state.Facilities.filter((v) => v.id !== action.payload)
             };
 
@@ -43,6 +45,7 @@ export const facilitesReducer = (state = initialFacilities, action) => {
 
         return {
             ...state,
+            isLoding: false,
             Facilities : state.Facilities.map((v)=>{
 
                 if(v.id === action.payload.id){
@@ -57,7 +60,7 @@ export const facilitesReducer = (state = initialFacilities, action) => {
         case IS_LODING: 
             return{
                 ...state,
-                isLoding: false,
+                isLoding: true,
             }
             
         default:

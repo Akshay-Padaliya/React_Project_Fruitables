@@ -13,6 +13,6 @@ export const deleteFacilities = (id) =>(dispatch)=>{
     dispatch({type: DELETE_FACILITIES ,payload : id});
 }
 
-export const isLodingFacilities = () => (dispatch) =>{
-    dispatch({type: IS_LODING })
+export const isLodingFacilities = (val) => (dispatch) =>{
+    dispatch({type: IS_LODING, payload : val })
 }
