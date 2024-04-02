@@ -13,11 +13,11 @@ export const facilitesReducer = (state = initialFacilities, action) => {
     switch (action.type) {
         case ADD_FACILITIES:
 
-                axios.post(`http://localhost:8000/Facilities`, action.payload)
-                    .then(res => {
-                        console.log(res);
-                        // console.log(res.action.payload);
-                    })
+                // axios.post(`http://localhost:8000/Facilities`, action.payload)
+                //     .then(res => {
+                //         console.log(res);
+                //         // console.log(res.action.payload);
+                //     })
                 return {
                     ...state,
                     isLoding: false,
@@ -26,22 +26,24 @@ export const facilitesReducer = (state = initialFacilities, action) => {
                 };
 
         case DELETE_FACILITIES:
+            console.log(action.payload);
 
-            axios
-                .delete(`http://localhost:8000/catagory/${action.payload}`)
+            // axios
+            // .delete(`http://localhost:8000/catagory/${action.payload}`)
 
             return {
                 ...state,
                 isLoding: false,
                 Facilities: state.Facilities.filter((v) => v.id !== action.payload)
             };
+           
 
 
 
         case EDITE_FACILITIES:
 
-        axios
-        .put(`http://localhost:8000/catagory/${action.payload.id}`, action.payload)
+        // axios
+        // .put(`http://localhost:8000/catagory/${action.payload.id}`, action.payload)
 
         return {
             ...state,
@@ -58,9 +60,10 @@ export const facilitesReducer = (state = initialFacilities, action) => {
         }
 
         case IS_LODING: 
+        console.log(action.payload);
             return{
                 ...state,
-                isLoding: true,
+                isLoding: action.payload,
             }
             
         default:

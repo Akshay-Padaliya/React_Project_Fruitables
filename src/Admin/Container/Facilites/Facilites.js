@@ -17,7 +17,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
-import { IS_LODING } from '../../../Redux/ActionType';
 
 function Facilites(props) {
 
@@ -82,11 +81,11 @@ function Facilites(props) {
     }
 
     const handleDelet = (id) => {
-        dispatch(isLodingFacilities(false));
+            dispatch(isLodingFacilities(true));
         console.log('dadad');
         dispatch(deleteFacilities(id));
         getdata();
-
+        dispatch(isLodingFacilities(false));
     }
 
 
@@ -104,8 +103,7 @@ function Facilites(props) {
         },
         validationSchema: facilitesSchema,
         onSubmit: (values, { resetForm }) => {
-            dispatch(isLodingFacilities(false));
-
+                dispatch(isLodingFacilities(true));
             if (update) {
                 dispatch(editFacilities(values));
             } else {
@@ -115,6 +113,9 @@ function Facilites(props) {
             }
             resetForm();
             setOpen(false);
+            setTimeout(() => {
+                dispatch(isLodingFacilities(false));
+            }, 2000);
         }
     });
 
@@ -179,8 +180,8 @@ function Facilites(props) {
                     <br></br>
                     <Box sx={{ height: 400, width: '100%' }}>
                         <DataGrid
-                            // rows={facilitesVal.Facilities}
-                            rows={data}
+                            rows={facilitesVal.Facilities}
+                            // rows={data}
                             columns={columns}
                             initialState={{
                                 pagination: {
