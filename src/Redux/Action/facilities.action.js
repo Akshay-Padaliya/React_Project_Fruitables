@@ -1,14 +1,18 @@
-import { ADD_FACILITIES, DELETE_ROW, EDITE_ROW } from "../ActionType"
+import { ADD_FACILITIES, DELETE_FACILITIES, EDITE_FACILITIES, IS_LODING } from "../ActionType"
 
 export const addFacilities = (data) => (dispatch) => {
 
     dispatch({type:ADD_FACILITIES , payload: data})
 }
 
-export const editedData = (raw) =>(dispatch)=>{
-    dispatch({type: EDITE_ROW,payload : raw});
+export const editFacilities = (data) =>(dispatch)=>{
+    dispatch({type: EDITE_FACILITIES ,payload : data });
 }
 
-export const deleteRow = (id) =>(dispatch)=>{
-    dispatch({type: DELETE_ROW ,payload : id});
+export const deleteFacilities = (id) =>(dispatch)=>{
+    dispatch({type: DELETE_FACILITIES ,payload : id});
+}
+
+export const isLodingFacilities = () => (dispatch) =>{
+    dispatch({type: IS_LODING })
 }

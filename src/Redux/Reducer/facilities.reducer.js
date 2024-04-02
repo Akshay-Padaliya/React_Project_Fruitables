@@ -1,13 +1,11 @@
-import { ADD_FACILITIES, DELETE_ROW, EDITE_ROW } from "../ActionType";
+import axios from "axios";
+import { ADD_FACILITIES, DELETE_FACILITIES, EDITE_FACILITIES, IS_LODING } from "../ActionType";
 
 const initialFacilities = {
-    isLoding: false,
+    isLoding: true,
     error: null,
     Facilities: []
 }
-
-let newList = [];
-let index = '';
 
 export const facilitesReducer = (state = initialFacilities, action) => {
     console.log(action);
@@ -15,22 +13,22 @@ export const facilitesReducer = (state = initialFacilities, action) => {
     switch (action.type) {
         case ADD_FACILITIES:
 
-        if(newList.length === 0){
-            return {
-                ...state,
-                Facilities: state.Facilities.concat(action.payload)
+                axios.post(`http://localhost:8000/Facilities`, action.payload)
+                    .then(res => {
+                        console.log(res);
+                        // console.log(res.action.payload);
+                    })
+                return {
+                    ...state,
+                    Facilities: state.Facilities.concat(action.payload)
 
-            };
-        }else{
-            newList[index] = action.payload;
-            console.log(newList);
-            return {
-                ...state,
-                Facilities: newList
-            };
-        }
-           
-        case DELETE_ROW:
+                };
+
+        case DELETE_FACILITIES:
+
+            axios
+                .delete(`http://localhost:8000/catagory/${action.payload}`)
+
             return {
                 ...state,
                 Facilities: state.Facilities.filter((v) => v.id !== action.payload)
@@ -38,12 +36,30 @@ export const facilitesReducer = (state = initialFacilities, action) => {
 
 
 
-        case EDITE_ROW:
+        case EDITE_FACILITIES:
+
+        axios
+        .put(`http://localhost:8000/catagory/${action.payload.id}`, action.payload)
+
+        return {
+            ...state,
+            Facilities : state.Facilities.map((v)=>{
+
+                if(v.id === action.payload.id){
+                    return action.payload
+                }else{
+                    return v
+                }
+
+            })
+        }
+
+        case IS_LODING: 
+            return{
+                ...state,
+                isLoding: false,
+            }
             
-            newList = [...state.Facilities];
-             index = newList.findIndex((v) => v.id === action.payload.id);
-            console.log(index);
-        
         default:
             return state;
     }
