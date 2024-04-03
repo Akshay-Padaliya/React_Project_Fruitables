@@ -26,8 +26,7 @@ export const facilitesReducer = (state = initialFacilities, action) => {
                 };
 
         case DELETE_FACILITIES:
-            console.log(action.payload);
-
+          
             // axios
             // .delete(`http://localhost:8000/catagory/${action.payload}`)
 
@@ -60,10 +59,9 @@ export const facilitesReducer = (state = initialFacilities, action) => {
         }
 
         case IS_LODING: 
-        console.log(action.payload);
             return{
                 ...state,
-                isLoding: action.payload,
+                isLoding: true,
             }
             
         default:

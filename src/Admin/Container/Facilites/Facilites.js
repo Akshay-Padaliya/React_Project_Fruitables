@@ -31,19 +31,19 @@ function Facilites(props) {
     const facilitesVal = useSelector(state => state.addFacilities)
     console.log(facilitesVal);
 
-    const getdata = () => {
+    // const getdata = () => {
 
-        axios.get('http://localhost:8000/Facilities')
-            .then((response) => {
-                if (response.data) {
-                    setData(response.data);
-                }
-            });
-    }
+    //     axios.get('http://localhost:8000/Facilities')
+    //         .then((response) => {
+    //             if (response.data) {
+    //                 setData(response.data);
+    //             }
+    //         });
+    // }
 
-    useEffect(() => {
-        getdata();
-    }, [])
+    // useEffect(() => {
+    //     getdata();
+    // }, [])
 
 
     const columns = [
@@ -77,15 +77,11 @@ function Facilites(props) {
         handleClickOpen();
         formik.setValues(raw);
         setUpdate(true);
-        getdata();
+        // getdata();
     }
 
     const handleDelet = (id) => {
-            dispatch(isLodingFacilities(true));
-        console.log('dadad');
         dispatch(deleteFacilities(id));
-        getdata();
-        dispatch(isLodingFacilities(false));
     }
 
 
@@ -103,21 +99,19 @@ function Facilites(props) {
         },
         validationSchema: facilitesSchema,
         onSubmit: (values, { resetForm }) => {
-                dispatch(isLodingFacilities(true));
             if (update) {
                 dispatch(editFacilities(values));
             } else {
                 const id = Math.floor(Math.random() * 1000)
                 dispatch(addFacilities({ ...values, id }))
-                getdata();
+                // getdata();
             }
             resetForm();
             setOpen(false);
-            setTimeout(() => {
-                dispatch(isLodingFacilities(false));
-            }, 2000);
         }
     });
+
+    console.log(facilitesVal.isLoding);
 
     const { handleSubmit, handleBlur, handleChange, errors, values, touched } = formik;
     return (
@@ -128,14 +122,14 @@ function Facilites(props) {
                 </Stack>
                 )
                 :
-                (  <div>
+                (<div>
                     <Button variant="outlined" onClick={handleClickOpen}>
                         Add Facilites
                     </Button>
                     <Dialog
                         open={open}
                         onClose={handleClose}
-    
+
                     >
                         <form onSubmit={handleSubmit}>
                             <DialogTitle>Facilites</DialogTitle>
@@ -150,7 +144,7 @@ function Facilites(props) {
                                     variant="standard"
                                     value={values.name}
                                     onChange={handleChange}
-    
+
                                     onBlur={handleBlur}
                                     error={errors.name && touched.name ? true : false}
                                     helperText={errors.name && touched.name ? errors.name : ''}
@@ -174,7 +168,7 @@ function Facilites(props) {
                                     <Button type="submit">{update ? 'Update' : 'Add'}</Button>
                                 </DialogActions>
                             </DialogContent>
-    
+
                         </form>
                     </Dialog>
                     <br></br>
@@ -196,7 +190,7 @@ function Facilites(props) {
                         />
                     </Box>
                 </div>)
-        }
+            }
         </>
     );
 }
