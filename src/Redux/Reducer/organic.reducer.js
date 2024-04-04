@@ -13,10 +13,11 @@ export const organicReducer = (state = initialOrganic, action) => {
     switch (action.type) {
 
         case GET_ORGANIC_PRODUCTS: 
-        // console.log("dvfddd");
+        console.log(action.payload);
 
         return{
             ...state,
+            isLoding: false,
             Organic: action.payload
         }
         case ADD_ORGANIC_PRODUCTS:

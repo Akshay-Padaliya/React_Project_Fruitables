@@ -1,17 +1,18 @@
 import axios from "axios";
-import { ADD_ORGANIC_PRODUCTS, DELETE_ORGANIC_PRODUCTS, EDITE_ORGANIC_PRODUCTS, IS_LODING } from "../ActionType"
+import { ADD_ORGANIC_PRODUCTS, DELETE_ORGANIC_PRODUCTS, EDITE_ORGANIC_PRODUCTS, GET_ORGANIC_PRODUCTS, IS_LODING } from "../ActionType"
 import { BASE_URL } from "../../Base/BaseUrl";
 
 export const getOrganic = () => (dispatch) => {
 
     dispatch(isLodingOrganic())
+  
 
     try {
         axios.get(BASE_URL + 'Organic')
             .then(res => {
                 console.log(res);
                 console.log(res.data);
-                dispatch({ type: ADD_ORGANIC_PRODUCTS, payload: res.data })
+                dispatch({ type: GET_ORGANIC_PRODUCTS, payload: res.data })
             })
             .catch((error) => {
                 console.log(error);
@@ -39,7 +40,7 @@ export const addOrganic = (Ndata) => (dispatch) => {
         console.log(error);
     }
 
-
+    dispatch(getOrganic())
 
 }
 
@@ -63,6 +64,8 @@ export const editOrganic = (data) => (dispatch) => {
     }
 
     dispatch({ type: EDITE_ORGANIC_PRODUCTS, payload: data });
+    dispatch(getOrganic())
+
 }
 
 export const deleteOrganic = (id) => (dispatch) => {
@@ -83,6 +86,8 @@ export const deleteOrganic = (id) => (dispatch) => {
         console.log(error);
     }
     dispatch({ type: DELETE_ORGANIC_PRODUCTS, payload: id });
+    dispatch(getOrganic())
+
 }
 
 export const isLodingOrganic = () => (dispatch) => {

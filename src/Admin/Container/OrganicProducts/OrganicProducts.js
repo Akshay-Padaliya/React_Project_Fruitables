@@ -20,7 +20,7 @@ import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 import { addOrganic, deleteOrganic, editOrganic, getOrganic } from '../../../Redux/Action/organic.action';
 
-function OrganicProducts(props) {
+function OrganicProduct(props) {
 
     const [open, setOpen] = useState(false);
     const [update, setUpdate] = useState(false);
@@ -31,19 +31,8 @@ function OrganicProducts(props) {
     const organicVal = useSelector(state => state.OrganicProducts)
     console.log(organicVal);
 
-    // const getdata = () => {
-
-    //     axios.get('http://localhost:8000/Organic')
-    //         .then((response) => {
-    //             if (response.data) {
-    //                 setData(response.data);
-    //             }
-    //         });
-    // }
-
     useEffect(() => {
         dispatch(getOrganic());
-        // getdata();
     }, [])
 
 
@@ -210,4 +199,4 @@ function OrganicProducts(props) {
     );
 }
 
-export default OrganicProducts
+export default OrganicProduct

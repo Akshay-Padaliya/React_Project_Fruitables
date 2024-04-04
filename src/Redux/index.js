@@ -4,5 +4,5 @@ import { organicReducer } from "./Reducer/organic.reducer";
 
 export const rootReducer = combineReducers({
     addFacilities : facilitesReducer,
-    OrganicProducts : organicReducer 
+    OrganicProducts : organicReducer
 })

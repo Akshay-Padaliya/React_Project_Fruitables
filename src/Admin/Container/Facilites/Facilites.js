@@ -11,7 +11,7 @@ import { useFormik } from 'formik';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFacilities, deleteFacilities, deleteRow, editFacilities, editedData, getFacilities, isLodingFacilities } from '../../../Redux/Action/facilities.action';
+import { addFacilities, deleteFacilities,  editFacilities,  getFacilities } from '../../../Redux/Action/facilities.action';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
@@ -22,24 +22,11 @@ function Facilites(props) {
 
     const [open, setOpen] = useState(false);
     const [update, setUpdate] = useState(false);
-    const [data, setData] = useState([]);
-
-
 
     const dispatch = useDispatch();
 
     const facilitesVal = useSelector(state => state.addFacilities)
     console.log(facilitesVal);
-
-    // const getdata = () => {
-
-    //     axios.get('http://localhost:8000/Facilities')
-    //         .then((response) => {
-    //             if (response.data) {
-    //                 setData(response.data);
-    //             }
-    //         });
-    // }
 
     useEffect(() => {
         dispatch(getFacilities())

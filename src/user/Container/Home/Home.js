@@ -13,7 +13,7 @@ function Home(props) {
 
 
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   const facilitesVal = useSelector(state => state.addFacilities)
   console.log(facilitesVal);
@@ -21,7 +21,7 @@ function Home(props) {
   const organicVal = useSelector(state => state.OrganicProducts)
   console.log(organicVal);
 
-
+  const dispatch = useDispatch();
   // const getdata = () => {
 
   //   axios.get('http://localhost:8000/Organic')
@@ -33,8 +33,7 @@ function Home(props) {
   // }
 
   useEffect(() => {
-    dispatch(getOrganic())
-    // getdata();
+    dispatch(getOrganic());
   }, [])
 
   // console.log(data);
@@ -271,7 +270,7 @@ function Home(props) {
                               </div>
                             </div>
                           </div>
-                        ))  
+                        ))
                       }
                       {/* <div className="col-md-6 col-lg-4 col-xl-3">
                         <div className="rounded position-relative fruite-item">
