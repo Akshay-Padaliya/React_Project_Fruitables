@@ -1,5 +1,5 @@
-import axios from "axios";
-import { ADD_ORGANIC_PRODUCTS, DELETE_ORGANIC_PRODUCTS, EDITE_ORGANIC_PRODUCTS, IS_LODING } from "../ActionType";
+
+import { ADD_ORGANIC_PRODUCTS, DELETE_ORGANIC_PRODUCTS, EDITE_ORGANIC_PRODUCTS, GET_ORGANIC_PRODUCTS, IS_LODING } from "../ActionType";
 
 const initialOrganic = {
     isLoding: false,
@@ -11,13 +11,17 @@ export const organicReducer = (state = initialOrganic, action) => {
     console.log(action);
 
     switch (action.type) {
-        case ADD_ORGANIC_PRODUCTS:
 
-                // axios.post(`http://localhost:8000/Facilities`, action.payload)
-                //     .then(res => {
-                //         console.log(res);
-                //         // console.log(res.action.payload);
-                //     })
+        case GET_ORGANIC_PRODUCTS: 
+        // console.log("dvfddd");
+
+        return{
+            ...state,
+            Organic: action.payload
+        }
+        case ADD_ORGANIC_PRODUCTS:
+            // console.log("add");
+             
                 return {
                     ...state,
                     isLoding: false,
@@ -27,22 +31,15 @@ export const organicReducer = (state = initialOrganic, action) => {
 
         case DELETE_ORGANIC_PRODUCTS:
           
-            // axios
-            // .delete(`http://localhost:8000/catagory/${action.payload}`)
-
+         
             return {
                 ...state,
                 isLoding: false,
                 Organic: state.Organic.filter((v) => v.id !== action.payload)
             };
-           
-
-
+        
 
         case EDITE_ORGANIC_PRODUCTS:
-
-        // axios
-        // .put(`http://localhost:8000/catagory/${action.payload.id}`, action.payload)
 
         return {
             ...state,

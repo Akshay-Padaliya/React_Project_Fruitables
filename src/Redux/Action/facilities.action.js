@@ -1,4 +1,13 @@
-import { ADD_FACILITIES, DELETE_FACILITIES, EDITE_FACILITIES, IS_LODING } from "../ActionType"
+import { ADD_FACILITIES, DELETE_FACILITIES, EDITE_FACILITIES, GET_FACILITIES, IS_LODING } from "../ActionType"
+
+export const getFacilities = () => (dispatch) => {
+
+    dispatch(isLodingFacilities())
+    setTimeout(() => {
+        dispatch({ type: GET_FACILITIES })
+    }, 2000)
+
+}
 
 export const addFacilities = (data) => (dispatch) => {
 

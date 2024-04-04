@@ -22,6 +22,7 @@ import AppleIcon from '@mui/icons-material/Apple';
 import Fruites from '../../Container/Fruite/Fruites';
 import Vegitable from '../../Container/Vegitable/Vegitable';
 import { NavLink } from 'react-router-dom';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
 
 const drawerWidth = 240;
 
@@ -107,7 +108,7 @@ export default function Layout({children}) {
     {title : "Fruites" ,  link:"/admin/Fruites", icon: <AppleIcon sx={{ color: 'green' }}/>},
     {title : "Vegetables" , link:"/admin/Vegitable" , icon: <AppleIcon sx={{ color: 'Darkgreen' }}/>},
     {title : "Facilites" , link:"/admin/facilites" , icon: <AppleIcon sx={{ color: 'Darkgreen' }}/>},
-    {title : "Organic Products" , link:"/admin/organicProduct" , icon: <AppleIcon sx={{ color: 'Darkgreen' }}/>},
+    {title : "Organic Products" , link:"/admin/organicProduct" , icon: <FastfoodIcon sx={{ color: 'Darkgreen' }}/>},
   ]
 
   return (

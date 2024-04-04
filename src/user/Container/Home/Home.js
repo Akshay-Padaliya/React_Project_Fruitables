@@ -2,35 +2,42 @@ import React, { useEffect, useState } from 'react';
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import { getOrganic } from '../../../Redux/Action/organic.action';
 
 
 function Home(props) {
 
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
 
+
+  const dispatch = useDispatch()
 
   const facilitesVal = useSelector(state => state.addFacilities)
   console.log(facilitesVal);
 
+  const organicVal = useSelector(state => state.OrganicProducts)
+  console.log(organicVal);
 
-  const getdata = () => {
 
-    axios.get('http://localhost:8000/Organic')
-      .then((response) => {
-        if (response.data) {
-          setData(response.data);
-        }
-      });
-  }
+  // const getdata = () => {
+
+  //   axios.get('http://localhost:8000/Organic')
+  //     .then((response) => {
+  //       if (response.data) {
+  //         setData(response.data);
+  //       }
+  //     });
+  // }
 
   useEffect(() => {
-    getdata();
+    dispatch(getOrganic())
+    // getdata();
   }, [])
 
-  console.log(data);
+  // console.log(data);
 
 
 
@@ -247,7 +254,7 @@ function Home(props) {
                   <div className="col-lg-12">
                     <div className="row g-4">
                       {
-                        data.map((v) => (
+                        organicVal.Organic.map((v) => (
                           <div className="col-md-6 col-lg-4 col-xl-3">
                             <div className="rounded position-relative fruite-item">
                               <div className="fruite-img">

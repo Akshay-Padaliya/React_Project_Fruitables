@@ -18,7 +18,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
-import { addOrganic, deleteOrganic, editOrganic } from '../../../Redux/Action/organic.action';
+import { addOrganic, deleteOrganic, editOrganic, getOrganic } from '../../../Redux/Action/organic.action';
 
 function OrganicProducts(props) {
 
@@ -31,19 +31,20 @@ function OrganicProducts(props) {
     const organicVal = useSelector(state => state.OrganicProducts)
     console.log(organicVal);
 
-    const getdata = () => {
+    // const getdata = () => {
 
-        axios.get('http://localhost:8000/Organic')
-            .then((response) => {
-                if (response.data) {
-                    setData(response.data);
-                }
-            });
-    }
+    //     axios.get('http://localhost:8000/Organic')
+    //         .then((response) => {
+    //             if (response.data) {
+    //                 setData(response.data);
+    //             }
+    //         });
+    // }
 
     useEffect(() => {
-        getdata();
-    }, [open,update])
+        dispatch(getOrganic());
+        // getdata();
+    }, [])
 
 
     const columns = [
@@ -89,8 +90,7 @@ function OrganicProducts(props) {
     let organicSchema = object({
         name: string().required(),
         discription: string().required(),
-        price: number().required().positive().integer()
-
+        price: number().required().positive()
     });
 
     const formik = useFormik({
@@ -106,7 +106,7 @@ function OrganicProducts(props) {
                 dispatch(editOrganic(values));
             } else {
                 const id = Math.floor(Math.random() * 1000)
-                dispatch(addOrganic({ ...values }))
+                dispatch(addOrganic({ ...values,id }))
                 // getdata();
             }
             resetForm();
@@ -189,8 +189,8 @@ function OrganicProducts(props) {
                     <br></br>
                     <Box sx={{ height: 400, width: '100%' }}>
                         <DataGrid
-                            // rows={organicVal.Organic}
-                            rows={data}
+                            rows={organicVal.Organic}
+                            // rows={data}
                             columns={columns}
                             initialState={{
                                 pagination: {

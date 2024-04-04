@@ -11,7 +11,7 @@ import { useFormik } from 'formik';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFacilities, deleteFacilities, deleteRow, editFacilities, editedData, isLodingFacilities } from '../../../Redux/Action/facilities.action';
+import { addFacilities, deleteFacilities, deleteRow, editFacilities, editedData, getFacilities, isLodingFacilities } from '../../../Redux/Action/facilities.action';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
@@ -41,9 +41,9 @@ function Facilites(props) {
     //         });
     // }
 
-    // useEffect(() => {
-    //     getdata();
-    // }, [])
+    useEffect(() => {
+        dispatch(getFacilities())
+    }, [])
 
 
     const columns = [

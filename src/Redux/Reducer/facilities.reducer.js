@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_FACILITIES, DELETE_FACILITIES, EDITE_FACILITIES, IS_LODING } from "../ActionType";
+import { ADD_FACILITIES, DELETE_FACILITIES, EDITE_FACILITIES, GET_FACILITIES, IS_LODING } from "../ActionType";
 
 const initialFacilities = {
     isLoding: false,
@@ -11,6 +11,12 @@ export const facilitesReducer = (state = initialFacilities, action) => {
     console.log(action);
 
     switch (action.type) {
+
+        case GET_FACILITIES: {
+            return{
+                ...state
+            }
+        }
         case ADD_FACILITIES:
 
                 // axios.post(`http://localhost:8000/Facilities`, action.payload)
