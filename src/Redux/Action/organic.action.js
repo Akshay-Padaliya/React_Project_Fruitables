@@ -2,13 +2,13 @@ import axios from "axios";
 import { ADD_ORGANIC_PRODUCTS, DELETE_ORGANIC_PRODUCTS, EDITE_ORGANIC_PRODUCTS, GET_ORGANIC_PRODUCTS, IS_LODING } from "../ActionType"
 import { BASE_URL } from "../../Base/BaseUrl";
 
-export const getOrganic = () => (dispatch) => {
+export const getOrganic = () => async (dispatch) => {
 
     dispatch(isLodingOrganic())
-  
+
 
     try {
-        axios.get(BASE_URL + 'Organic')
+        await axios.get(BASE_URL + 'Organic')
             .then(res => {
                 console.log(res);
                 console.log(res.data);
@@ -23,14 +23,14 @@ export const getOrganic = () => (dispatch) => {
     }
 }
 
-export const addOrganic = (Ndata) => (dispatch) => {
+export const addOrganic = (Ndata) => async (dispatch) => {
     dispatch(isLodingOrganic())
     try {
-        axios.post(BASE_URL + 'Organic', Ndata)
+        await axios.post(BASE_URL + 'Organic', Ndata)
             .then(res => {
                 console.log(res);
                 console.log(res.data);
-                dispatch({ type: ADD_ORGANIC_PRODUCTS, payload: Ndata })
+                dispatch({ type: ADD_ORGANIC_PRODUCTS, payload: res.data})
             })
             .catch((error) => {
                 console.log(error);
@@ -40,16 +40,16 @@ export const addOrganic = (Ndata) => (dispatch) => {
         console.log(error);
     }
 
-    dispatch(getOrganic())
+    // dispatch(getOrganic())
 
 }
 
-export const editOrganic = (data) => (dispatch) => {
+export const editOrganic = (data) => async (dispatch) => {
 
     dispatch(isLodingOrganic())
 
     try {
-        axios
+        await axios
             .put(BASE_URL + 'Organic/' + data.id, data)
             .then(res => {
                 console.log(res);
@@ -68,15 +68,15 @@ export const editOrganic = (data) => (dispatch) => {
 
 }
 
-export const deleteOrganic = (id) => (dispatch) => {
+export const deleteOrganic = (id) => async (dispatch) => {
     dispatch(isLodingOrganic())
     try {
-        axios
+        await axios
             .delete(BASE_URL + 'Organic/' + id)
             .then(res => {
                 console.log(res);
                 console.log(res.data);
-              
+                dispatch({ type: DELETE_ORGANIC_PRODUCTS, payload: id });
             })
             .catch((error) => {
                 console.log(error);
@@ -85,7 +85,7 @@ export const deleteOrganic = (id) => (dispatch) => {
     } catch (error) {
         console.log(error);
     }
-    dispatch({ type: DELETE_ORGANIC_PRODUCTS, payload: id });
+   
     dispatch(getOrganic())
 
 }

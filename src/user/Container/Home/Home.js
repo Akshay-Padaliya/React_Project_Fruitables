@@ -18,25 +18,15 @@ function Home(props) {
   const facilitesVal = useSelector(state => state.addFacilities)
   console.log(facilitesVal);
 
+  const dispatch = useDispatch();
+
   const organicVal = useSelector(state => state.OrganicProducts)
   console.log(organicVal);
 
-  const dispatch = useDispatch();
-  // const getdata = () => {
-
-  //   axios.get('http://localhost:8000/Organic')
-  //     .then((response) => {
-  //       if (response.data) {
-  //         setData(response.data);
-  //       }
-  //     });
-  // }
-
   useEffect(() => {
-    dispatch(getOrganic());
+      dispatch(getOrganic());
   }, [])
 
-  // console.log(data);
 
 
 

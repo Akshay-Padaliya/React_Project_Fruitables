@@ -24,7 +24,6 @@ function OrganicProduct(props) {
 
     const [open, setOpen] = useState(false);
     const [update, setUpdate] = useState(false);
-    const [data, setData] = useState([]);
 
     const dispatch = useDispatch();
 
@@ -93,13 +92,14 @@ function OrganicProduct(props) {
         onSubmit: (values, { resetForm }) => {
             if (update) {
                 dispatch(editOrganic(values));
+
             } else {
-                const id = Math.floor(Math.random() * 1000)
-                dispatch(addOrganic({ ...values,id }))
+                // const id = Math.floor(Math.random() * 1000)
+                dispatch(addOrganic(values))
                 // getdata();
             }
             resetForm();
-            setOpen(false);
+           handleClose()
         }
     });
 

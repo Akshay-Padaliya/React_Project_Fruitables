@@ -31,8 +31,7 @@ export const organicReducer = (state = initialOrganic, action) => {
                 };
 
         case DELETE_ORGANIC_PRODUCTS:
-          
-         
+
             return {
                 ...state,
                 isLoding: false,
@@ -59,7 +58,7 @@ export const organicReducer = (state = initialOrganic, action) => {
         case IS_LODING: 
             return{
                 ...state,
-                isLoding: true,
+                isLoding: false,
             }
             
         default:
