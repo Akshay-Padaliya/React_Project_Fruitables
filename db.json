@@ -189,12 +189,32 @@
       "name": "New",
       "discription": "dbdv fbc  f ",
       "price": 120
+    }
+  ],
+  "Reviews": [
+    {
+      "id": "adee",
+      "name": "akshay padaliya",
+      "email": "Fkskjfsjckd@gmail.com",
+      "review": "frhfbsdfbsbd",
+      "rating": "2",
+      "productId": "5"
     },
     {
-      "id": "055e",
-      "name": "Vegitable",
-      "discription": "zxcvssdvf dvfbfbfb",
-      "price": 120
+      "id": "c885",
+      "name": "akshay padaliya",
+      "email": "admin@admin.com",
+      "review": "rhrhsgsegg",
+      "rating": "3.5",
+      "productId": "5"
+    },
+    {
+      "id": "912e",
+      "name": "akshay padaliya",
+      "email": "Fkskjfsjckd@gmail.com",
+      "review": "dfhsdbxcb bgderb",
+      "rating": "3.5",
+      "productId": "5"
     }
   ]
 }
