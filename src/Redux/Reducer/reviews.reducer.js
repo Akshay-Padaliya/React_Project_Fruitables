@@ -16,7 +16,7 @@ export const reviewReducer = (state = intialState, action) => {
         case ADD_REVIEWS:
             return {
                 isloding: false,
-                Review: action.payload,
+                Review: state.Review.concat(action.payload),
                 error: null,
             }
         default:
