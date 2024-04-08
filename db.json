@@ -193,28 +193,22 @@
   ],
   "Reviews": [
     {
-      "id": "adee",
-      "name": "akshay padaliya",
-      "email": "Fkskjfsjckd@gmail.com",
-      "review": "frhfbsdfbsbd",
-      "rating": "2",
-      "productId": "5"
-    },
-    {
-      "id": "c885",
-      "name": "akshay padaliya",
+      "id": "2317",
+      "name": "jay",
       "email": "admin@admin.com",
-      "review": "rhrhsgsegg",
-      "rating": "3.5",
-      "productId": "5"
+      "review": "fj ij lk jfr ",
+      "rating": "2",
+      "productId": "1",
+      "date": "08/04/2024"
     },
     {
-      "id": "912e",
-      "name": "akshay padaliya",
+      "id": "9446",
+      "name": "Jay",
       "email": "Fkskjfsjckd@gmail.com",
-      "review": "dfhsdbxcb bgderb",
-      "rating": "3.5",
-      "productId": "5"
+      "review": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt\nLorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "rating": "1",
+      "productId": "2",
+      "date": "08/04/2024"
     }
   ]
 }

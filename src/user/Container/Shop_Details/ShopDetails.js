@@ -8,10 +8,10 @@ import Stack from '@mui/material/Stack';
 
 import { object, string, number, date, InferType } from 'yup';
 import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '@mui/material/Button';
-import { addReviews } from '../../../Redux/Action/review.action';
+import { addReviews, getReviews } from '../../../Redux/Action/review.action';
 
 
 
@@ -22,12 +22,15 @@ function ShopDetails(props) {
   console.log(id);
 
   const [fruitDetails, setFruitDetails] = useState('');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getdata()
+    dispatch(getReviews());
   }, []);
 
-  const dispatch = useDispatch();
+  const reviewData = useSelector(state => state.userReviews)
+  console.log(reviewData.Review);
 
   let reviewSchema = object({
     name: string().required(),
@@ -41,14 +44,14 @@ function ShopDetails(props) {
       name: '',
       email: '',
       review: '',
-      rating: ''
+      rating: '',
     },
     validationSchema: reviewSchema,
     onSubmit: (values, { resetForm }) => {
 
-      dispatch(addReviews({...values, productId: id}));
+      dispatch(addReviews({ ...values, productId: id, date: new Date().toLocaleDateString()}));
 
-        // alert(JSON.stringify({...values, proId: id}, null, 2));
+      // alert(JSON.stringify({...values, proId: id}, null, 2));
       formik.resetForm()
     },
   });
@@ -266,7 +269,23 @@ function ShopDetails(props) {
                       </div>
                     </div>
                     <div className="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
-                      <div className="d-flex">
+                      {reviewData.Review.map((v) => {
+                        if (v.productId === id) {
+                          return (
+                          <div>
+                            <div className>
+                              <p className="mb-2" style={{ fontSize: 14 }}>{v.date}</p>
+                              <div className="d-flex  justify-content-center">
+                                <h5>{v.name}</h5>
+                                <div className='d-flex justify-content-end ms-auto'><Rating  value={v.rating} readOnly /></div>                              
+                              </div>
+                              <p>{v.review}</p>
+                            </div>
+                          </div>)
+                        }
+                      })}
+
+                      {/* <div className="d-flex">
                         <img src="img/avatar.jpg" className="img-fluid rounded-circle p-3" style={{ width: 100, height: 100 }} alt />
                         <div className>
                           <p className="mb-2" style={{ fontSize: 14 }}>April 12, 2024</p>
@@ -301,7 +320,7 @@ function ShopDetails(props) {
                           <p className="text-dark">The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic
                             words etc. Susp endisse ultricies nisi vel quam suscipit </p>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="tab-pane" id="nav-vision" role="tabpanel">
                       <p className="text-dark">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam
@@ -317,7 +336,7 @@ function ShopDetails(props) {
                   <div className="row g-4">
                     <div className="col-lg-6">
                       <div className="border-bottom rounded">
-                      <input
+                        <input
                           type="text"
                           id="name"
                           name="name"
@@ -326,10 +345,9 @@ function ShopDetails(props) {
                           value={values.name}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          error={errors.name && touched.name ? true : false}
-                          helperText={errors.name && touched.name ? errors.name : ''}
                         />
                       </div>
+                      <p className='text-danger'>{errors.name && touched.name ? errors.name : ''}</p>
                     </div>
                     <div className="col-lg-6">
                       <div className="border-bottom rounded">
@@ -342,10 +360,9 @@ function ShopDetails(props) {
                           value={values.email}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          error={errors.email && touched.email ? true : false}
-                          helperText={errors.email && touched.email ? errors.email : ''}
                         />
                       </div>
+                      <p className='text-danger'>{errors.email && touched.email ? errors.email : ''}</p>
                     </div>
                     <div className="col-lg-12">
                       <div className="border-bottom rounded my-4">
@@ -361,19 +378,18 @@ function ShopDetails(props) {
                           value={values.review}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          error={errors.review && touched.review ? true : false}
-                          helperText={errors.review && touched.review ? errors.review : ''}
                         />
                       </div>
+                      <p className='text-danger'>{errors.review && touched.review ? errors.review : ''}</p>
+
                     </div>
                     <div className="col-lg-12">
                       <div className="d-flex justify-content-between py-3 mb-5">
                         <div className="d-flex align-items-center">
                           <p className="mb-0 me-3">Please rate:</p>
-                          <div className="d-flex align-items-center" style={{ fontSize: 12 }}>
+                          <div style={{ fontSize: 12 }}>
                             <Stack spacing={1}>
                               <Rating
-                                name="half-rating-read"
                                 defaultValue={0}
                                 precision={0.5}
                                 id="rating"
@@ -381,15 +397,14 @@ function ShopDetails(props) {
                                 value={values.rating}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                error={errors.rating && touched.rating ? true : false}
-                                helperText={errors.rating && touched.rating ? errors.rating : ''}
                               />
                             </Stack>
+                            <p className='text-danger'>{errors.rating && touched.rating ? errors.rating : ''}</p>
                           </div>
                         </div>
-                        {/* <a href="#"  type='submit' className="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post Comment</a> */}
                         <Button className="btn border border-secondary text-primary rounded-pill px-4 py-3" type="submit">Post Comment</Button>
                       </div>
+
                     </div>
                   </div>
                 </form>

@@ -1,4 +1,4 @@
-import { ADD_REVIEWS } from "../ActionType";
+import { ADD_REVIEWS, GET_REVIEWS } from "../ActionType";
 
 const intialState = {
     isloding: false,
@@ -6,6 +6,8 @@ const intialState = {
     error: null,
 
 }
+
+
 
 export const reviewReducer = (state = intialState, action) => {
     
@@ -17,6 +19,13 @@ export const reviewReducer = (state = intialState, action) => {
             return {
                 isloding: false,
                 Review: state.Review.concat(action.payload),
+                error: null,
+            }
+
+        case GET_REVIEWS:
+            return {
+                isloding: false,
+                Review: action.payload,
                 error: null,
             }
         default:
