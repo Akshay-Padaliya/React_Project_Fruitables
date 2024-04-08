@@ -1,5 +1,5 @@
 
-import { ADD_ORGANIC_PRODUCTS, DELETE_ORGANIC_PRODUCTS, EDITE_ORGANIC_PRODUCTS, GET_ORGANIC_PRODUCTS, IS_LODING } from "../ActionType";
+import { ADD_ORGANIC_PRODUCTS, DELETE_ORGANIC_PRODUCTS, EDITE_ORGANIC_PRODUCTS, ERROR_ORGANIC_PRODUCTS, GET_ORGANIC_PRODUCTS, IS_LODING } from "../ActionType";
 
 const initialOrganic = {
     isLoding: false,
@@ -21,8 +21,7 @@ export const organicReducer = (state = initialOrganic, action) => {
             Organic: action.payload
         }
         case ADD_ORGANIC_PRODUCTS:
-            // console.log("add");
-             
+
                 return {
                     ...state,
                     isLoding: false,
@@ -58,7 +57,14 @@ export const organicReducer = (state = initialOrganic, action) => {
         case IS_LODING: 
             return{
                 ...state,
+                isLoding: true,
+            }
+        
+        case ERROR_ORGANIC_PRODUCTS:
+            return{
+                ...state,
                 isLoding: false,
+                error: action.payload
             }
             
         default:

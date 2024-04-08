@@ -107,11 +107,13 @@ function OrganicProduct(props) {
     return (
         <>
             {organicVal.isLoding ?
-                (<Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
-                    <CircularProgress color="success" />
-                </Stack>
+                (<p>Loading....</p>
+                // <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+                //     <CircularProgress color="success" />
+                // </Stack>
                 )
                 :
+                organicVal.error ?  (<p> {organicVal.error}</p>) :
                 (<div>
                     <Button variant="outlined" onClick={handleClickOpen}>
                         Add Organic Products

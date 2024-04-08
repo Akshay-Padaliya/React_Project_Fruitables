@@ -1,13 +1,15 @@
 import axios from "axios";
-import { ADD_ORGANIC_PRODUCTS, DELETE_ORGANIC_PRODUCTS, EDITE_ORGANIC_PRODUCTS, GET_ORGANIC_PRODUCTS, IS_LODING } from "../ActionType"
+import { ADD_ORGANIC_PRODUCTS, DELETE_ORGANIC_PRODUCTS, EDITE_ORGANIC_PRODUCTS, ERROR_ORGANIC_PRODUCTS, GET_ORGANIC_PRODUCTS, IS_LODING } from "../ActionType"
 import { BASE_URL } from "../../Base/BaseUrl";
 
+
+export const errorOrganic = (error) => async(dispatch) =>{
+    dispatch({type: ERROR_ORGANIC_PRODUCTS , payload:error})
+}
+
 export const getOrganic = () => async (dispatch) => {
-
-    dispatch(isLodingOrganic())
-
-
     try {
+        dispatch(isLodingOrganic())
         await axios.get(BASE_URL + 'Organic')
             .then(res => {
                 console.log(res);
@@ -15,11 +17,13 @@ export const getOrganic = () => async (dispatch) => {
                 dispatch({ type: GET_ORGANIC_PRODUCTS, payload: res.data })
             })
             .catch((error) => {
-                console.log(error);
+                dispatch(errorOrganic(error.message))
+                // console.log(error);
             })
 
     } catch (error) {
-        console.log(error);
+        dispatch(errorOrganic(error.message))
+        // console.log(error);
     }
 }
 
@@ -33,14 +37,15 @@ export const addOrganic = (Ndata) => async (dispatch) => {
                 dispatch({ type: ADD_ORGANIC_PRODUCTS, payload: res.data})
             })
             .catch((error) => {
-                console.log(error);
+                dispatch(errorOrganic(error.message))
+              
             })
 
     } catch (error) {
-        console.log(error);
+        dispatch(errorOrganic(error.message))
+     
     }
 
-    // dispatch(getOrganic())
 
 }
 
@@ -54,17 +59,19 @@ export const editOrganic = (data) => async (dispatch) => {
             .then(res => {
                 console.log(res);
                 console.log(res.data);
+                dispatch({ type: EDITE_ORGANIC_PRODUCTS, payload: data });
             })
             .catch((error) => {
-                console.log(error);
+                dispatch(errorOrganic(error.message))
+              
             })
 
     } catch (error) {
-        console.log(error);
+        dispatch(errorOrganic(error.message))
+     
     }
 
-    dispatch({ type: EDITE_ORGANIC_PRODUCTS, payload: data });
-    dispatch(getOrganic())
+    
 
 }
 
@@ -79,17 +86,17 @@ export const deleteOrganic = (id) => async (dispatch) => {
                 dispatch({ type: DELETE_ORGANIC_PRODUCTS, payload: id });
             })
             .catch((error) => {
-                console.log(error);
+                dispatch(errorOrganic(error.message))
+              
             })
 
     } catch (error) {
-        console.log(error);
+        dispatch(errorOrganic(error.message))
+       
     }
-   
-    dispatch(getOrganic())
 
 }
 
-export const isLodingOrganic = () => (dispatch) => {
+export const isLodingOrganic = () => async(dispatch) => {
     dispatch({ type: IS_LODING })
 }
