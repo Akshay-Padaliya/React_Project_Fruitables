@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import { addReviews, getReviews } from '../../../Redux/Action/review.action';
 
+import TextField from '@mui/material/TextField';
+
 
 
 
@@ -362,7 +364,9 @@ function ShopDetails(props) {
                           onBlur={handleBlur}
                         />
                       </div>
-                      <p className='text-danger'>{errors.email && touched.email ? errors.email : ''}</p>
+                      <p className='text-danger'>
+                      {errors.email && touched.email ? errors.email : ''}
+                      </p>
                     </div>
                     <div className="col-lg-12">
                       <div className="border-bottom rounded my-4">
@@ -380,8 +384,9 @@ function ShopDetails(props) {
                           onBlur={handleBlur}
                         />
                       </div>
-                      <p className='text-danger'>{errors.review && touched.review ? errors.review : ''}</p>
-
+                      <p className='text-danger'>
+                      {errors.review && touched.review ? errors.review : ''}
+                      </p>
                     </div>
                     <div className="col-lg-12">
                       <div className="d-flex justify-content-between py-3 mb-5">
@@ -397,6 +402,7 @@ function ShopDetails(props) {
                                 value={values.rating}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
+                                error={errors.rating && touched.rating ? true : false}
                               />
                             </Stack>
                             <p className='text-danger'>{errors.rating && touched.rating ? errors.rating : ''}</p>

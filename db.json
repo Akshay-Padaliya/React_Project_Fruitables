@@ -179,16 +179,10 @@
       "price": 120
     },
     {
-      "id": "d11d",
-      "name": "Vegitable",
-      "discription": "zxcvssdvf dv",
+      "id": "594a",
+      "name": "hvmvm",
+      "discription": "scscscs scs",
       "price": 12
-    },
-    {
-      "id": "91bd",
-      "name": "New",
-      "discription": "dbdv fbc  f ",
-      "price": 120
     }
   ],
   "Reviews": [
@@ -205,10 +199,17 @@
       "id": "9446",
       "name": "Jay",
       "email": "Fkskjfsjckd@gmail.com",
-      "review": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt\nLorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-      "rating": "1",
-      "productId": "2",
-      "date": "08/04/2024"
+      "review": "dfhsdbxcb bgderb",
+      "rating": "3.5",
+      "productId": "5"
+    },
+    {
+      "id": "baf3",
+      "name": "hvmvm",
+      "email": "aAS@FAADA.VOM",
+      "review": ",nzxvnzx,",
+      "rating": "0.5",
+      "productId": "9"
     }
   ]
 }
