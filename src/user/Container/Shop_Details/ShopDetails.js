@@ -271,7 +271,9 @@ function ShopDetails(props) {
                       </div>
                     </div>
                     <div className="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
-                      {reviewData.Review.map((v) => {
+                      {reviewData.isloding ? <h4>Loading.....</h4> :
+                        reviewData.error ? <h3>{reviewData.error}</h3> : 
+                        reviewData.Review.map((v) => {
                         if (v.productId === id) {
                           return (
                           <div>
@@ -286,6 +288,7 @@ function ShopDetails(props) {
                           </div>)
                         }
                       })}
+                    
 
                       {/* <div className="d-flex">
                         <img src="img/avatar.jpg" className="img-fluid rounded-circle p-3" style={{ width: 100, height: 100 }} alt />
@@ -463,7 +466,7 @@ function ShopDetails(props) {
                   <h4 className="mb-4">Featured products</h4>
                   <div className="d-flex align-items-center justify-content-start">
                     <div className="rounded" style={{ width: 100, height: 100 }}>
-                      <img src="img/featur-1.jpg" className="img-fluid rounded" alt="Image" />
+                      <img src="../img/featur-1.jpg" className="img-fluid rounded" alt="Image" />
                     </div>
                     <div>
                       <h6 className="mb-2">Big Banana</h6>
@@ -482,7 +485,7 @@ function ShopDetails(props) {
                   </div>
                   <div className="d-flex align-items-center justify-content-start">
                     <div className="rounded" style={{ width: 100, height: 100 }}>
-                      <img src="img/featur-2.jpg" className="img-fluid rounded" alt />
+                      <img src="../img/featur-2.jpg" className="img-fluid rounded" alt />
                     </div>
                     <div>
                       <h6 className="mb-2">Big Banana</h6>
@@ -501,7 +504,7 @@ function ShopDetails(props) {
                   </div>
                   <div className="d-flex align-items-center justify-content-start">
                     <div className="rounded" style={{ width: 100, height: 100 }}>
-                      <img src="img/featur-3.jpg" className="img-fluid rounded" alt />
+                      <img src="../img/featur-3.jpg" className="img-fluid rounded" alt />
                     </div>
                     <div>
                       <h6 className="mb-2">Big Banana</h6>
@@ -520,7 +523,7 @@ function ShopDetails(props) {
                   </div>
                   <div className="d-flex align-items-center justify-content-start">
                     <div className="rounded me-4" style={{ width: 100, height: 100 }}>
-                      <img src="img/vegetable-item-4.jpg" className="img-fluid rounded" alt />
+                      <img src="../img/vegetable-item-4.jpg" className="img-fluid rounded" alt />
                     </div>
                     <div>
                       <h6 className="mb-2">Big Banana</h6>
@@ -539,7 +542,7 @@ function ShopDetails(props) {
                   </div>
                   <div className="d-flex align-items-center justify-content-start">
                     <div className="rounded me-4" style={{ width: 100, height: 100 }}>
-                      <img src="img/vegetable-item-5.jpg" className="img-fluid rounded" alt />
+                      <img src="../img/vegetable-item-5.jpg" className="img-fluid rounded" alt />
                     </div>
                     <div>
                       <h6 className="mb-2">Big Banana</h6>
@@ -558,7 +561,7 @@ function ShopDetails(props) {
                   </div>
                   <div className="d-flex align-items-center justify-content-start">
                     <div className="rounded me-4" style={{ width: 100, height: 100 }}>
-                      <img src="img/vegetable-item-6.jpg" className="img-fluid rounded" alt />
+                      <img src="../img/vegetable-item-6.jpg" className="img-fluid rounded" alt />
                     </div>
                     <div>
                       <h6 className="mb-2">Big Banana</h6>
@@ -595,7 +598,7 @@ function ShopDetails(props) {
             <OwlCarousel {...vegetableCarousel} className="owl-carousel vegetable-carousel justify-content-center">
               <div className="border border-primary rounded position-relative vesitable-item">
                 <div className="vesitable-img">
-                  <img src="img/vegetable-item-6.jpg" className="img-fluid w-100 rounded-top" alt />
+                  <img src="../img/vegetable-item-6.jpg" className="img-fluid w-100 rounded-top" alt />
                 </div>
                 <div className="text-white bg-primary px-3 py-1 rounded position-absolute" style={{ top: 10, right: 10 }}>Vegetable</div>
                 <div className="p-4 pb-0 rounded-bottom">
@@ -609,7 +612,7 @@ function ShopDetails(props) {
               </div>
               <div className="border border-primary rounded position-relative vesitable-item">
                 <div className="vesitable-img">
-                  <img src="img/vegetable-item-1.jpg" className="img-fluid w-100 rounded-top" alt />
+                  <img src="../img/vegetable-item-1.jpg" className="img-fluid w-100 rounded-top" alt />
                 </div>
                 <div className="text-white bg-primary px-3 py-1 rounded position-absolute" style={{ top: 10, right: 10 }}>Vegetable</div>
                 <div className="p-4 pb-0 rounded-bottom">
@@ -623,7 +626,7 @@ function ShopDetails(props) {
               </div>
               <div className="border border-primary rounded position-relative vesitable-item">
                 <div className="vesitable-img">
-                  <img src="img/vegetable-item-3.png" className="img-fluid w-100 rounded-top bg-light" alt />
+                  <img src="../img/vegetable-item-3.png" className="img-fluid w-100 rounded-top bg-light" alt />
                 </div>
                 <div className="text-white bg-primary px-3 py-1 rounded position-absolute" style={{ top: 10, right: 10 }}>Vegetable</div>
                 <div className="p-4 pb-0 rounded-bottom">
@@ -637,7 +640,7 @@ function ShopDetails(props) {
               </div>
               <div className="border border-primary rounded position-relative vesitable-item">
                 <div className="vesitable-img">
-                  <img src="img/vegetable-item-4.jpg" className="img-fluid w-100 rounded-top" alt />
+                  <img src="../img/vegetable-item-4.jpg" className="img-fluid w-100 rounded-top" alt />
                 </div>
                 <div className="text-white bg-primary px-3 py-1 rounded position-absolute" style={{ top: 10, right: 10 }}>Vegetable</div>
                 <div className="p-4 pb-0 rounded-bottom">
@@ -651,7 +654,7 @@ function ShopDetails(props) {
               </div>
               <div className="border border-primary rounded position-relative vesitable-item">
                 <div className="vesitable-img">
-                  <img src="img/vegetable-item-5.jpg" className="img-fluid w-100 rounded-top" alt />
+                  <img src="../img/vegetable-item-5.jpg" className="img-fluid w-100 rounded-top" alt />
                 </div>
                 <div className="text-white bg-primary px-3 py-1 rounded position-absolute" style={{ top: 10, right: 10 }}>Vegetable</div>
                 <div className="p-4 pb-0 rounded-bottom">
@@ -665,7 +668,7 @@ function ShopDetails(props) {
               </div>
               <div className="border border-primary rounded position-relative vesitable-item">
                 <div className="vesitable-img">
-                  <img src="img/vegetable-item-6.jpg" className="img-fluid w-100 rounded-top" alt />
+                  <img src="../img/vegetable-item-6.jpg" className="img-fluid w-100 rounded-top" alt />
                 </div>
                 <div className="text-white bg-primary px-3 py-1 rounded position-absolute" style={{ top: 10, right: 10 }}>Vegetable</div>
                 <div className="p-4 pb-0 rounded-bottom">
@@ -679,7 +682,7 @@ function ShopDetails(props) {
               </div>
               <div className="border border-primary rounded position-relative vesitable-item">
                 <div className="vesitable-img">
-                  <img src="img/vegetable-item-5.jpg" className="img-fluid w-100 rounded-top" alt />
+                  <img src="../img/vegetable-item-5.jpg" className="img-fluid w-100 rounded-top" alt />
                 </div>
                 <div className="text-white bg-primary px-3 py-1 rounded position-absolute" style={{ top: 10, right: 10 }}>Vegetable</div>
                 <div className="p-4 pb-0 rounded-bottom">
@@ -693,7 +696,7 @@ function ShopDetails(props) {
               </div>
               <div className="border border-primary rounded position-relative vesitable-item">
                 <div className="vesitable-img">
-                  <img src="img/vegetable-item-6.jpg" className="img-fluid w-100 rounded-top" alt />
+                  <img src="../img/vegetable-item-6.jpg" className="img-fluid w-100 rounded-top" alt />
                 </div>
                 <div className="text-white bg-primary px-3 py-1 rounded position-absolute" style={{ top: 10, right: 10 }}>Vegetable</div>
                 <div className="p-4 pb-0 rounded-bottom">

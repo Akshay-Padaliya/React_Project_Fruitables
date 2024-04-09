@@ -1,4 +1,4 @@
-import { ADD_REVIEWS, GET_REVIEWS } from "../ActionType";
+import { ADD_REVIEWS, ERROR_ORGANIC_PRODUCTS, GET_REVIEWS, IS_LODING } from "../ActionType";
 
 const intialState = {
     isloding: false,
@@ -7,10 +7,8 @@ const intialState = {
 
 }
 
-
-
 export const reviewReducer = (state = intialState, action) => {
-    
+
     console.log(action);
 
     switch (action.type) {
@@ -28,6 +26,20 @@ export const reviewReducer = (state = intialState, action) => {
                 Review: action.payload,
                 error: null,
             }
+
+        case IS_LODING:
+            return {
+                ...state,
+                isloding: true
+            }
+
+        case ERROR_ORGANIC_PRODUCTS:
+            return {
+                ...state,
+                isloding: false,
+                error: action.payload
+            }
+
         default:
             return state
     }

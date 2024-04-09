@@ -45,8 +45,8 @@ function OrganicProduct(props) {
             width: 150,
             renderCell: (params) =>
                 <div>
-                    <EditIcon onClick={() => handleEdit(params.row)} />
-                    <DeleteIcon onClick={() => handleDelete(params.row.id)} />
+                    <Button className='py-1 border'><EditIcon className='text-success' onClick={() => handleEdit(params.row)} /></Button>
+                    <Button><DeleteIcon className='text-danger' onClick={() => handleDelete(params.row.id)} /></Button>  
                 </div>,
             editable: false,
         }
