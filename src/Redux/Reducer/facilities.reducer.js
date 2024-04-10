@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import { ADD_FACILITIES, DELETE_FACILITIES, EDITE_FACILITIES, GET_FACILITIES, IS_LODING } from "../ActionType";
 
 const initialFacilities = {
@@ -14,16 +14,11 @@ export const facilitesReducer = (state = initialFacilities, action) => {
 
         case GET_FACILITIES: {
             return{
-                ...state
+                ...state,
+                isLoding: false,
             }
         }
         case ADD_FACILITIES:
-
-                // axios.post(`http://localhost:8000/Facilities`, action.payload)
-                //     .then(res => {
-                //         console.log(res);
-                //         // console.log(res.action.payload);
-                //     })
                 return {
                     ...state,
                     isLoding: false,
@@ -33,9 +28,6 @@ export const facilitesReducer = (state = initialFacilities, action) => {
 
         case DELETE_FACILITIES:
           
-            // axios
-            // .delete(`http://localhost:8000/catagory/${action.payload}`)
-
             return {
                 ...state,
                 isLoding: false,
@@ -46,9 +38,6 @@ export const facilitesReducer = (state = initialFacilities, action) => {
 
 
         case EDITE_FACILITIES:
-
-        // axios
-        // .put(`http://localhost:8000/catagory/${action.payload.id}`, action.payload)
 
         return {
             ...state,

@@ -4,18 +4,9 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { useParams } from 'react-router-dom';
 import Rating from '@mui/material/Rating';
-import Stack from '@mui/material/Stack';
-
-import { object, string, number, date, InferType } from 'yup';
-import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-
-import Button from '@mui/material/Button';
-import { addReviews, getReviews } from '../../../Redux/Action/review.action';
-
-import TextField from '@mui/material/TextField';
-
-
+import { getReviews } from '../../../Redux/Action/review.action';
+import Reviews from '../Reviews/Reviews'
 
 
 function ShopDetails(props) {
@@ -33,34 +24,6 @@ function ShopDetails(props) {
 
   const reviewData = useSelector(state => state.userReviews)
   console.log(reviewData.Review);
-
-  let reviewSchema = object({
-    name: string().required(),
-    email: string().email().required(),
-    review: string().required(),
-    rating: number().required(),
-  });
-
-  const formik = useFormik({
-    initialValues: {
-      name: '',
-      email: '',
-      review: '',
-      rating: '',
-    },
-    validationSchema: reviewSchema,
-    onSubmit: (values, { resetForm }) => {
-
-      dispatch(addReviews({ ...values, productId: id, date: new Date().toLocaleDateString()}));
-
-      // alert(JSON.stringify({...values, proId: id}, null, 2));
-      formik.resetForm()
-    },
-  });
-
-  const { handleBlur, handleChange, handleSubmit, errors, values, touched } = formik
-
-
 
   const getdata = async () => {
 
@@ -173,43 +136,6 @@ function ShopDetails(props) {
                   <a href="#" className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
                 </div>
 
-
-
-
-                {/* <div className="border rounded">
-                <a href="#">
-                  <img src="img/single-item.jpg" className="img-fluid rounded" alt="Image" />
-                </a>
-              </div>
-            </div>
-            <div className="col-lg-6">
-              <h4 className="fw-bold mb-3">Brocoli</h4>
-              <p className="mb-3">Category: Vegetables</p>
-              <h5 className="fw-bold mb-3">3,35 $</h5>
-              <div className="d-flex mb-4">
-                <i className="fa fa-star text-secondary" />
-                <i className="fa fa-star text-secondary" />
-                <i className="fa fa-star text-secondary" />
-                <i className="fa fa-star text-secondary" />
-                <i className="fa fa-star" />
-              </div>
-              <p className="mb-4">The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic words etc.</p>
-              <p className="mb-4">Susp endisse ultricies nisi vel quam suscipit. Sabertooth peacock flounder; chain pickerel hatchetfish, pencilfish snailfish</p>
-              <div className="input-group quantity mb-5" style={{width: 100}}>
-                <div className="input-group-btn">
-                  <button className="btn btn-sm btn-minus rounded-circle bg-light border">
-                    <i className="fa fa-minus" />
-                  </button>
-                </div>
-                <input type="text" className="form-control form-control-sm text-center border-0" defaultValue={1} />
-                <div className="input-group-btn">
-                  <button className="btn btn-sm btn-plus rounded-circle bg-light border">
-                    <i className="fa fa-plus" />
-                  </button>
-                </div>
-              </div>
-              <a href="#" className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
-            </div> */}
                 <div className="col-lg-12">
                   <nav>
                     <div className="nav nav-tabs mb-3">
@@ -288,44 +214,6 @@ function ShopDetails(props) {
                           </div>)
                         }
                       })}
-                    
-
-                      {/* <div className="d-flex">
-                        <img src="img/avatar.jpg" className="img-fluid rounded-circle p-3" style={{ width: 100, height: 100 }} alt />
-                        <div className>
-                          <p className="mb-2" style={{ fontSize: 14 }}>April 12, 2024</p>
-                          <div className="d-flex justify-content-between">
-                            <h5>Jason Smith</h5>
-                            <div className="d-flex mb-3">
-                              <i className="fa fa-star text-secondary" />
-                              <i className="fa fa-star text-secondary" />
-                              <i className="fa fa-star text-secondary" />
-                              <i className="fa fa-star text-secondary" />
-                              <i className="fa fa-star" />
-                            </div>
-                          </div>
-                          <p>The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic
-                            words etc. Susp endisse ultricies nisi vel quam suscipit </p>
-                        </div>
-                      </div>
-                      <div className="d-flex">
-                        <img src="img/avatar.jpg" className="img-fluid rounded-circle p-3" style={{ width: 100, height: 100 }} alt />
-                        <div className>
-                          <p className="mb-2" style={{ fontSize: 14 }}>April 12, 2024</p>
-                          <div className="d-flex justify-content-between">
-                            <h5>Sam Peters</h5>
-                            <div className="d-flex mb-3">
-                              <i className="fa fa-star text-secondary" />
-                              <i className="fa fa-star text-secondary" />
-                              <i className="fa fa-star text-secondary" />
-                              <i className="fa fa-star" />
-                              <i className="fa fa-star" />
-                            </div>
-                          </div>
-                          <p className="text-dark">The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic
-                            words etc. Susp endisse ultricies nisi vel quam suscipit </p>
-                        </div>
-                      </div> */}
                     </div>
                     <div className="tab-pane" id="nav-vision" role="tabpanel">
                       <p className="text-dark">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam
@@ -335,88 +223,8 @@ function ShopDetails(props) {
                     </div>
                   </div>
                 </div>
-                {/* <Reviews /> */}
-                <form onSubmit={handleSubmit}>
-                  <h4 className="mb-5 fw-bold">Leave a Reply</h4>
-                  <div className="row g-4">
-                    <div className="col-lg-6">
-                      <div className="border-bottom rounded">
-                        <input
-                          type="text"
-                          id="name"
-                          name="name"
-                          className="form-control border-0 me-4"
-                          placeholder="Yur Name *"
-                          value={values.name}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </div>
-                      <p className='text-danger'>{errors.name && touched.name ? errors.name : ''}</p>
-                    </div>
-                    <div className="col-lg-6">
-                      <div className="border-bottom rounded">
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          className="form-control border-0 me-4"
-                          placeholder="Yur email *"
-                          value={values.email}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </div>
-                      <p className='text-danger'>
-                      {errors.email && touched.email ? errors.email : ''}
-                      </p>
-                    </div>
-                    <div className="col-lg-12">
-                      <div className="border-bottom rounded my-4">
-                        <textarea
-                          type="text"
-                          id="review"
-                          name="review"
-                          className="form-control border-0"
-                          cols={30} rows={8}
-                          placeholder="Your Review *"
-                          spellCheck="false"
-                          defaultValue={""}
-                          value={values.review}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </div>
-                      <p className='text-danger'>
-                      {errors.review && touched.review ? errors.review : ''}
-                      </p>
-                    </div>
-                    <div className="col-lg-12">
-                      <div className="d-flex justify-content-between py-3 mb-5">
-                        <div className="d-flex align-items-center">
-                          <p className="mb-0 me-3">Please rate:</p>
-                          <div style={{ fontSize: 12 }}>
-                            <Stack spacing={1}>
-                              <Rating
-                                defaultValue={0}
-                                precision={0.5}
-                                id="rating"
-                                name="rating"
-                                value={values.rating}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                error={errors.rating && touched.rating ? true : false}
-                              />
-                            </Stack>
-                            <p className='text-danger'>{errors.rating && touched.rating ? errors.rating : ''}</p>
-                          </div>
-                        </div>
-                        <Button className="btn border border-secondary text-primary rounded-pill px-4 py-3" type="submit">Post Comment</Button>
-                      </div>
-
-                    </div>
-                  </div>
-                </form>
+                <Reviews id={id} />
+               
               </div>
             </div>
             <div className="col-lg-4 col-xl-3">
