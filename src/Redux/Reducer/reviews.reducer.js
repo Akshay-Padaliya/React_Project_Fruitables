@@ -1,4 +1,4 @@
-import { ADD_REVIEWS, ERROR_ORGANIC_PRODUCTS, GET_REVIEWS, IS_LODING } from "../ActionType";
+import { ADD_REVIEWS, DELETE_REVIEWS, EDITE_REVIEWS, ERROR_ORGANIC_PRODUCTS, GET_REVIEWS, IS_LODING } from "../ActionType";
 
 const intialState = {
     isloding: false,
@@ -26,11 +26,31 @@ export const reviewReducer = (state = intialState, action) => {
                 Review: action.payload,
                 error: null,
             }
+        case EDITE_REVIEWS:
+            return{
+                isLoding: false,
+                error: null,
+                Review : state.Review.map((v)=>{
+    
+                    if(v.id === action.payload.id){
+                        return action.payload
+                    }else{
+                        return v
+                    }
+    
+                })
+            }
+        case DELETE_REVIEWS:
+            return{
+                isLoding: false,
+                error: null,
+                Review: state.Review.filter((v) => v.id !== action.payload)
+            }
 
         case IS_LODING:
             return {
                 ...state,
-                isloding: true
+                isloding: true,
             }
 
         case ERROR_ORGANIC_PRODUCTS:

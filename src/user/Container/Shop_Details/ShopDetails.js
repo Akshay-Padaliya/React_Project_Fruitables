@@ -6,7 +6,10 @@ import { useParams } from 'react-router-dom';
 import Rating from '@mui/material/Rating';
 import { useDispatch, useSelector } from 'react-redux';
 import { getReviews } from '../../../Redux/Action/review.action';
-import Reviews from '../Reviews/Reviews'
+import Reviews from '../Reviews/Reviews';
+import Button from '@mui/material/Button';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 function ShopDetails(props) {
@@ -15,20 +18,16 @@ function ShopDetails(props) {
   console.log(id);
 
   const [fruitDetails, setFruitDetails] = useState('');
-  const dispatch = useDispatch();
 
   useEffect(() => {
     getdata()
-    dispatch(getReviews());
   }, []);
 
-  const reviewData = useSelector(state => state.userReviews)
-  console.log(reviewData.Review);
+  
 
   const getdata = async () => {
 
     try {
-
       const response = await fetch('http://localhost:8000/Fruits')
       const data = await response.json()
       console.log(data);
@@ -41,11 +40,7 @@ function ShopDetails(props) {
     } catch (error) {
       console.log(error);
     }
-
-
   }
-
-  console.log(fruitDetails);
 
   const vegetableCarousel = {
     autoplay: true,
@@ -197,34 +192,41 @@ function ShopDetails(props) {
                       </div>
                     </div>
                     <div className="tab-pane" id="nav-mission" role="tabpanel" aria-labelledby="nav-mission-tab">
-                      {reviewData.isloding ? <h4>Loading.....</h4> :
-                        reviewData.error ? <h3>{reviewData.error}</h3> : 
-                        reviewData.Review.map((v) => {
-                        if (v.productId === id) {
-                          return (
-                          <div>
-                            <div className>
-                              <p className="mb-2" style={{ fontSize: 14 }}>{v.date}</p>
-                              <div className="d-flex  justify-content-center">
-                                <h5>{v.name}</h5>
-                                <div className='d-flex justify-content-end ms-auto'><Rating  value={v.rating} readOnly /></div>                              
-                              </div>
-                              <p>{v.review}</p>
-                            </div>
-                          </div>)
-                        }
-                      })}
+                      {/* {reviewData.isloding ? <h4>Loading.....</h4> :
+                        reviewData.error ? <h3>{reviewData.error}</h3> :
+                          reviewData.Review.map((v) => {
+                            if (v.productId === id) {
+                              return (
+                                <div>
+                                  <div className>
+                                    <p className="mb-2" style={{ fontSize: 14 }}>{v.date}</p>
+                                    <div className="d-flex  justify-content-center">
+                                      <h5>{v.name}</h5>
+                                      <div className='ms-auto'>
+                                        <Rating value={v.rating} readOnly />
+                                        <div className='ms-auto'>
+                                          <Button className='py-1 border'><EditIcon className='text-success' onClick={() => handleEdit(v)} /></Button>
+                                          <Button><DeleteIcon className='text-danger' onClick={() => handleDelete(v.id)} /></Button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <p>{v.review}</p>
+                                  </div>
+                                </div>)
+                            }
+                          })} */}
+                              <Reviews id={id} />
                     </div>
-                    <div className="tab-pane" id="nav-vision" role="tabpanel">
+                    {/* <div className="tab-pane" id="nav-vision" role="tabpanel">
                       <p className="text-dark">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam
                         amet diam et eos labore. 3</p>
                       <p className="mb-0">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore.
                         Clita erat ipsum et lorem et sit</p>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
-                <Reviews id={id} />
-               
+            
+
               </div>
             </div>
             <div className="col-lg-4 col-xl-3">
