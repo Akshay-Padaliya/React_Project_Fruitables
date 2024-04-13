@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { getDataToCart } from '../../../Redux/Action/addCart.action';
 
 
 function Header(props) {
+
+
+  const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getDataToCart());
+        // dispatch(getReviews());
+      }, []);
+      const cartData = useSelector(state => state.cartProduct)
+      console.log(cartData.cart.length);
 
   const {fname} = useParams()
 
@@ -53,10 +65,10 @@ function Header(props) {
           </div>
           <div className="d-flex m-3 me-0">
             <button className="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i className="fas fa-search text-primary" /></button>
-            <a href="#" className="position-relative me-4 my-auto">
+            <NavLink to="/cart" className="position-relative me-4 my-auto">
               <i className="fa fa-shopping-bag fa-2x" />
-              <span className="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style={{top: '-5px', left: 15, height: 20, minWidth: 20}}>3</span>
-            </a>
+              <span className="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style={{top: '-5px', left: 15, height: 20, minWidth: 20}}>{cartData.cart.length}</span>
+            </NavLink>
             <NavLink to="/fname" className="my-auto">{fname}
               <i className="fas fa-user fa-2x" />
             </NavLink>

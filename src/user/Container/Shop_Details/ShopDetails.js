@@ -10,6 +10,10 @@ import Reviews from '../Reviews/Reviews';
 import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddToCart from '../AddtoCart/AddToCart';
+
+import { addToCart } from '../../../Redux/Action/addCart.action';
+import Counter from '../Counter/Counter';
 
 
 function ShopDetails(props) {
@@ -23,7 +27,9 @@ function ShopDetails(props) {
     getdata()
   }, []);
 
-  
+  const dispatch = useDispatch();
+  const countVal = useSelector(state => state.counter);
+  console.log(countVal.count);
 
   const getdata = async () => {
 
@@ -41,6 +47,13 @@ function ShopDetails(props) {
       console.log(error);
     }
   }
+
+  const handleAddToCart = ()  => {
+    console.log("dvdvd");
+    console.log(fruitDetails);
+    dispatch(addToCart(fruitDetails));  
+    // alert("successfully Add product to Cart")
+}
 
   const vegetableCarousel = {
     autoplay: true,
@@ -115,7 +128,8 @@ function ShopDetails(props) {
                   </div>
                   <p className="mb-4">{fruitDetails?.discription}</p>
                   <p className="mb-4">{fruitDetails?.discription}</p>
-                  <div className="input-group quantity mb-5" style={{ width: 100 }}>
+                  <Counter/>
+                  {/* <div className="input-group quantity mb-5" style={{ width: 100 }}>
                     <div className="input-group-btn">
                       <button className="btn btn-sm btn-minus rounded-circle bg-light border">
                         <i className="fa fa-minus" />
@@ -127,8 +141,13 @@ function ShopDetails(props) {
                         <i className="fa fa-plus" />
                       </button>
                     </div>
-                  </div>
-                  <a href="#" className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
+                  </div> */}
+                  <AddToCart data={{...fruitDetails, quantity : countVal.count}} />
+                  {/* <Button className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary" onClick={()=>handleAddToCart()}>
+                    <i className="fa fa-shopping-bag me-2 text-primary" />
+                    Add to cart
+                  </Button> */}
+                  {/* <a href="#" className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a> */}
                 </div>
 
                 <div className="col-lg-12">
@@ -215,7 +234,7 @@ function ShopDetails(props) {
                                 </div>)
                             }
                           })} */}
-                              <Reviews id={id} />
+                      <Reviews id={id} />
                     </div>
                     {/* <div className="tab-pane" id="nav-vision" role="tabpanel">
                       <p className="text-dark">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam
@@ -225,7 +244,7 @@ function ShopDetails(props) {
                     </div> */}
                   </div>
                 </div>
-            
+
 
               </div>
             </div>

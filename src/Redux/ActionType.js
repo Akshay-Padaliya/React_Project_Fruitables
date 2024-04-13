@@ -17,3 +17,10 @@ export const GET_REVIEWS = 'GET_REVIEWS';
 export const EDITE_REVIEWS = 'EDITE_REVIEWS';
 export const DELETE_REVIEWS = 'DELETE_REVIEWS';
 
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const DELETE_TO_CART = 'DELETE_TO_CART';
+export const GET_DATA_TO_CART = 'GET_DATA_TO_CART';
+export const ERROR = 'ERROR';
+
+
+
