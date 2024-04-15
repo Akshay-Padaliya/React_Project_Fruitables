@@ -4,6 +4,7 @@ import { organicReducer } from "./Reducer/organic.reducer";
 import {reviewReducer} from "../Redux/Reducer/reviews.reducer"
 import { cartReducer } from "./Reducer/addCart.reducer";
 import  counterSlice  from "./countslice";
+import cartSlice from "./Slice/cart.slice";
 
 
 export const rootReducer = combineReducers({
@@ -12,4 +13,5 @@ export const rootReducer = combineReducers({
     userReviews : reviewReducer,
     cartProduct: cartReducer,
     counter : counterSlice,
+    AddtoCart: cartSlice,
 })
