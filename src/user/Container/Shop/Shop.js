@@ -41,8 +41,6 @@ function Shop(props) {
 
         let filterData = '';
 
-
-
         if (search) {
             filterData = Fruitesdata.filter((v) => v.name.toLocaleLowerCase().includes(search));
         } else {
@@ -74,7 +72,6 @@ function Shop(props) {
                 } else if (sortdata == 'hl') {
                     return (b.price - a.price);
                 }
-
              
             })
         } else {

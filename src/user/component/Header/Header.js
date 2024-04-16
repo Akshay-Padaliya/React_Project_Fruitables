@@ -14,8 +14,12 @@ function Header(props) {
         dispatch(getDataToCart());
         // dispatch(getReviews());
       }, []);
-      const cartData = useSelector(state => state.cartProduct)
-      console.log(cartData.cart.length);
+      // const cartData = useSelector(state => state.cartProduct)
+      // console.log(cartData.cart.length);
+
+ const cartdata = useSelector((state) => state.AddtoCart);
+
+   const cartQyt = cartdata.cartDATA.reduce((acc , v, i) => acc + v.qyt,0)
 
   const {fname} = useParams()
 
@@ -67,7 +71,7 @@ function Header(props) {
             <button className="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i className="fas fa-search text-primary" /></button>
             <NavLink to="/cart" className="position-relative me-4 my-auto">
               <i className="fa fa-shopping-bag fa-2x" />
-              <span className="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style={{top: '-5px', left: 15, height: 20, minWidth: 20}}>{cartData.cart.length}</span>
+              <span className="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style={{top: '-5px', left: 15, height: 20, minWidth: 20}}>{cartQyt}</span>
             </NavLink>
             <NavLink to="/fname" className="my-auto">{fname}
               <i className="fas fa-user fa-2x" />

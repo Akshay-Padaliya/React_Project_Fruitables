@@ -256,15 +256,48 @@
   ],
   "Cart": [
     {
-      "id": "2",
-      "name": "Grapes",
+      "id": "5",
+      "name": "Banana",
       "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-      "price": 2.99,
-      "image": "../img/fruite-item-5.jpg",
+      "price": 3.99,
+      "image": "../img/fruite-item-3.jpg",
       "category": "Fruits",
       "title": "Fresh Fruits",
-      "type": "Fresh",
+      "type": "Expired",
       "quantity": 2
+    },
+    {
+      "id": "5",
+      "name": "Banana",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 3.99,
+      "image": "../img/fruite-item-3.jpg",
+      "category": "Fruits",
+      "title": "Fresh Fruits",
+      "type": "Expired",
+      "quantity": 1
+    },
+    {
+      "id": "5",
+      "name": "Banana",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 3.99,
+      "image": "../img/fruite-item-3.jpg",
+      "category": "Fruits",
+      "title": "Fresh Fruits",
+      "type": "Expired",
+      "quantity": 1
+    },
+    {
+      "id": "5",
+      "name": "Banana",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 3.99,
+      "image": "../img/fruite-item-3.jpg",
+      "category": "Fruits",
+      "title": "Fresh Fruits",
+      "type": "Expired",
+      "quantity": 4
     },
     {
       "id": "5",
@@ -278,6 +311,17 @@
       "quantity": 3
     },
     {
+      "id": "5",
+      "name": "Banana",
+      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
+      "price": 3.99,
+      "image": "../img/fruite-item-3.jpg",
+      "category": "Fruits",
+      "title": "Fresh Fruits",
+      "type": "Expired",
+      "quantity": 6
+    },
+    {
       "id": "6",
       "name": "Oranges",
       "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
@@ -286,18 +330,7 @@
       "category": "Fruits",
       "title": "Fresh Fruits",
       "type": "Organic",
-      "quantity": 1
-    },
-    {
-      "id": "3",
-      "name": "Raspberries",
-      "discription": "Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt",
-      "price": 7.99,
-      "image": "../img/fruite-item-2.jpg",
-      "category": "Fruits",
-      "title": "Fresh Fruits",
-      "type": "Sales",
-      "quantity": 1
+      "quantity": 2
     }
   ]
 }

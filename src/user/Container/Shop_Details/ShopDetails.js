@@ -142,7 +142,7 @@ function ShopDetails(props) {
                       </button>
                     </div>
                   </div> */}
-                  <AddToCart data={{...fruitDetails, quantity : countVal.count}} />
+                  <AddToCart pid={id} />
                   {/* <Button className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary" onClick={()=>handleAddToCart()}>
                     <i className="fa fa-shopping-bag me-2 text-primary" />
                     Add to cart

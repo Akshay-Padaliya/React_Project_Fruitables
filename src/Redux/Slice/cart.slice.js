@@ -13,18 +13,26 @@ export const  cartslice = createSlice({
         addItem: (state, action) => {
             console.log(action);
 
-            if(state.cartDATA.length !== 0){
-                state.cartDATA.map((v)=>{
-                    if(v.id === action.payload.id){
-                        // v.quantity = v.quantity + action.payload.quantity
-                        v.quantity += 1
-                    }else{
-                        state.cartDATA.push(action.payload)
-                    }
-                })
+            // if(state.cartDATA.length !== 0){
+            //     state.cartDATA.map((v)=>{
+            //         if(v.id === action.payload.id){
+            //             // v.quantity = v.quantity + action.payload.quantity
+            //             v.quantity += 1
+            //         }else{
+            //             state.cartDATA.push(action.payload)
+            //         }
+            //     })
+            // }else{
+            //     state.cartDATA.push(action.payload)
+            // }   
+            let index = state.cartDATA.findIndex((v)=>v.pid === action.payload);
+
+            if(index >= 0 ){
+                state.cartDATA[index].qyt++;
+
             }else{
-                state.cartDATA.push(action.payload)
-            }    
+                state.cartDATA.push({pid: action.payload, qyt: 1})
+            }
           
         }
     }

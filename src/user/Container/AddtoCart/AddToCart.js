@@ -2,25 +2,20 @@
 import { Button } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../../../Redux/Action/addCart.action';
 import { addItem } from '../../../Redux/Slice/cart.slice';
 
 
-export default function AddToCart({data}) {
+export default function AddToCart({pid}) {
 
   const cartdata = useSelector((state) => state.AddtoCart);
   console.log(cartdata);
   console.log(cartdata.cartDATA);
-  
-  console.log(data);
+
 
     const dispatch = useDispatch();
 
     const handleAddToCart = ()  => {
-      console.log("dvdvd");
-      console.log(data);
-      dispatch(addToCart(data));
-      dispatch(addItem(data));  
+      dispatch(addItem(pid));  
   }
 
   return (
