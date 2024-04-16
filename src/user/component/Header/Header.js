@@ -21,7 +21,6 @@ function Header(props) {
 
    const cartQyt = cartdata.cartDATA.reduce((acc , v, i) => acc + v.qyt,0)
 
-  const {fname} = useParams()
 
     return (
             <div>
@@ -73,9 +72,7 @@ function Header(props) {
               <i className="fa fa-shopping-bag fa-2x" />
               <span className="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style={{top: '-5px', left: 15, height: 20, minWidth: 20}}>{cartQyt}</span>
             </NavLink>
-            <NavLink to="/fname" className="my-auto">{fname}
-              <i className="fas fa-user fa-2x" />
-            </NavLink>
+          
           </div>
         </div>
       </nav>

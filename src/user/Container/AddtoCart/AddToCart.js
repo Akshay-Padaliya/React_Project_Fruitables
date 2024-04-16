@@ -3,6 +3,7 @@ import { Button } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../../Redux/Slice/cart.slice';
+// import { addToCart } from '../../../Redux/Action/addCart.action';
 
 
 export default function AddToCart({pid}) {
@@ -15,6 +16,7 @@ export default function AddToCart({pid}) {
     const dispatch = useDispatch();
 
     const handleAddToCart = ()  => {
+      // dispatch(addToCart())
       dispatch(addItem(pid));  
   }
 

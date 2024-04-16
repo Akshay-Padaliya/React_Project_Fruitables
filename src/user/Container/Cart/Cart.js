@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getReviews } from '../../../Redux/Action/review.action';
 import { deleteProToCart, getDataToCart } from '../../../Redux/Action/addCart.action';
 
 
@@ -9,10 +8,13 @@ import { deleteProToCart, getDataToCart } from '../../../Redux/Action/addCart.ac
 
 function Cart(props) {
 
+    const [disp, setDisp] = useState([])
+
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getDataToCart());
+        getdata()
         // dispatch(getReviews());
       }, []);
 
@@ -21,21 +23,44 @@ function Cart(props) {
         dispatch(deleteProToCart(id));
     }
 
-      const cartData = useSelector(state => state.cartProduct)
-      console.log(cartData.cart);
+    const cart = useSelector((state) => state.AddtoCart);
+    console.log(cart.cartDATA);
+
+    const getdata = async () => {
+        const response = await fetch('http://localhost:8000/Fruits')
+        const data = await response.json()
+        console.log(data);
+
+      
+
+        const unique = [];
+        data.map((v) => {
+            
+            if (cart.cartDATA.find((x)=> v.id == x.pid)) {
+                // console.log("cf");
+                unique.push({...v,...cart.cartDATA.find((x)=> v.id == x.pid)})
+            }
+        }); 
+
+        setDisp(unique);
+        console.log(unique, disp);
+    }
+
+   
+
+
+
+    //   const cartData = useSelector(state => state.cartProduct)
+    //   console.log(cartData.cart);
 
 
     //   const totalcost = cartData.cart.reduce((acu,v.price)=> acu + v.price,0)
 
     let totalcost = 0;
-    cartData.cart.map((v)=> (
-        totalcost =  totalcost + v.price*v.quantity
+    disp.map((v)=> (
+        totalcost =  totalcost + v.price*v.qyt
     ) )
     console.log(Math.round(totalcost));
-
-
-    //   const reviewData = useSelector(state => state.userReviews)
-    //   console.log(reviewData.Review);
     
     return (
         <div>
@@ -66,7 +91,7 @@ function Cart(props) {
                             </thead>
                             <tbody>
                                 {
-                                    cartData.cart.map((v)=>(
+                                    disp.map((v)=>(
 
                                         <tr>
                                         <th scope="row">
@@ -90,7 +115,7 @@ function Cart(props) {
                                                         <i className="fa fa-minus" />
                                                     </button>
                                                 </div>
-                                                <input type="text" className="form-control form-control-sm text-center border-0" defaultValue={v.quantity} />
+                                                <input type="text" className="form-control form-control-sm text-center border-0" defaultValue={v.qyt} />
                                                 <div className="input-group-btn">
                                                     <button className="btn btn-sm btn-plus rounded-circle bg-light border">
                                                         <i className="fa fa-plus" />
@@ -99,7 +124,7 @@ function Cart(props) {
                                             </div>
                                         </td>
                                         <td>
-                                            <p className="mb-0 mt-4">{v.price*v.quantity} $</p>
+                                            <p className="mb-0 mt-4">{v.price*v.qyt} $</p>
                                         </td>
                                         <td>
                                             <button className="btn btn-md rounded-circle bg-light border mt-4" onClick={()=>handleRemove(v.id)}>
