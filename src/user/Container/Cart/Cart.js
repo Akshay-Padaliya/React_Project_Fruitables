@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteProToCart, getDataToCart } from '../../../Redux/Action/addCart.action';
 import { decreamentCount, increamentCount } from '../../../Redux/countslice';
+import { decreamentQyt, increamentQyt } from '../../../Redux/Slice/cart.slice';
 
 
 
@@ -85,18 +86,18 @@ function Cart(props) {
                                             <p className="mb-0 mt-4">{v.price} $</p>
                                         </td>
                                         <td>
-                                        <div className="input-group quantity mt-4" style={{ width: 100 }}>
+                                        {/* <div className="input-group quantity mt-4" style={{ width: 100 }}> */}
                                             {/* <Counter value = {v.quantity}/> */}
-                                            </div>
+                                            {/* </div> */}
                                             <div className="input-group quantity mt-4" style={{ width: 100 }}>
                                                 <div className="input-group-btn">
-                                                    <button className="btn btn-sm btn-minus rounded-circle bg-light border" onClick={()=>dispatch(decreamentCount())}>
+                                                    <button className="btn btn-sm btn-minus rounded-circle bg-light border" onClick={()=>dispatch(decreamentQyt(v))}>
                                                         <i className="fa fa-minus" />
                                                     </button>
                                                 </div>
                                                 <input type="text" className="form-control form-control-sm text-center border-0" defaultValue={v.qyt} />
                                                 <div className="input-group-btn">
-                                                    <button className="btn btn-sm btn-plus rounded-circle bg-light border" onClick={()=>dispatch(increamentCount())}>
+                                                    <button className="btn btn-sm btn-plus rounded-circle bg-light border" onClick={()=>dispatch(increamentQyt(v))}>
                                                         <i className="fa fa-plus" />
                                                     </button>
                                                 </div>

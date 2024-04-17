@@ -6,7 +6,7 @@ const initialState = {
     cartDATA: []
 }
 
-export const  cartslice = createSlice({
+export const cartslice = createSlice({
     name: 'cart',
     initialState,
 
@@ -26,21 +26,35 @@ export const  cartslice = createSlice({
             // }else{
             //     state.cartDATA.push(action.payload)
             // }   
-            let index = state.cartDATA.findIndex((v)=>v.pid === action.payload);
+            let index = state.cartDATA.findIndex((v) => v.pid === action.payload);
 
-            
-
-            if(index >= 0 ){
+            if (index >= 0) {
                 state.cartDATA[index].qyt++;
 
-            }else{
-                state.cartDATA.push({pid: action.payload, qyt: 1})
+            } else {
+                state.cartDATA.push({ pid: action.payload, qyt: 1 })
             }
-          
+        },
+        increamentQyt: (state, action) => {
+
+            let index = state.cartDATA.findIndex((v) => v.pid === action.payload.id);
+                state.cartDATA[index].qyt++;
+            
+        },
+
+        decreamentQyt: (state, action) => {
+
+            let index = state.cartDATA.findIndex((v) => v.pid === action.payload.id);
+
+            if (action.payload.qyt > 0) {
+                state.cartDATA[index].qyt--;
+            }
+            state.count -= 1
+
         }
-        incrementQyt : ()
+
     }
 });
 
-export const { addItem } = cartslice.actions
+export const { addItem, increamentQyt, decreamentQyt } = cartslice.actions
 export default cartslice.reducer
