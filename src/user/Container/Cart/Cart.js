@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteProToCart, getDataToCart } from '../../../Redux/Action/addCart.action';
+import { decreamentCount, increamentCount } from '../../../Redux/countslice';
+
 
 
 
 
 function Cart(props) {
 
-    const [disp, setDisp] = useState([])
-
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getDataToCart());
-        getdata()
         // dispatch(getReviews());
       }, []);
 
-    const handleRemove = (id) => {
+    const handleRemove = (id) => {  
         console.log(id);
         dispatch(deleteProToCart(id));
     }
@@ -26,38 +24,19 @@ function Cart(props) {
     const cart = useSelector((state) => state.AddtoCart);
     console.log(cart.cartDATA);
 
-    const getdata = async () => {
-        const response = await fetch('http://localhost:8000/Fruits')
-        const data = await response.json()
-        console.log(data);
+    const productData = useSelector(state=> state.OrganicProducts);
+    console.log(productData.Organic);
 
-      
-
-        const unique = [];
-        data.map((v) => {
+      const cartData =  cart.cartDATA.map((v) => {
+        console.log(v);
+            let data = productData.Organic.find((x)=> x.id == v.pid)
+            console.log(data);
             
-            if (cart.cartDATA.find((x)=> v.id == x.pid)) {
-                // console.log("cf");
-                unique.push({...v,...cart.cartDATA.find((x)=> v.id == x.pid)})
-            }
+            return {...data, qyt: v.qyt }
         }); 
 
-        setDisp(unique);
-        console.log(unique, disp);
-    }
-
-   
-
-
-
-    //   const cartData = useSelector(state => state.cartProduct)
-    //   console.log(cartData.cart);
-
-
-    //   const totalcost = cartData.cart.reduce((acu,v.price)=> acu + v.price,0)
-
     let totalcost = 0;
-    disp.map((v)=> (
+    cartData.map((v)=> (
         totalcost =  totalcost + v.price*v.qyt
     ) )
     console.log(Math.round(totalcost));
@@ -91,7 +70,7 @@ function Cart(props) {
                             </thead>
                             <tbody>
                                 {
-                                    disp.map((v)=>(
+                                    cartData.map((v)=>(
 
                                         <tr>
                                         <th scope="row">
@@ -111,20 +90,20 @@ function Cart(props) {
                                             </div>
                                             <div className="input-group quantity mt-4" style={{ width: 100 }}>
                                                 <div className="input-group-btn">
-                                                    <button className="btn btn-sm btn-minus rounded-circle bg-light border">
+                                                    <button className="btn btn-sm btn-minus rounded-circle bg-light border" onClick={()=>dispatch(decreamentCount())}>
                                                         <i className="fa fa-minus" />
                                                     </button>
                                                 </div>
                                                 <input type="text" className="form-control form-control-sm text-center border-0" defaultValue={v.qyt} />
                                                 <div className="input-group-btn">
-                                                    <button className="btn btn-sm btn-plus rounded-circle bg-light border">
+                                                    <button className="btn btn-sm btn-plus rounded-circle bg-light border" onClick={()=>dispatch(increamentCount())}>
                                                         <i className="fa fa-plus" />
                                                     </button>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <p className="mb-0 mt-4">{v.price*v.qyt} $</p>
+                                            <p className="mb-0 mt-4">{(v.price*v.qyt).toFixed(2)} $</p>
                                         </td>
                                         <td>
                                             <button className="btn btn-md rounded-circle bg-light border mt-4" onClick={()=>handleRemove(v.id)}>

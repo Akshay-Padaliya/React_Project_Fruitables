@@ -10,7 +10,7 @@ export const errorOrganic = (error) => async(dispatch) =>{
 export const getOrganic = () => async (dispatch) => {
     try {
         dispatch(isLodingOrganic())
-        await axios.get(BASE_URL + 'Organic')
+        await axios.get(BASE_URL + 'Fruits')
             .then(res => {
                 console.log(res);
                 console.log(res.data);
@@ -30,7 +30,7 @@ export const getOrganic = () => async (dispatch) => {
 export const addOrganic = (Ndata) => async (dispatch) => {
     dispatch(isLodingOrganic())
     try {
-        await axios.post(BASE_URL + 'Organic', Ndata)
+        await axios.post(BASE_URL + 'Fruits', Ndata)
             .then(res => {
                 console.log(res);
                 console.log(res.data);
@@ -55,7 +55,7 @@ export const editOrganic = (data) => async (dispatch) => {
 
     try {
         await axios
-            .put(BASE_URL + 'Organic/' + data.id, data)
+            .put(BASE_URL + 'Fruits/' + data.id, data)
             .then(res => {
                 console.log(res);
                 console.log(res.data);
@@ -79,7 +79,7 @@ export const deleteOrganic = (id) => async (dispatch) => {
     dispatch(isLodingOrganic())
     try {
         await axios
-            .delete(BASE_URL + 'Organic/' + id)
+            .delete(BASE_URL + 'Fruits/' + id)
             .then(res => {
                 console.log(res);
                 console.log(res.data);

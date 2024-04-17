@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { increamentCount } from "../countslice";
 
 
 const initialState = {
@@ -27,6 +28,8 @@ export const  cartslice = createSlice({
             // }   
             let index = state.cartDATA.findIndex((v)=>v.pid === action.payload);
 
+            
+
             if(index >= 0 ){
                 state.cartDATA[index].qyt++;
 
@@ -35,6 +38,7 @@ export const  cartslice = createSlice({
             }
           
         }
+        incrementQyt : ()
     }
 });
 

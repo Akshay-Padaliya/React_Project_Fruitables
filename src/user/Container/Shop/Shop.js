@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getOrganic } from '../../../Redux/Action/organic.action';
 // import { useMatch, Link, useParams, Switch, Route, Routes, useRoute , useRoutesMatch } from 'react-router-dom';
 
 function Shop(props) {
 
-    const [Fruitesdata, setFruitesdata] = useState([]);
     const [catagory, setCatagory] = useState([]);
     const [selectCat, setselectCat] = useState("");
     const [search, setSearch] = useState('');
@@ -13,20 +14,21 @@ function Shop(props) {
     const [sortdata, setSortData] = useState('');
 
     // console.log(price);
-
+    const dispatch = useDispatch()
     console.log(search, price, type, sortdata);
     useEffect(() => {
         getdata()
+        dispatch(getOrganic());
     }, []);
 
-    const getdata = async () => {
-        const response = await fetch('http://localhost:8000/Fruits')
-        const data = await response.json()
-        console.log(data);
-        setFruitesdata(data);
+    const productData = useSelector(state=> state.OrganicProducts);
+    console.log(productData.Organic);
 
+    
+
+    const getdata = async () => {
         const unique = [];
-        data.map((v) => {
+        productData.Organic.map((v) => {
             if (!unique.includes(v.name)) {
                 unique.push(v.name)
             }
@@ -42,9 +44,9 @@ function Shop(props) {
         let filterData = '';
 
         if (search) {
-            filterData = Fruitesdata.filter((v) => v.name.toLocaleLowerCase().includes(search));
+            filterData = productData.Organic.filter((v) => v.name.toLocaleLowerCase().includes(search));
         } else {
-            filterData = Fruitesdata
+            filterData = productData.Organic
         }
 
         if (selectCat !== "") {
@@ -134,7 +136,7 @@ function Shop(props) {
                                                     <li>
                                                         <div className="d-flex justify-content-between fruite-name" onClick={() => setselectCat('')}>
                                                             <a href="#"><i className="fas fa-apple-alt me-2" />All</a>
-                                                            <span>({Fruitesdata.length})</span>
+                                                            <span>({productData.Organic.length})</span>
                                                         </div>
                                                     </li>
                                                     {
@@ -142,7 +144,7 @@ function Shop(props) {
                                                             <li>
                                                                 <div className="d-flex justify-content-between fruite-name" onClick={() => setselectCat(n)}>
                                                                     <a href="#"><i className="fas fa-apple-alt me-2" />{n}</a>
-                                                                    <span>({Fruitesdata.filter((v) => (v.name == n)).length})</span>
+                                                                    <span>({productData.Organic.filter((v) => (v.name == n)).length})</span>
                                                                 </div>
                                                             </li>
                                                         ))
