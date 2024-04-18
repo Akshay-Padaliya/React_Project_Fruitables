@@ -25,8 +25,6 @@ function Shop(props) {
     const productData = useSelector(state=> state.OrganicProducts);
     console.log(productData.Organic);
 
-    
-
     const getdata = async () => {
         const unique = [];
         productData.Organic.map((v) => {
@@ -150,36 +148,7 @@ function Shop(props) {
                                                             </li>
                                                         ))
                                                     }
-                                                    {/* <li>
-                                                        <div className="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i className="fas fa-apple-alt me-2" />Grapes</a>
-                                                            <span>({Fruitesdata.filter((v)=> v.name === 'Grapes').length})</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div className="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i className="fas fa-apple-alt me-2" />Oranges</a>
-                                                            <span>({Fruitesdata.filter((v)=> v.name === 'Oranges').length})</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div className="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i className="fas fa-apple-alt me-2" />Raspberries</a>
-                                                            <span>({Fruitesdata.filter((v)=> v.name === 'Raspberries').length})</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div className="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i className="fas fa-apple-alt me-2" />Banana</a>
-                                                            <span>({Fruitesdata.filter((v)=> v.name === 'Banana').length})</span>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div className="d-flex justify-content-between fruite-name">
-                                                            <a href="#"><i className="fas fa-apple-alt me-2" />Apricots</a>
-                                                            <span>({Fruitesdata.filter((v)=> v.name === 'Apricots').length})</span>
-                                                        </div>
-                                                    </li> */}
+                                                   
                                                 </ul>
                                             </div>
                                         </div>

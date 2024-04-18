@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteProToCart, getDataToCart } from '../../../Redux/Action/addCart.action';
-import { decreamentCount, increamentCount } from '../../../Redux/countslice';
 import { decreamentQyt, increamentQyt, removeData } from '../../../Redux/Slice/cart.slice';
+import { getOrganic } from '../../../Redux/Action/organic.action';
 
 
 
@@ -15,19 +15,21 @@ function Cart(props) {
     useEffect(() => {
         dispatch(getDataToCart());
         // dispatch(getReviews());
+        dispatch(getOrganic());
       }, []);
 
     const handleRemove = (id) => {  
         console.log(id);
         // dispatch(deleteProToCart(id));
         dispatch(removeData(id))
+       
 
     }
 
     const cart = useSelector((state) => state.AddtoCart);
     console.log(cart.cartDATA);
 
-    const productData = useSelector(state=> state.OrganicProducts);
+    const productData = useSelector(state => state.OrganicProducts);
     console.log(productData.Organic);
 
       const cartData =  cart.cartDATA.map((v) => {

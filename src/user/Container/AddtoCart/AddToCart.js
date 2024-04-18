@@ -8,13 +8,6 @@ import { addItem } from '../../../Redux/Slice/cart.slice';
 
 export default function AddToCart({pid}) {
 
-  const cartdata = useSelector((state) => state.AddtoCart);
-  console.log(cartdata);
-  console.log(cartdata.cartDATA);
-
-  const countVal = useSelector(state => state.counter);
-  console.log(countVal.count);
-
     const dispatch = useDispatch();
 
     const handleAddToCart = ()  => {
@@ -24,10 +17,10 @@ export default function AddToCart({pid}) {
 
   return (
 
-   <Button className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary" onClick={handleAddToCart}>
+   <Button className="btn border border-secondary rounded-pill px-3 py-2 mb-1 text-primary" onClick={handleAddToCart}>
     <i className="fa fa-shopping-bag me-2 text-primary" />
      Add to cart
      </Button>
   )
 }
-    
+// btn border border-secondary rounded-pill px-3 text-primary

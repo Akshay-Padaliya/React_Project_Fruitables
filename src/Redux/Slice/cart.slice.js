@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { increamentCount } from "../countslice";
+
 
 
 const initialState = {
     cartDATA: [],
-    count: 0
+    count: 1
 }
 
 export const cartslice = createSlice({
@@ -33,34 +33,44 @@ export const cartslice = createSlice({
                 state.cartDATA[index].qyt++;
 
             } else {
-                state.cartDATA.push({ pid: action.payload, qyt:  state.count })
+                state.cartDATA.push({ pid: action.payload, qyt: state.count })
+                state.count = 1;
+                alert("Sucssesfuly Add Product to Cart");
             }
         },
         increamentQyt: (state, action) => {
 
-            let index = state.cartDATA.findIndex((v) => v.pid === action.payload);
-                state.cartDATA[index].qyt++;  
-                state.count ++;
+            if (action.payload) {
+                let index = state.cartDATA.findIndex((v) => v.pid === action.payload);
+                state.cartDATA[index].qyt++;
+            } else {
+                state.count++;
+            }
+
         },
 
         decreamentQyt: (state, action) => {
             console.log(action.payload);
-            let index = state.cartDATA.findIndex((v) => v.pid === action.payload);
-            console.log(index);
 
-            if (state.cartDATA[index].qyt > 0) {
-                state.cartDATA[index].qyt--;
+            if (action.payload) {
+                let index = state.cartDATA.findIndex((v) => v.pid === action.payload);
+                console.log(index);
+                if (state.cartDATA[index].qyt > 0) {
+                    state.cartDATA[index].qyt--;
+                }
+            }else{
+                if (state.count > 1) {
+                    state.count--;
+                }
             }
-            if(state.count > 1){
-                state.count --;
-            }
+
         },
-        removeData : (state, action) => {
+        removeData: (state, action) => {
             state.cartDATA = state.cartDATA.filter((v) => v.pid !== action.payload)
         }
 
     }
 });
 
-export const { addItem, increamentQyt, decreamentQyt,removeData } = cartslice.actions
+export const { addItem, increamentQyt, decreamentQyt, removeData } = cartslice.actions
 export default cartslice.reducer
