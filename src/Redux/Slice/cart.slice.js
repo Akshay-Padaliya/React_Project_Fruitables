@@ -3,7 +3,8 @@ import { increamentCount } from "../countslice";
 
 
 const initialState = {
-    cartDATA: []
+    cartDATA: [],
+    count: 0
 }
 
 export const cartslice = createSlice({
@@ -32,29 +33,34 @@ export const cartslice = createSlice({
                 state.cartDATA[index].qyt++;
 
             } else {
-                state.cartDATA.push({ pid: action.payload, qyt: 1 })
+                state.cartDATA.push({ pid: action.payload, qyt:  state.count })
             }
         },
         increamentQyt: (state, action) => {
 
-            let index = state.cartDATA.findIndex((v) => v.pid === action.payload.id);
-                state.cartDATA[index].qyt++;
-            
+            let index = state.cartDATA.findIndex((v) => v.pid === action.payload);
+                state.cartDATA[index].qyt++;  
+                state.count ++;
         },
 
         decreamentQyt: (state, action) => {
+            console.log(action.payload);
+            let index = state.cartDATA.findIndex((v) => v.pid === action.payload);
+            console.log(index);
 
-            let index = state.cartDATA.findIndex((v) => v.pid === action.payload.id);
-
-            if (action.payload.qyt > 0) {
+            if (state.cartDATA[index].qyt > 0) {
                 state.cartDATA[index].qyt--;
             }
-            state.count -= 1
-
+            if(state.count > 1){
+                state.count --;
+            }
+        },
+        removeData : (state, action) => {
+            state.cartDATA = state.cartDATA.filter((v) => v.pid !== action.payload)
         }
 
     }
 });
 
-export const { addItem, increamentQyt, decreamentQyt } = cartslice.actions
+export const { addItem, increamentQyt, decreamentQyt,removeData } = cartslice.actions
 export default cartslice.reducer

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getOrganic } from '../../../Redux/Action/organic.action';
+import AddToCart from '../AddtoCart/AddToCart';
 // import { useMatch, Link, useParams, Switch, Route, Routes, useRoute , useRoutesMatch } from 'react-router-dom';
 
 function Shop(props) {
@@ -303,7 +304,10 @@ function Shop(props) {
                                                                 <p>{v.discription}</p>
                                                                 <div className="d-flex justify-content-between flex-lg-wrap">
                                                                     <p className="text-dark fs-5 fw-bold mb-0">${v.price} / kg</p>
-                                                                    <a href="#" className="btn border border-secondary rounded-pill px-3 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a>
+                                                                    <Link to={`/shop`}>
+                                                                    <AddToCart pid={v.id} />
+                                                                    </Link>
+                                                                    {/* <a href="#" className="btn border border-secondary rounded-pill px-3 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a> */}
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -3,27 +3,19 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialstate = {
     isloding: false,
     error: null,
-    count: 1
+    count: 0
 }
-
-
-
 
 export const counterSlice = createSlice({
     name: 'Counter',
     initialState: initialstate,
     reducers: {
         increamentCount: (state, action) => {
-          return  action.payload.qyt++;
+          state.count += 1
         },
 
         decreamentCount: (state, action) => {
-
-            if (action.payload.qyt > 0) {
-                return action.payload.qyt--;
-            }
             state.count -= 1
-
         }
     }
 

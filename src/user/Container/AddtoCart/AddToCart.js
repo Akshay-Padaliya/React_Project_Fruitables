@@ -12,6 +12,8 @@ export default function AddToCart({pid}) {
   console.log(cartdata);
   console.log(cartdata.cartDATA);
 
+  const countVal = useSelector(state => state.counter);
+  console.log(countVal.count);
 
     const dispatch = useDispatch();
 

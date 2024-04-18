@@ -14,6 +14,7 @@ import AddToCart from '../AddtoCart/AddToCart';
 
 import { addToCart } from '../../../Redux/Action/addCart.action';
 import Counter from '../Counter/Counter';
+import { decreamentQyt, increamentQyt } from '../../../Redux/Slice/cart.slice';
 
 
 function ShopDetails(props) {
@@ -47,6 +48,9 @@ function ShopDetails(props) {
       console.log(error);
     }
   }
+
+  const cart = useSelector((state) => state.AddtoCart);
+  console.log(cart.count);
 
   const handleAddToCart = ()  => {
     console.log("dvdvd");
@@ -128,20 +132,20 @@ function ShopDetails(props) {
                   </div>
                   <p className="mb-4">{fruitDetails?.discription}</p>
                   <p className="mb-4">{fruitDetails?.discription}</p>
-                  <Counter/>
-                  {/* <div className="input-group quantity mb-5" style={{ width: 100 }}>
+                  {/* <Counter/> */}
+                  <div className="input-group quantity mb-5" style={{ width: 100 }}>
                     <div className="input-group-btn">
-                      <button className="btn btn-sm btn-minus rounded-circle bg-light border">
+                      <button  onClick={()=>dispatch(decreamentQyt())} className="btn btn-sm btn-minus rounded-circle bg-light border">
                         <i className="fa fa-minus" />
                       </button>
                     </div>
-                    <input type="text" className="form-control form-control-sm text-center border-0" defaultValue={1} />
+                    <span type="text" className="form-control form-control-sm text-center border-0" >{cart.count} </span>
                     <div className="input-group-btn">
-                      <button className="btn btn-sm btn-plus rounded-circle bg-light border">
+                      <button onClick={()=>dispatch(increamentQyt())} className="btn btn-sm btn-plus rounded-circle bg-light border">
                         <i className="fa fa-plus" />
                       </button>
                     </div>
-                  </div> */}
+                  </div>
                   <AddToCart pid={id} />
                   {/* <Button className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary" onClick={()=>handleAddToCart()}>
                     <i className="fa fa-shopping-bag me-2 text-primary" />
