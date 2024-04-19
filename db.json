@@ -332,5 +332,28 @@
       "type": "Organic",
       "quantity": 2
     }
+  ],
+  "coupon": [
+    {
+      "id": "af5f",
+      "name": "10OFF",
+      "discount": 10,
+      "expiry": "2024-04-30",
+      "createdOn": "4/19/2024"
+    },
+    {
+      "id": "170f",
+      "name": "20OFF",
+      "discount": 20,
+      "expiry": "2024-04-30",
+      "createdOn": "4/19/2024"
+    },
+    {
+      "id": "59fb",
+      "name": "RAM30",
+      "discount": 30,
+      "expiry": "2024-04-17",
+      "createdOn": "4/20/2024"
+    }
   ]
 }

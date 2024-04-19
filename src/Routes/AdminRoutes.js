@@ -7,6 +7,7 @@ import Vegitable from '../Admin/Container/Vegitable/Vegitable';
 import Category from '../Admin/Container/Category/Category';
 import Facilites from '../Admin/Container/Facilites/Facilites';
 import OrganicProducts from '../Admin/Container/OrganicProducts/OrganicProducts';
+import Coupon from '../Admin/Container/Coupon/Coupon';
 
 function AdminRoutes(props) {
     return (
@@ -19,6 +20,7 @@ function AdminRoutes(props) {
                         <Route exact path='/Vegitable' element={<Vegitable />} />
                         <Route exact path='/facilites' element={<Facilites />} />
                         <Route exact path = '/organicProduct' element ={<OrganicProducts/>}/>
+                        <Route exact path = '/coupon' element ={<Coupon/>}/>
                     </Route>
                 </Routes>
             </Layout>

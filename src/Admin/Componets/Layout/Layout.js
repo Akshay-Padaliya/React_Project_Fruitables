@@ -109,6 +109,7 @@ export default function Layout({children}) {
     {title : "Vegetables" , link:"/admin/Vegitable" , icon: <AppleIcon sx={{ color: 'Darkgreen' }}/>},
     {title : "Facilites" , link:"/admin/facilites" , icon: <AppleIcon sx={{ color: 'Darkgreen' }}/>},
     {title : "Organic Products" , link:"/admin/organicProduct" , icon: <FastfoodIcon sx={{ color: 'Darkgreen' }}/>},
+    {title : "Coupon" , link:"/admin/coupon" , icon: <FastfoodIcon sx={{ color: 'Darkgreen' }}/>},
   ]
 
   return (

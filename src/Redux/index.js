@@ -5,6 +5,7 @@ import {reviewReducer} from "../Redux/Reducer/reviews.reducer"
 import { cartReducer } from "./Reducer/addCart.reducer";
 import  counterSlice  from "./countslice";
 import cartSlice from "./Slice/cart.slice";
+import couponSlice from "./Slice/coupon.slice";
 
 
 export const rootReducer = combineReducers({
@@ -14,4 +15,5 @@ export const rootReducer = combineReducers({
     cartProduct: cartReducer,
     counter : counterSlice,
     AddtoCart: cartSlice,
+    coupons: couponSlice,
 })

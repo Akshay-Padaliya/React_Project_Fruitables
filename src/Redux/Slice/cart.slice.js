@@ -13,7 +13,7 @@ export const cartslice = createSlice({
         addItem: (state, action) => {
             console.log(action.payload);
 
-            let index = state.cartDATA.findIndex((v) => v.pid === action.payload.id);
+            let index = state.cartDATA.findIndex((v) => v.pid === action.payload.pid);
 
             if (index >= 0) {
                 state.cartDATA[index].qyt = state.cartDATA[index].qyt + action.payload.qyt
