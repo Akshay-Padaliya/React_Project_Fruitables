@@ -23,6 +23,7 @@ function ShopDetails(props) {
   console.log(id);
 
   const [fruitDetails, setFruitDetails] = useState('');
+  const [quantity , setQuantity] = useState(1)
 
   useEffect(() => {
     getdata()
@@ -135,18 +136,25 @@ function ShopDetails(props) {
                   {/* <Counter/> */}
                   <div className="input-group quantity mb-5" style={{ width: 100 }}>
                     <div className="input-group-btn">
-                      <button  onClick={()=>dispatch(decreamentQyt())} className="btn btn-sm btn-minus rounded-circle bg-light border">
+                      <button  
+                      onClick={()=>setQuantity((prev)=>prev - 1)} 
+                      className="btn btn-sm btn-minus rounded-circle bg-light border"
+                      disabled={quantity === 1}
+                      >
                         <i className="fa fa-minus" />
                       </button>
                     </div>
-                    <span type="text" className="form-control form-control-sm text-center border-0" >{cart.count} </span>
+                    <span type="text" className="form-control form-control-sm text-center border-0" >{quantity} </span>
                     <div className="input-group-btn">
-                      <button onClick={()=>dispatch(increamentQyt())} className="btn btn-sm btn-plus rounded-circle bg-light border">
+                      <button 
+                      onClick={()=>setQuantity((prev)=>prev + 1)} 
+                      className="btn btn-sm btn-plus rounded-circle bg-light border"
+                     >
                         <i className="fa fa-plus" />
                       </button>
                     </div>
                   </div>
-                  <AddToCart pid={id} />
+                  <AddToCart obj = {{pid:id ,qyt: quantity}} />
                   {/* <Button className="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary" onClick={()=>handleAddToCart()}>
                     <i className="fa fa-shopping-bag me-2 text-primary" />
                     Add to cart

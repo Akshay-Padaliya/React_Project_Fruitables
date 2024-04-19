@@ -1,19 +1,20 @@
 
 import { Button } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from '../../../Redux/Slice/cart.slice';
+import { addItem, setCount } from '../../../Redux/Slice/cart.slice';
 // import { addToCart } from '../../../Redux/Action/addCart.action';
 
 
-export default function AddToCart({pid}) {
+export default function AddToCart({obj}) {
 
     const dispatch = useDispatch();
 
     const handleAddToCart = ()  => {
       // dispatch(addToCart())
-      dispatch(addItem(pid));  
+      dispatch(addItem(obj));  
   }
+  
 
   return (
 

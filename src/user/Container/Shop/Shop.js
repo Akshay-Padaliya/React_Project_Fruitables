@@ -274,7 +274,7 @@ function Shop(props) {
                                                                 <div className="d-flex justify-content-between flex-lg-wrap">
                                                                     <p className="text-dark fs-5 fw-bold mb-0">${v.price} / kg</p>
                                                                     <Link to={`/shop`}>
-                                                                    <AddToCart pid={v.id} />
+                                                                    <AddToCart  obj = {{pid:id ,qyt: 1}} />
                                                                     </Link>
                                                                     {/* <a href="#" className="btn border border-secondary rounded-pill px-3 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a> */}
                                                                 </div>
