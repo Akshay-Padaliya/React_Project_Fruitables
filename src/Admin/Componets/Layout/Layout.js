@@ -23,6 +23,10 @@ import Fruites from '../../Container/Fruite/Fruites';
 import Vegitable from '../../Container/Vegitable/Vegitable';
 import { NavLink } from 'react-router-dom';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
+import DiscountIcon from '@mui/icons-material/Discount';
+import CategoryIcon from '@mui/icons-material/Category';
+import BakeryDiningIcon from '@mui/icons-material/BakeryDining';
+import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
 
 const drawerWidth = 240;
 
@@ -104,12 +108,12 @@ export default function Layout({children}) {
   };
 
   const pagelink =[
-    {title : "Category" , link:"/admin/category" , icon: <AppleIcon sx={{ color: 'Darkgreen' }}/>},
+    {title : "Category" , link:"/admin/category" , icon: <CategoryIcon sx={{ color: 'chocolate' }}/>},
     {title : "Fruites" ,  link:"/admin/Fruites", icon: <AppleIcon sx={{ color: 'green' }}/>},
-    {title : "Vegetables" , link:"/admin/Vegitable" , icon: <AppleIcon sx={{ color: 'Darkgreen' }}/>},
-    {title : "Facilites" , link:"/admin/facilites" , icon: <AppleIcon sx={{ color: 'Darkgreen' }}/>},
-    {title : "Organic Products" , link:"/admin/organicProduct" , icon: <FastfoodIcon sx={{ color: 'Darkgreen' }}/>},
-    {title : "Coupon" , link:"/admin/coupon" , icon: <FastfoodIcon sx={{ color: 'Darkgreen' }}/>},
+    {title : "Vegetables" , link:"/admin/Vegitable" , icon: <BakeryDiningIcon sx={{ color: 'indigo' }}/>},
+    {title : "Facilites" , link:"/admin/facilites" , icon: <SpeakerNotesIcon sx={{ color: 'dodgerblue' }}/>},
+    {title : "Organic Products" , link:"/admin/organicProduct" , icon: <FastfoodIcon sx={{ color: 'mediumseagreen' }}/>},
+    {title : "Coupon" , link:"/admin/coupon" , icon: <DiscountIcon sx={{ color: 'blue' }}/>},
   ]
 
   return (

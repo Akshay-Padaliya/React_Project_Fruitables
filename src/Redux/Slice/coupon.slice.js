@@ -4,9 +4,14 @@ import { BASE_URL } from "../../Base/BaseUrl";
 
 export const getCouponData = createAsyncThunk('coupon/getCouponData',
     async () => {
-        const response = await axios.get(BASE_URL + 'coupon')
-        console.log(response.data);
-        return response.data
+        try {
+            const response = await axios.get(BASE_URL + 'coupon')
+            console.log(response.data);
+            return response.data
+        } catch (error) {
+            console.log(error);
+            return error
+        }
     });
 
 export const addCouponData = createAsyncThunk('coupon/addCouponData',
@@ -17,28 +22,38 @@ export const addCouponData = createAsyncThunk('coupon/addCouponData',
             return response.data
         } catch (error) {
             console.log(error);
-            return error
+            return error.message
         }
-       
+
     });
 
 export const editCouponData = createAsyncThunk('coupon/editCouponData',
     async (data) => {
-        const response = await axios.put(BASE_URL + 'coupon/' + data.id, data)
-        console.log(response.data);
-        return response.data
+        try {
+            const response = await axios.put(BASE_URL + 'coupon/' + data.id, data)
+            console.log(response.data);
+            return response.data
+        } catch (error) {
+            console.log(error);
+            return error.message
+        }
     });
 
 export const deleteCouponData = createAsyncThunk('coupon/deleteCouponData',
     async (id) => {
-        const response = await axios.delete(BASE_URL + 'coupon/' + id)
-        return id
+        try {
+            const response = await axios.delete(BASE_URL + 'coupon/' + id)
+            return id
+        } catch (error) {
+            console.log(error.message);
+            return error.message
+        }
     });
 
 
 
 const initialState = {
-    isloding: false,
+    isLoding: false,
     error: null,
     coupon: []
 }
@@ -46,40 +61,57 @@ const initialState = {
 const couponSlice = createSlice({
     name: 'coupon',
     initialState,
-    reducers: {},
-    extraReducers:(builder) => {
-        console.log(builder);
+    reducers: {  },
+    extraReducers: (builder) => {
+       
+        // [getCouponData.fulfilled] : (state, action) => {
+        //     console.log(action.payload);
+        //     state.isLoding = false
+        //     state.coupon = action.payload
+        // }
+        
+         // console.log(builder);
         builder
-        .addCase(getCouponData.pending, (state,action) => {
-            state.isloding = true
-        })
-        builder.addCase(getCouponData.fulfilled, (state,action) => {
-            console.log(action.payload);
-            state.isloding = false
-            state.coupon = action.payload
-        })
-        .addCase(getCouponData.rejected, (state,action) => {
-            state.isloding = false
-            console.log(action.payload);
-            state.error = action.payload
-           
-        })
-        .addCase(addCouponData.fulfilled, (state,action) => {
-            state.isloding = false
-            console.log(action.payload);
-            state.coupon.push(action.payload)
-           
-        })
-        .addCase(editCouponData.fulfilled, (state , action) =>{
-            state.isloding = false
-            console.log(action.payload);
-            state.coupon = state.coupon.map((v) => v.id === action.payload.id ? action.payload : v)
-        })
-        .addCase(deleteCouponData.fulfilled, (state, action) => {
-            state.isloding = false
-            console.log(action.payload);
-            state.coupon = state.coupon.filter((v) => v.id !== action.payload)
-        })
+            .addCase(getCouponData.pending, (state, action) => {
+                console.log(action.payload);
+
+                state.isLoding = true
+            })
+            .addCase(getCouponData.fulfilled, (state, action) => {
+                console.log(action.payload);
+
+                state.isLoding = false
+                state.coupon = action.payload
+            })
+            .addCase(getCouponData.rejected, (state, action) => {
+                console.log(action.payload);
+
+                state.isLoding = false
+                state.error = action.payload
+
+            })
+            .addCase(addCouponData.fulfilled, (state, action) => {
+
+                console.log(action.payload);
+
+                state.isLoding = false
+                state.coupon.push(action.payload)
+
+            })
+            .addCase(editCouponData.fulfilled, (state, action) => {
+
+                console.log(action.payload);
+
+                state.isLoding = false
+                state.coupon = state.coupon.map((v) => v.id === action.payload.id ? action.payload : v)
+            })
+            .addCase(deleteCouponData.fulfilled, (state, action) => {
+
+                console.log(action.payload);
+
+                state.isLoding = false
+                state.coupon = state.coupon.filter((v) => v.id !== action.payload)
+            })
 
     }
 })

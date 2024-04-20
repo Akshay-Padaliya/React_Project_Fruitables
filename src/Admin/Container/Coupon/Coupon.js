@@ -43,13 +43,13 @@ export default function Coupon() {
 
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getCouponData());
-    },[])
+    }, [])
 
-    const couponData = useSelector((state)=>state.coupons)
-    console.log(couponData.coupon);
-    
+    const couponData = useSelector((state) => state.coupons)
+    console.log(couponData);
+
 
     const columns = [
         { field: 'name', headerName: 'Coupon', width: 150, editable: true, },
@@ -62,127 +62,128 @@ export default function Coupon() {
             renderCell: (params) =>
                 <div>
                     <Button className='py-1 border'><EditIcon className='text-success' onClick={() => handleEdit(params.row)} /></Button>
-                    <Button><DeleteIcon className='text-danger' onClick={() => handleDelete(params.row.id)} /></Button>  
+                    <Button><DeleteIcon className='text-danger' onClick={() => handleDelete(params.row.id)} /></Button>
                 </div>,
             editable: false,
         }
     ];
 
-    
+
 
     let couponSchema = object({
         name: string().required(),
         discount: number().required().positive().integer(),
         expiry: date().required(),
-        createdOn: date().default(() => new Date()),
-      });
-      
+    });
+
 
     const formik = useFormik({
         initialValues: {
             name: '',
             discount: '',
             expiry: '',
-            createdOn : '',
         },
         validationSchema: couponSchema,
-        onSubmit: (values, {resetForm}) => {
+        onSubmit: (values, { resetForm }) => {
+            console.log(values);
             if (update) {
                 dispatch(editCouponData(values));
-
             } else {
-                // const id = Math.floor(Math.random() * 1000)
-                dispatch(addCouponData({...values, createdOn: new Date().toLocaleDateString() }))
-             
+                dispatch(addCouponData({ ...values, createdOn: new Date().toLocaleDateString() }))
             }
             resetForm();
-           handleClose()
+            handleClose()
 
-        //   alert(JSON.stringify({...values, createdOn: new Date().toLocaleDateString() }, null, 2));
+            //   alert(JSON.stringify({...values, createdOn: new Date().toLocaleDateString() }, null, 2));
         },
-      });
+    });
 
-      const {handleSubmit,handleChange,handleBlur,values,errors,touched} = formik
+    const { handleSubmit, handleChange, handleBlur, values, errors, touched } = formik
 
     return (
         <>
-            <React.Fragment>
-                <Button variant="outlined" onClick={handleClickOpen}>
-                    Add Coupon
-                </Button>
-                <Dialog
-                    open={open}
-                    onClose={handleClose}
-                >
-                    <DialogTitle>Add Counpon</DialogTitle>
-                    <form onSubmit={handleSubmit}>
-                        <DialogContent>
-                            <TextField
-                                margin="dense"
-                                id="name"
-                                name="name"
-                                label="Enter Coupon"
-                                type="text"
-                                fullWidth
-                                variant="standard"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.name}
-                                error={errors.name && touched.name ? true : false}
-                                helperText={errors.name && touched.name ? errors.name : ''}
-                            />
-                            <TextField
-                                margin="dense"
-                                id="discount"
-                                name="discount"
-                                label="Enter discount"
-                                type="number"
-                                fullWidth
-                                variant="standard"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.discount}
-                                error={errors.discount && touched.discount ? true : false}
-                                helperText={errors.discount && touched.discount ? errors.discount : ''}
-                            />
-                            <TextField
-                                margin="dense"
-                                id="expiry"
-                                name="expiry"
-                                type="date"
-                                fullWidth
-                                variant="standard"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.expiry}
-                                error={errors.expiry && touched.expiry ? true : false}
-                                helperText={errors.expiry && touched.expiry ? errors.expiry : ''}
-                            />
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handleClose}>Cancel</Button>
-                            <Button type="submit">{update ? 'Update' : 'Add'}</Button>
-                        </DialogActions>
-                    </form>
-                </Dialog>
-            </React.Fragment>
+            {couponData.isLoding ? (<h3>Loading....</h3>) :
+                couponData.error ? (<h3>couponData.error</h3>) :
+                <>
+                    <React.Fragment>
+                        <Button variant="outlined" onClick={handleClickOpen} className='my-3'>
+                            Add Coupon Code
+                        </Button>
+                        <Dialog
+                            open={open}
+                            onClose={handleClose}
+                        >
+                            <DialogTitle>Add Coupon</DialogTitle>
+                            <form onSubmit={handleSubmit}>
+                                <DialogContent>
+                                    <TextField
+                                        margin="dense"
+                                        id="name"
+                                        name="name"
+                                        label="Enter Coupon"
+                                        type="text"
+                                        fullWidth
+                                        variant="standard"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.name}
+                                        error={errors.name && touched.name ? true : false}
+                                        helperText={errors.name && touched.name ? errors.name : ''}
+                                    />
+                                    <TextField
+                                        margin="dense"
+                                        id="discount"
+                                        name="discount"
+                                        label="Enter discount"
+                                        type="number"
+                                        fullWidth
+                                        variant="standard"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.discount}
+                                        error={errors.discount && touched.discount ? true : false}
+                                        helperText={errors.discount && touched.discount ? errors.discount : ''}
+                                    />
+                                    <TextField
+                                        margin="dense"
+                                        id="expiry"
+                                        name="expiry"
+                                        type="date"
+                                        fullWidth
+                                        variant="standard"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.expiry}
+                                        error={errors.expiry && touched.expiry ? true : false}
+                                        helperText={errors.expiry && touched.expiry ? errors.expiry : ''}
+                                    />
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={handleClose}>Cancel</Button>
+                                    <Button type="submit">{update ? 'Update' : 'Add'}</Button>
+                                </DialogActions>
+                            </form>
+                        </Dialog>
+                    </React.Fragment>
 
-            <Box sx={{ height: 400, width: '100%' }}>
-                <DataGrid
-                    rows={couponData.coupon}
-                    columns={columns}
-                    initialState={{
-                        pagination: {
-                            paginationModel: {
-                                pageSize: 5,
-                            },
-                        },
-                    }}
-                    pageSizeOptions={[5]}
-                    checkboxSelection
-                    disableRowSelectionOnClick
-                />
-            </Box>
+                    <Box sx={{ height: 400, width: '100%' }}>
+                        <DataGrid
+                            rows={couponData.coupon}
+                            columns={columns}
+                            initialState={{
+                                pagination: {
+                                    paginationModel: {
+                                        pageSize: 5,
+                                    },
+                                },
+                            }}
+                            pageSizeOptions={[5]}
+                            checkboxSelection
+                            disableRowSelectionOnClick
+                        />
+                    </Box>
+                </>    
+            }
         </>
     )
 }

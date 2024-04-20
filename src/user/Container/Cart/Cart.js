@@ -9,9 +9,8 @@ import { getCouponData } from '../../../Redux/Slice/coupon.slice';
 
 function Cart(props) {
 
-    const [inputCode, setInputCode] = useState('');
     const [discount, setDiscount] = useState(0);
-    const [disp, setDisp] = useState(true);
+    const [msg, setMsg] = useState(true);
 
     const dispatch = useDispatch();
 
@@ -23,7 +22,6 @@ function Cart(props) {
 
     const handleRemove = (id) => {
         console.log(id);
-        // dispatch(deleteProToCart(id));
         dispatch(removeData(id))
 
     }
@@ -55,29 +53,35 @@ function Cart(props) {
         validationSchema: couponSchema,
         onSubmit: (values, { resetForm }) => {
             console.log(values.code);
-
             couponData.coupon.map((v) => {
-
                 if (v.name === values.code) {
+                    console.log("Match Code");
+
                     let date = new Date(v.expiry).toLocaleDateString()
-                    if (date > new Date().toLocaleDateString()) {
+                    if (date >= new Date().toLocaleDateString()) {
+                        console.log("code Aplly");
+
                         setDiscount(v.discount)
-                        setDisp('')
+                        setMsg('')
                     } else {
+                        console.log("code Expire");
+
                         setDiscount(0)
-                        setDisp('Your Code is Expire')
+                        setMsg('Your Code is Expire')
                     }
                 } else {
-                    setDisp('Your Code Not Valid')
+                    console.log("not valid");
+
+                    setMsg('Your Code Not Valid')
                 }
 
             })
             formik.resetForm()
         },
     });
-    const { handleSubmit, handleChange, handleBlur, values, errors, touched } = formik
+    const { handleSubmit, handleChange, handleBlur, values, errors } = formik
 
-    const handledisCount = (event) => {
+    // const handledisCount = (event) => {
         // setDiscount(0);
         // setDisp('')
         // event.preventDefault();
@@ -96,15 +100,13 @@ function Cart(props) {
         //     }
 
         // })
-    }
+    // }
 
     let totalcost = 0;
     cartData.map((v) => (
         totalcost = totalcost + v.price * v.qyt
     ))
     console.log(Math.round(totalcost));
-
-
 
     return (
         <div>
@@ -199,8 +201,8 @@ function Cart(props) {
                                 value={values.code}
                             />
                             <button className="btn border-secondary rounded-pill px-4 py-3 text-primary" type="submit" >Apply Coupon</button>
-                            <p className='text-danger'>{errors.code ? errors.code : ''}</p>
-                            {discount > 0 ? <p className='text-success'> your Discount is {discount} </p> : <p className='text-danger'>{disp}</p>}
+                            {errors.code ? <p className='text-danger'>{ errors.code} </p> : ''}
+                            {discount > 0 ? <p className='text-success'> Your Discount is {discount} % </p> : <p className='text-danger'>{msg}</p>}
 
                         </form>
                     </div>
@@ -231,7 +233,7 @@ function Cart(props) {
 
                                 <div className="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                                     <h5 className="mb-0 ps-4 me-4">Total</h5>
-                                    <p className="mb-0 pe-4"> $ {(totalcost).toFixed(2) - (totalcost * discount / 100).toFixed(2) + 3}</p>
+                                    <p className="mb-0 pe-4"> $ {((totalcost) - (totalcost * discount / 100) + 3).toFixed(2)}</p>
                                 </div>
                                 <button className="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Proceed Checkout</button>
                             </div>
