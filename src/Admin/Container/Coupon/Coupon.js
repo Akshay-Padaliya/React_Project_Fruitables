@@ -14,7 +14,7 @@ import { useFormik } from 'formik';
 import { object, string, number, date, InferType } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCouponData, deleteCouponData, editCouponData, getCouponData } from '../../../Redux/Slice/coupon.slice';
-import { addCoupon, getCoupon } from '../../../Redux/Slice/couponN.slice';
+import { addCoupon, deleteCoupon, editCoupon, getCoupon } from '../../../Redux/Slice/couponN.slice';
 
 
 export default function Coupon() {
@@ -40,6 +40,7 @@ export default function Coupon() {
 
     const handleDelete = (id) => {
         // dispatch(deleteCouponData(id));
+        dispatch(deleteCoupon(id))
     }
 
     const dispatch = useDispatch();
@@ -50,7 +51,7 @@ export default function Coupon() {
     }, [])
 
     const couponData = useSelector((state) => state.couponN)
-    console.log(couponData);
+    console.log(couponData.coupon);
 
 
     const columns = [
@@ -70,32 +71,31 @@ export default function Coupon() {
         }
     ];
 
-
-
     let couponSchema = object({
         name: string().required(),
         discount: number().required().positive().integer(),
         expiry: date().required(),
     });
 
-
     const formik = useFormik({
         initialValues: {
             name: '',
             discount: '',
             expiry: '',
+            createdOn: new Date().toLocaleDateString()
         },
         validationSchema: couponSchema,
         onSubmit: (values, { resetForm }) => {
             console.log(values);
             if (update) {
                 // dispatch(editCouponData(values));
+                dispatch(editCoupon(values))
             } else {
                 // dispatch(addCouponData({ ...values, createdOn: new Date().toLocaleDateString() }))
                 dispatch(addCoupon(values));
             }
             resetForm();
-            handleClose()
+            handleClose();
 
             //   alert(JSON.stringify({...values, createdOn: new Date().toLocaleDateString() }, null, 2));
         },

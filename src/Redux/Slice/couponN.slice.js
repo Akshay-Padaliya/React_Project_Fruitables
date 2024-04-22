@@ -17,23 +17,46 @@ export const addCoupon = createAsyncThunk(
         } catch (error) {
             return error.massege
         }
-
     }
-)
+);
 
 export const getCoupon = createAsyncThunk(
     'coupon/get',
     async () => {
         try {
-            const response = await axios.get(BASE_URL + 'coupo')
+            const response = await axios.get(BASE_URL + 'coupon')
             return response.data
         } catch (error) {
             console.log(error);
             return error.message
         }
     }
-)
+);
 
+export const editCoupon = createAsyncThunk(
+    'coupon/edit',
+    async (data) => {
+        try {
+            const response = await axios.put(BASE_URL + 'coupon/' + data.id, data)
+            console.log(response.data);
+            return response.data
+        } catch (error) {
+            console.log(error);
+            return error.message
+        }
+    });
+
+export const deleteCoupon = createAsyncThunk(
+    'coupon/delete',
+    async (id) => {
+        try {
+            const response = await axios.delete(BASE_URL + 'coupon/' + id)
+            return id
+        } catch (error) {
+            console.log(error.message);
+            return error.message
+        }
+    });
 
 const couponNSlice = createSlice({
     name: 'coupon',
@@ -41,20 +64,23 @@ const couponNSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(addCoupon.fulfilled,
-                (state, action) => {
-                    state.coupon = state.coupon.concat(action.payload)
-                })
-            .addCase(getCoupon.fulfilled,
-                (state, action) => {
-                    state.coupon = action.payload
-                })
-            .addCase(getCoupon.rejected,
-                (state, action) => {
-                    console.log(action.error);
-                    state.error = action.error
-                }
-            )
+            .addCase(addCoupon.fulfilled, (state, action) => {
+                state.coupon = state.coupon.concat(action.payload)
+            })
+            .addCase(getCoupon.fulfilled, (state, action) => {
+                state.coupon = action.payload
+            })
+            .addCase(getCoupon.rejected, (state, action) => {
+                console.log(action.error);
+                state.error = action.error
+            })
+            .addCase(editCoupon.fulfilled, (state, action) => {
+                state.coupon = state.coupon.map((v) => v.id === action.payload.id ? action.payload : v)
+            })
+            .addCase(deleteCoupon.fulfilled, (state, action) => {
+                console.log(action.payload);
+                state.coupon = state.coupon.filter((v) => v.id !== action.payload)
+            })
     }
 })
 

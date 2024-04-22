@@ -363,24 +363,11 @@
       "createdOn": "20/04/2024"
     },
     {
-      "id": "61ea",
-      "name": "okok1",
-      "discount": 20,
-      "expiry": "2024-04-30",
-      "createdOn": "20/04/2024"
-    },
-    {
       "id": "eb32",
       "name": "APR25",
       "discount": 20,
       "expiry": "2024-04-30",
       "createdOn": "22/04/2024"
-    },
-    {
-      "id": "df7e",
-      "name": "APR25",
-      "discount": 20,
-      "expiry": "2024-04-28"
     }
   ]
 }
