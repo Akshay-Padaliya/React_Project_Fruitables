@@ -14,6 +14,7 @@ import { useFormik } from 'formik';
 import { object, string, number, date, InferType } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCouponData, deleteCouponData, editCouponData, getCouponData } from '../../../Redux/Slice/coupon.slice';
+import { addCoupon, getCoupon } from '../../../Redux/Slice/couponN.slice';
 
 
 export default function Coupon() {
@@ -38,16 +39,17 @@ export default function Coupon() {
     }
 
     const handleDelete = (id) => {
-        dispatch(deleteCouponData(id));
+        // dispatch(deleteCouponData(id));
     }
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getCouponData());
+        // dispatch(getCouponData());
+        dispatch(getCoupon())
     }, [])
 
-    const couponData = useSelector((state) => state.coupons)
+    const couponData = useSelector((state) => state.couponN)
     console.log(couponData);
 
 
@@ -87,9 +89,10 @@ export default function Coupon() {
         onSubmit: (values, { resetForm }) => {
             console.log(values);
             if (update) {
-                dispatch(editCouponData(values));
+                // dispatch(editCouponData(values));
             } else {
-                dispatch(addCouponData({ ...values, createdOn: new Date().toLocaleDateString() }))
+                // dispatch(addCouponData({ ...values, createdOn: new Date().toLocaleDateString() }))
+                dispatch(addCoupon(values));
             }
             resetForm();
             handleClose()
@@ -102,8 +105,8 @@ export default function Coupon() {
 
     return (
         <>
-            {couponData.isLoding ? (<h3>Loading....</h3>) :
-                couponData.error ? (<h3>couponData.error</h3>) :
+            {/* {couponData.isLoding ? (<h3>Loading....</h3>) :
+                couponData.error ? (<h3>couponData.error</h3>) : */}
                 <>
                     <React.Fragment>
                         <Button variant="outlined" onClick={handleClickOpen} className='my-3'>
@@ -183,7 +186,7 @@ export default function Coupon() {
                         />
                     </Box>
                 </>    
-            }
+            {/* } */}
         </>
     )
 }
