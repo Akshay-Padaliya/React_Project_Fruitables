@@ -11,7 +11,7 @@ import { getCoupon } from '../../../Redux/Slice/couponN.slice';
 function Cart(props) {
 
     const [discount, setDiscount] = useState(0);
-    const [msg, setMsg] = useState();
+    // const [msg, setMsg] = useState('');
 
     const dispatch = useDispatch();
 
@@ -46,42 +46,48 @@ function Cart(props) {
         return { ...data, qyt: v.qyt }
     });
 
-    let flage = true;
+   
 
     const handleCoupon = (code) =>{
+        let flage = 0;
+
         console.log(code);
         couponData.coupon.map((v) => {  
             if (v.name === code) {
-                console.log("Match Code");
 
-                let date = new Date(v.expiry).toLocaleDateString()
-                console.log(date);
-                if (date >= new Date().toLocaleDateString()) {
-                    console.log("code Aplly");
-
-                    setDiscount(v.discount)
-                    setMsg('')
+                let expiryDate = new Date(v.expiry);
+                let currentDate = new Date();
+                console.log(expiryDate,currentDate);
+                if (expiryDate >= currentDate) {
+              
+                    setDiscount(v.discount);
+                    flage = 1;
                 } else {
-                    console.log("code Expire");
-
-                    setDiscount(0)
-                    setMsg(false)
-                  
-                    // setMsg('Your Code is Expire')
-                }
-               
-            } else {
-                console.log("not valid");
-                setMsg(true)
-                flage = false
-                // setMsg('Your Code Not Valid')
+                    flage = 2;
+                    setDiscount(0)          
+                }   
             }
 
-        })
+        });
+
+        if(flage === 0){
+            console.log('Coupon Not Valid');
+            formik.setFieldError("code", 'Coupon Not Valid')
+            // setMsg('Your Code Not Valid');
+        }else if(flage === 1){
+            console.log('Coupon applied successfully');
+            formik.setFieldError("code", 'Coupon applied successfully')
+            // setMsg('Your Code is Apply');
+        }else if (flage === 2){
+            console.log('Coupon is Expire');
+            formik.setFieldError("code", 'Coupon is Expire')
+            // setMsg('Your Code is Expire');
+        }
+        console.log(discount,errors.code)
     }
 
     let couponSchema = object({
-        code: string().required(),
+        code: string().required('Enter Coupon Code'),
     });
     const formik = useFormik({
         initialValues: {
@@ -94,7 +100,7 @@ function Cart(props) {
             formik.resetForm()
         },
     });
-    const { handleSubmit, handleChange, handleBlur, values, errors } = formik
+    const { handleSubmit, handleChange, handleBlur, values, errors,touched } = formik
 
     // const handledisCount = (event) => {
         // setDiscount(0);
@@ -210,14 +216,14 @@ function Cart(props) {
                                 placeholder="Coupon Code"
                                 id="code"
                                 name="code"
-                                // onChange = {e => setInputCode(e.target.value)}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.code}
                             />
                             <button className="btn border-secondary rounded-pill px-4 py-3 text-primary" type="submit" >Apply Coupon</button>
-                            {errors.code ? <p className='text-danger'>{ errors.code} </p> : ''}
-                            {discount > 0 ? <p className='text-success'> Your Discount is {discount} % </p> : <p className='text-danger'>{msg === true ? 'Your Code Not Valid' : '' }{msg === false ? 'Your code is Expried' : '' } </p>}
+                           
+                            {errors.code && discount > 0 ? <p className='text-success'>{errors.code} & Discount is {discount} % </p> : <p className='text-danger'>{errors.code}</p>}
+                            {/* {discount > 0 ? <p className='text-success'> Your Discount is {discount} % </p> : <p className='text-danger'>{msg === true ? 'Your Code Not Valid' : '' }{msg === false ? 'Your code is Expried' : '' } </p>} */}
 
                         </form>
                     </div>
