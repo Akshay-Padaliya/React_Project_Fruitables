@@ -6,11 +6,12 @@ import { getOrganic } from '../../../Redux/Action/organic.action';
 import { useFormik } from 'formik';
 import { object, string, number, date, InferType } from 'yup';
 import { getCouponData } from '../../../Redux/Slice/coupon.slice';
+import { getCoupon } from '../../../Redux/Slice/couponN.slice';
 
 function Cart(props) {
 
     const [discount, setDiscount] = useState(0);
-    const [msg, setMsg] = useState(true);
+    const [msg, setMsg] = useState();
 
     const dispatch = useDispatch();
 
@@ -18,6 +19,8 @@ function Cart(props) {
         dispatch(getDataToCart());
         dispatch(getOrganic());
         dispatch(getCouponData());
+        dispatch(getCoupon());
+
     }, []);
 
     const handleRemove = (id) => {
@@ -32,7 +35,7 @@ function Cart(props) {
     const productData = useSelector(state => state.OrganicProducts);
     console.log(productData.Organic);
 
-    const couponData = useSelector((state) => state.coupons)
+    const couponData = useSelector((state) => state.couponN)
     console.log(couponData.coupon);
 
     const cartData = cart.cartDATA.map((v) => {
@@ -42,6 +45,40 @@ function Cart(props) {
 
         return { ...data, qyt: v.qyt }
     });
+
+    let flage = true;
+
+    const handleCoupon = (code) =>{
+        console.log(code);
+        couponData.coupon.map((v) => {  
+            if (v.name === code) {
+                console.log("Match Code");
+
+                let date = new Date(v.expiry).toLocaleDateString()
+                console.log(date);
+                if (date >= new Date().toLocaleDateString()) {
+                    console.log("code Aplly");
+
+                    setDiscount(v.discount)
+                    setMsg('')
+                } else {
+                    console.log("code Expire");
+
+                    setDiscount(0)
+                    setMsg(false)
+                  
+                    // setMsg('Your Code is Expire')
+                }
+               
+            } else {
+                console.log("not valid");
+                setMsg(true)
+                flage = false
+                // setMsg('Your Code Not Valid')
+            }
+
+        })
+    }
 
     let couponSchema = object({
         code: string().required(),
@@ -53,29 +90,7 @@ function Cart(props) {
         validationSchema: couponSchema,
         onSubmit: (values, { resetForm }) => {
             console.log(values.code);
-            couponData.coupon.map((v) => {
-                if (v.name === values.code) {
-                    console.log("Match Code");
-
-                    let date = new Date(v.expiry).toLocaleDateString()
-                    if (date >= new Date().toLocaleDateString()) {
-                        console.log("code Aplly");
-
-                        setDiscount(v.discount)
-                        setMsg('')
-                    } else {
-                        console.log("code Expire");
-
-                        setDiscount(0)
-                        setMsg('Your Code is Expire')
-                    }
-                } else {
-                    console.log("not valid");
-
-                    setMsg('Your Code Not Valid')
-                }
-
-            })
+            handleCoupon(values.code)
             formik.resetForm()
         },
     });
@@ -202,7 +217,7 @@ function Cart(props) {
                             />
                             <button className="btn border-secondary rounded-pill px-4 py-3 text-primary" type="submit" >Apply Coupon</button>
                             {errors.code ? <p className='text-danger'>{ errors.code} </p> : ''}
-                            {discount > 0 ? <p className='text-success'> Your Discount is {discount} % </p> : <p className='text-danger'>{msg}</p>}
+                            {discount > 0 ? <p className='text-success'> Your Discount is {discount} % </p> : <p className='text-danger'>{msg === true ? 'Your Code Not Valid' : '' }{msg === false ? 'Your code is Expried' : '' } </p>}
 
                         </form>
                     </div>

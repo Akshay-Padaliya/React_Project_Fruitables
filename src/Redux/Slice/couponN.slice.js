@@ -67,20 +67,20 @@ const couponNSlice = createSlice({
             .addCase(addCoupon.fulfilled, (state, action) => {
                 state.coupon = state.coupon.concat(action.payload)
             })
-            .addCase(getCoupon.fulfilled, (state, action) => {
-                state.coupon = action.payload
-            })
-            .addCase(getCoupon.rejected, (state, action) => {
-                console.log(action.error);
-                state.error = action.error
-            })
-            .addCase(editCoupon.fulfilled, (state, action) => {
-                state.coupon = state.coupon.map((v) => v.id === action.payload.id ? action.payload : v)
-            })
-            .addCase(deleteCoupon.fulfilled, (state, action) => {
-                console.log(action.payload);
-                state.coupon = state.coupon.filter((v) => v.id !== action.payload)
-            })
+        builder.addCase(getCoupon.fulfilled, (state, action) => {
+            state.coupon = action.payload
+        })
+        builder.addCase(getCoupon.rejected, (state, action) => {
+            console.log(action.error);
+            state.error = action.error
+        })
+        builder.addCase(editCoupon.fulfilled, (state, action) => {
+            state.coupon = state.coupon.map((v) => v.id === action.payload.id ? action.payload : v)
+        })
+        builder.addCase(deleteCoupon.fulfilled, (state, action) => {
+            console.log(action.payload);
+            state.coupon = state.coupon.filter((v) => v.id !== action.payload)
+        })
     }
 })
 

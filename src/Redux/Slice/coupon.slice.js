@@ -77,20 +77,20 @@ const couponSlice = createSlice({
 
                 state.isLoding = true
             })
-            .addCase(getCouponData.fulfilled, (state, action) => {
+            builder.addCase(getCouponData.fulfilled, (state, action) => {
                 console.log(action.payload);
 
                 state.isLoding = false
                 state.coupon = action.payload
             })
-            .addCase(getCouponData.rejected, (state, action) => {
+            builder.addCase(getCouponData.rejected, (state, action) => {
                 console.log(action.payload);
 
                 state.isLoding = false
                 state.error = action.payload
 
             })
-            .addCase(addCouponData.fulfilled, (state, action) => {
+            builder.addCase(addCouponData.fulfilled, (state, action) => {
 
                 console.log(action.payload);
 
@@ -98,14 +98,14 @@ const couponSlice = createSlice({
                 state.coupon.push(action.payload)
 
             })
-            .addCase(editCouponData.fulfilled, (state, action) => {
+            builder.addCase(editCouponData.fulfilled, (state, action) => {
 
                 console.log(action.payload);
 
                 state.isLoding = false
                 state.coupon = state.coupon.map((v) => v.id === action.payload.id ? action.payload : v)
             })
-            .addCase(deleteCouponData.fulfilled, (state, action) => {
+            builder.addCase(deleteCouponData.fulfilled, (state, action) => {
 
                 console.log(action.payload);
 
