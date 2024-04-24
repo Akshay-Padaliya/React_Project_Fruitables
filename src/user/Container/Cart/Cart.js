@@ -46,44 +46,57 @@ function Cart(props) {
         return { ...data, qyt: v.qyt }
     });
 
-   
 
-    const handleCoupon = (code) =>{
+
+    const handleCoupon = (code) => {
         let flage = 0;
-
         console.log(code);
-        couponData.coupon.map((v) => {  
-            if (v.name === code) {
 
-                let expiryDate = new Date(v.expiry);
-                let currentDate = new Date();
-                console.log(expiryDate,currentDate);
-                if (expiryDate >= currentDate) {
-              
-                    setDiscount(v.discount);
-                    flage = 1;
-                } else {
-                    flage = 2;
-                    setDiscount(0)          
-                }   
+        if (cart.cartDATA.length > 0) {
+
+
+            couponData.coupon.map((v) => {
+                if (v.name === code) {
+
+                    let expiryDate = new Date(v.expiry);
+                    let currentDate = new Date();
+                    console.log(expiryDate.getFullYear(), currentDate.getFullYear());
+                    console.log(expiryDate.getMonth(), currentDate.getMonth());
+                    console.log(expiryDate.getDate(), currentDate.getDate());
+
+                    if (expiryDate.getFullYear() >= currentDate.getFullYear()) {
+                        if (expiryDate.getMonth() >= currentDate.getMonth()) {
+                            if (expiryDate.getDate() >= currentDate.getDate()) {
+                                setDiscount(v.discount);
+                                flage = 1;
+                            } else {
+                                flage = 2;
+                                setDiscount(0)
+                            }
+                        }
+                    }
+                }
+
+
+            });
+
+            if (flage === 0) {
+                console.log('Coupon Not Valid');
+                formik.setFieldError("code", 'Coupon Not Valid')
+                // setMsg('Your Code Not Valid');
+            } else if (flage === 1) {
+                console.log('Coupon applied successfully');
+                formik.setFieldError("code", 'Coupon applied successfully')
+                // setMsg('Your Code is Apply');
+            } else if (flage === 2) {
+                console.log('Coupon is Expire');
+                formik.setFieldError("code", 'Coupon is Expire')
+                // setMsg('Your Code is Expire');
             }
-
-        });
-
-        if(flage === 0){
-            console.log('Coupon Not Valid');
-            formik.setFieldError("code", 'Coupon Not Valid')
-            // setMsg('Your Code Not Valid');
-        }else if(flage === 1){
-            console.log('Coupon applied successfully');
-            formik.setFieldError("code", 'Coupon applied successfully')
-            // setMsg('Your Code is Apply');
-        }else if (flage === 2){
-            console.log('Coupon is Expire');
-            formik.setFieldError("code", 'Coupon is Expire')
-            // setMsg('Your Code is Expire');
+            console.log(discount, errors.code)
+        }else{
+            alert("Your Cart is Empty")
         }
-        console.log(discount,errors.code)
     }
 
     let couponSchema = object({
@@ -94,34 +107,14 @@ function Cart(props) {
             code: ''
         },
         validationSchema: couponSchema,
+        
         onSubmit: (values, { resetForm }) => {
             console.log(values.code);
             handleCoupon(values.code)
-            formik.resetForm()
+            // formik.resetForm()
         },
     });
-    const { handleSubmit, handleChange, handleBlur, values, errors,touched } = formik
-
-    // const handledisCount = (event) => {
-        // setDiscount(0);
-        // setDisp('')
-        // event.preventDefault();
-        // couponData.coupon.map((v) => {
-        //     if (v.name === inputCode) {
-        //         let date = new Date(v.expiry).toLocaleDateString()
-        //         if (date > new Date().toLocaleDateString()) {
-        //             setDiscount(v.discount)
-        //             setDisp('')
-        //         } else {
-        //             setDiscount(0)
-        //             setDisp('Your Code Expire')
-        //         }
-        //     } else {
-        //         setDisp('Your Code Not Valid')
-        //     }
-
-        // })
-    // }
+    const { handleSubmit, handleChange, handleBlur, values, errors, touched } = formik
 
     let totalcost = 0;
     cartData.map((v) => (
@@ -221,8 +214,8 @@ function Cart(props) {
                                 value={values.code}
                             />
                             <button className="btn border-secondary rounded-pill px-4 py-3 text-primary" type="submit" >Apply Coupon</button>
-                           
-                            {errors.code && discount > 0 ? <p className='text-success'>{errors.code} & Discount is {discount} % </p> : <p className='text-danger'>{errors.code}</p>}
+
+                            {errors.code && discount > 0 ? <><h6 className='text-success'>{errors.code}</h6> <h6 className='text-success'>& Discount is {discount} % </h6></> : <p className='text-danger'>{errors.code}</p>}
                             {/* {discount > 0 ? <p className='text-success'> Your Discount is {discount} % </p> : <p className='text-danger'>{msg === true ? 'Your Code Not Valid' : '' }{msg === false ? 'Your code is Expried' : '' } </p>} */}
 
                         </form>
@@ -239,7 +232,10 @@ function Cart(props) {
                                     </div>
                                     {discount > 0 ?
                                         (<div className="d-flex justify-content-between mb-4">
-                                            <h5 className="mb-0 me-4 text-success">Discount:</h5>
+                                            <div>
+                                                <h5 className="mb-0 me-4 text-success">Discount :</h5>
+                                                <p className="mb-0 me-4 text-success">(Discount is {discount} %)</p>
+                                            </div>
                                             <p className="mb-0 text-success">$ {(totalcost * discount / 100).toFixed(2)}</p>
                                         </div>) : ''
                                     }
@@ -254,7 +250,7 @@ function Cart(props) {
 
                                 <div className="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                                     <h5 className="mb-0 ps-4 me-4">Total</h5>
-                                    <p className="mb-0 pe-4"> $ {((totalcost) - (totalcost * discount / 100) + 3).toFixed(2)}</p>
+                                    <p className="mb-0 pe-4"> $ {((totalcost) - (totalcost * discount / 100) + (totalcost > 0 ? 3 : 0)).toFixed(2)}</p>
                                 </div>
                                 <button className="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Proceed Checkout</button>
                             </div>
