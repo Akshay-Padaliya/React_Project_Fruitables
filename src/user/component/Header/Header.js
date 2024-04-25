@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 import { getDataToCart } from '../../../Redux/Action/addCart.action';
+import { ThemeContex } from '../../../Context/ThemeContex';
 
 
 function Header(props) {
@@ -21,6 +21,12 @@ function Header(props) {
 
    const cartQyt = cartdata.cartDATA.reduce((acc , v, i) => acc + v.qyt,0)
 
+   const themecontex = useContext(ThemeContex);
+   console.log(themecontex);
+
+   const handleTheme = () =>{
+    themecontex.themeToggle(themecontex.theme)
+   }
 
     return (
             <div>
@@ -36,6 +42,7 @@ function Header(props) {
         <div className="top-info ps-2">
           <small className="me-3"><i className="fas fa-map-marker-alt me-2 text-secondary" /> <a href="#" className="text-white">123 Street, New York</a></small>
           <small className="me-3"><i className="fas fa-envelope me-2 text-secondary" /><a href="#" className="text-white">Email@Example.com</a></small>
+         
         </div>
         <div className="top-link pe-2">
           <a href="#" className="text-white"><small className="text-white mx-2">Privacy Policy</small>/</a>
@@ -67,6 +74,7 @@ function Header(props) {
             <NavLink to="/contact" className="nav-item nav-link">Contact</NavLink>
           </div>
           <div className="d-flex m-3 me-0">
+            <button className='btn border-secondary btn border bg-white me-4' onClick={handleTheme}>Theme</button>
             <button className="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i className="fas fa-search text-primary" /></button>
             <NavLink to="/cart" className="position-relative me-4 my-auto">
               <i className="fa fa-shopping-bag fa-2x" />

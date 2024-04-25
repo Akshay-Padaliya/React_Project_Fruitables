@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Header from '../user/component/Header/Header';
 import Home from '../user/Container/Home/Home';
 import Footer from '../user/component/Footer/Footer';
@@ -12,11 +12,15 @@ import ErrorPage from '../user/Container/404Page/404Page';
 import Contact from '../user/Container/Contact/Contact';
 import UseParams from '../user/Container/useparams/UseParams';
 import PriveteRoutes from './PriveteRoutes';
+import { ThemeContex } from '../Context/ThemeContex';
 
 function UserRoutes(props) {
+
+  const themecontex = useContext(ThemeContex);
+   console.log(themecontex.theme);
   return (
     <>
-
+      <div className={themecontex.theme}>
       <Header />
       {/* <Route exact path="/" element={<Header/>}/> */}
       <Routes>
@@ -34,6 +38,7 @@ function UserRoutes(props) {
         <Route exact path="/contact" element={<Contact />} />
       </Routes>
       <Footer />
+      </div>
     </>
   );
 }
