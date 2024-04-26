@@ -144,7 +144,7 @@ function ShopDetails(props) {
                         <i className="fa fa-minus" />
                       </button>
                     </div>
-                    <span type="text" className="form-control form-control-sm text-center border-0" >{quantity} </span>
+                    <span className="form-control-sm text-center border-0 px-3" >{quantity} </span>
                     <div className="input-group-btn">
                       <button 
                       onClick={()=>setQuantity((prev)=>prev + 1)} 

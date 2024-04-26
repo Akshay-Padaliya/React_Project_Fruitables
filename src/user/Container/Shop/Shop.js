@@ -115,9 +115,9 @@ function Shop(props) {
                                 </div>
                                 <div className="col-6" />
                                 <div className="col-xl-3">
-                                    <div className="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-                                        <label htmlFor="fruits">Default Sorting:</label>
-                                        <select id="fruits" name="fruitlist" className="border-0 form-select-sm bg-light me-3" form="fruitform" onChange={(e) => setSortData(e.target.value)}>
+                                    <div className="bg-light ps-2 py-2 rounded d-flex justify-content-between mb-4">
+                                        <label htmlFor="fruits" className='my-2'>Default Sorting:</label>
+                                        <select id="fruits" name="fruitlist" className="border-0 form-select-sm bg-light me-3 p-2" form="fruitform" onChange={(e) => setSortData(e.target.value)}>
                                             <option value="">----select----</option>
                                             <option value="lh">Price:Low to High</option>
                                             <option value="hl">Price:High to Low</option>

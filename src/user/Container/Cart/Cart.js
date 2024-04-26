@@ -60,24 +60,15 @@ function Cart(props) {
 
                     let expiryDate = new Date(v.expiry);
                     let currentDate = new Date();
-                    console.log(expiryDate.getFullYear(), currentDate.getFullYear());
-                    console.log(expiryDate.getMonth(), currentDate.getMonth());
-                    console.log(expiryDate.getDate(), currentDate.getDate());
 
-                    if (expiryDate.getFullYear() >= currentDate.getFullYear()) {
-                        if (expiryDate.getMonth() >= currentDate.getMonth()) {
-                            if (expiryDate.getDate() >= currentDate.getDate()) {
+                    if (expiryDate >= currentDate) {
                                 setDiscount(v.discount);
                                 flage = 1;
                             } else {
                                 flage = 2;
                                 setDiscount(0)
                             }
-                        }
-                    }
                 }
-
-
             });
 
             if (flage === 0) {
@@ -178,7 +169,7 @@ function Cart(props) {
                                                             <i className="fa fa-minus" />
                                                         </button>
                                                     </div>
-                                                    <span className="form-control form-control-sm text-center border-0" >{v.qyt}</span>
+                                                    <span className="form-control-sm text-center border-0 px-2" >{v.qyt}</span>
                                                     <div className="input-group-btn">
                                                         <button className="btn btn-sm btn-plus rounded-circle bg-light border" onClick={() => dispatch(increamentQyt(v.id))}>
                                                             <i className="fa fa-plus" />

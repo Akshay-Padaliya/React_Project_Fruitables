@@ -494,18 +494,107 @@
     line-height: 35px;
 }
 /*** Footer End ***/
+
+
 .error{
     color: red;
     margin: 0;
 }
 
+
 .dark {
-    background: rgb(15, 15, 15) !important;
+    background-image: none !important;
+    background-color: black;
+    color: white;
+}
+
+.light {
+    background-color: white;
+    color: black;
+}
+
+.dark .navbar {
+    background-color: black !important;
     color: white !important;
 }
 
-.light{
-    background: white;
-    /* color: black !important; */
+.dark .hero-header {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/hero-img.jpg);
+}
+.dark .page-header {    
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../img/cart-page-header-img.jpg);
+}
+.dark .fixed-top {
+    transition: 0.5s;
+    background: black;
+    border: 0;
+}
+
+/* .dark h1 {
+    color: white !important;
+} */
+
+.dark h4 {
+    color: white !important;
+}
+
+.dark .bg-light {
+    background-color: rgb(71, 71, 71) !important;
+    color: white !important;
+} 
+.dark .bg-light :where(h1,h5,p){
+    color: rgba(255, 255, 255, 0.89);
+}
+
+.dark .bg-white {
+    background-color: black !important;
+}
+
+.dark a {
+    color: white !important;
+}
+
+.dark .text-end .text-dark {
+    color: white !important;
+}
+
+.dark .bg-secondary {
+    background: #7a5712 !important
+}
+
+.dark .ps-3 {
+    color: black !important; 
+    background-color: white !important;
+}
+
+.dark .fruitText {
+    background-color: white !important;
+}
+
+.dark .fs-5 {
+    color: greenyellow !important;
+}
+
+.dark .fruit {
+    color: white !important;
+}
+
+.dark .fruitPrice {
+    color: orangered !important;
+}
+
+.dark .fruitQuant {
+    color: white !important;
+}
+
+.dark .blackininput {
+    color: white !important;
+    background-color: black !important;
+}
+
+.dark .fruitquantinhead {
+    color: orangered !important;
+    font-weight: bolder;
+    background-color: greenyellow !important;
 }
 
