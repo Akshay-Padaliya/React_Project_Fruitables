@@ -369,5 +369,21 @@
       "expiry": "2024-04-27",
       "createdOn": "22/04/2024"
     }
+  ],
+  "contact": [
+    {
+      "id": "c516",
+      "address": "asadad",
+      "phoneNo": 1234567890,
+      "email": "Fkskjfsjckd@gmail.com",
+      "createdOn": "29/04/2024"
+    },
+    {
+      "id": "36d8",
+      "address": "dfgdg",
+      "phoneNo": 4654545,
+      "email": "Fkskjfsjckd@gmail.com",
+      "createdOn": "29/04/2024"
+    }
   ]
 }

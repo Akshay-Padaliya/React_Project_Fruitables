@@ -8,6 +8,7 @@ import Category from '../Admin/Container/Category/Category';
 import Facilites from '../Admin/Container/Facilites/Facilites';
 import OrganicProducts from '../Admin/Container/OrganicProducts/OrganicProducts';
 import Coupon from '../Admin/Container/Coupon/Coupon';
+import Contact from '../Admin/Container/Contact/Contact';
 
 function AdminRoutes(props) {
     return (
@@ -21,6 +22,8 @@ function AdminRoutes(props) {
                         <Route exact path='/facilites' element={<Facilites />} />
                         <Route exact path = '/organicProduct' element ={<OrganicProducts/>}/>
                         <Route exact path = '/coupon' element ={<Coupon/>}/>
+                        <Route exact path = '/contact' element ={<Contact/>}/>
+
                     </Route>
                 </Routes>
             </Layout>

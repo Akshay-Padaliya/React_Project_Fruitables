@@ -114,6 +114,7 @@ export default function Layout({children}) {
     {title : "Facilites" , link:"/admin/facilites" , icon: <SpeakerNotesIcon sx={{ color: 'dodgerblue' }}/>},
     {title : "Organic Products" , link:"/admin/organicProduct" , icon: <FastfoodIcon sx={{ color: 'mediumseagreen' }}/>},
     {title : "Coupon" , link:"/admin/coupon" , icon: <DiscountIcon sx={{ color: 'blue' }}/>},
+    {title : "Contact" , link:"/admin/contact" , icon: <DiscountIcon sx={{ color: 'blue' }}/>},
   ]
 
   return (
