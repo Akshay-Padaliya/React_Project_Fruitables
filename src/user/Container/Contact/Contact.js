@@ -1,6 +1,7 @@
 import React from 'react';
 import { object, string, number, date, InferType } from 'yup';
 import { useFormik } from 'formik';
+import Input from '../../component/UI/Input/Input';
 
 
 function Contact(props) {
@@ -57,10 +58,9 @@ function Contact(props) {
                             <div className="col-lg-7">
                                 <form onSubmit={handleSubmit}>
                                     <div className='mb-4' >
-                                        <input
+                                        <Input
                                             name='name'
                                             type="text"
-                                            className="w-100 form-control border-0 py-3"
                                             placeholder="Your Name"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
@@ -69,7 +69,7 @@ function Contact(props) {
                                         <span className='error'>{errors.name && touched.name ? errors.name : ''}</span>
                                     </div>
                                     <div className='mb-4'>
-                                        <input
+                                        <Input
                                             name='email'
                                             type="email"
                                             className="w-100 form-control border-0 py-3"
@@ -81,9 +81,8 @@ function Contact(props) {
                                         <span className='error'>{errors.email && touched.email ? errors.email : ''}</span>
                                     </div>
                                     <div className='mb-4'>
-                                        <textarea
+                                        <Input
                                             name='message'
-                                            className="w-100 form-control border-0"
                                             rows={5} cols={10}
                                             placeholder="Your Message"
                                             defaultValue={""}

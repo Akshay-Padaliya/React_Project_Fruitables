@@ -14,7 +14,6 @@ export const ThemeProvider = ({ children }) => {
     const themeToggle = (val) => {
          const newTheme = val === 'light' ? 'dark' : 'light';
         dispatch({type: TOGGLE_THEME, payload: newTheme});
-
     }
         return (
             <ThemeContex.Provider

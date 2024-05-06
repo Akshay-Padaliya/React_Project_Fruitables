@@ -7,6 +7,7 @@ import { useFormik } from 'formik';
 import { object, string, number, date, InferType } from 'yup';
 import { getCouponData } from '../../../Redux/Slice/coupon.slice';
 import { getCoupon } from '../../../Redux/Slice/couponN.slice';
+import Button from '../../component/UI/Button/Button';
 
 function Cart(props) {
 
@@ -243,7 +244,8 @@ function Cart(props) {
                                     <h5 className="mb-0 ps-4 me-4">Total</h5>
                                     <p className="mb-0 pe-4"> $ {((totalcost) - (totalcost * discount / 100) + (totalcost > 0 ? 3 : 0)).toFixed(2)}</p>
                                 </div>
-                                <button className="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Proceed Checkout</button>
+                                <Button>Proceed Checkout</Button>
+                                {/* <button className="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Proceed Checkout</button> */}
                             </div>
                         </div>
                     </div>
