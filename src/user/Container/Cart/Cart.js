@@ -63,12 +63,12 @@ function Cart(props) {
                     let currentDate = new Date();
 
                     if (expiryDate >= currentDate) {
-                                setDiscount(v.discount);
-                                flage = 1;
-                            } else {
-                                flage = 2;
-                                setDiscount(0)
-                            }
+                        setDiscount(v.discount);
+                        flage = 1;
+                    } else {
+                        flage = 2;
+                        setDiscount(0)
+                    }
                 }
             });
 
@@ -86,7 +86,7 @@ function Cart(props) {
                 // setMsg('Your Code is Expire');
             }
             console.log(discount, errors.code)
-        }else{
+        } else {
             alert("Your Cart is Empty")
         }
     }
@@ -99,7 +99,7 @@ function Cart(props) {
             code: ''
         },
         validationSchema: couponSchema,
-        
+
         onSubmit: (values, { resetForm }) => {
             console.log(values.code);
             handleCoupon(values.code)
@@ -244,7 +244,11 @@ function Cart(props) {
                                     <h5 className="mb-0 ps-4 me-4">Total</h5>
                                     <p className="mb-0 pe-4"> $ {((totalcost) - (totalcost * discount / 100) + (totalcost > 0 ? 3 : 0)).toFixed(2)}</p>
                                 </div>
-                                <Button>Proceed Checkout</Button>
+                                <Button
+                                    btnDisble={true}
+                                >
+                                    Proceed Checkout
+                                </Button>
                                 {/* <button className="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Proceed Checkout</button> */}
                             </div>
                         </div>

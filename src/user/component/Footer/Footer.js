@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../UI/Button/Button';
 
 function Footer(props) {
     return (
@@ -17,7 +18,14 @@ function Footer(props) {
           <div className="col-lg-6">
             <div className="position-relative mx-auto">
               <input className="form-control border-0 w-100 py-3 px-4 rounded-pill" type="number" placeholder="Your Email" />
-              <button type="submit" className="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white" style={{top: 0, right: 0}}>Subscribe Now</button>
+              <Button 
+              btnType='secondary'
+              type="submit"
+              className='position-absolute'
+              style={{ top: 0, right: 0 }}
+              >
+                Subscribe Now
+              </Button>
             </div>
           </div>
           <div className="col-lg-3">

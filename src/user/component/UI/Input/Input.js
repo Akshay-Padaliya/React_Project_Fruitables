@@ -1,12 +1,17 @@
 
 import React from 'react';
-import { BaseInput } from './input.style';
+import { BaseInput, SpanError } from './input.style';
 
-function Input({...rest}) {
+function Input({ errorText, ...rest }) {
     return (
-        <BaseInput
-        {...rest}
-        />
+        <>
+            <BaseInput
+                {...rest}
+            />
+            <SpanError>
+                {errorText}
+            </SpanError>
+        </>
     );
 }
 

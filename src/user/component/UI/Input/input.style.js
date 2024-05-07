@@ -17,4 +17,16 @@ export const BaseInput = styled.input`
     appearance: none;
     border-radius: 10px;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+    &:focus{
+    color: #747d88;
+    background-color: #fff;
+    border-color: #c0e284;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(129, 196, 8, .25);
+    }
+`
+
+export const SpanError = styled.span`
+    color : red
 `

@@ -65,32 +65,36 @@ function Contact(props) {
                                             onChange={handleChange}
                                             onBlur={handleBlur}
                                             value={values.name}
+                                            errorText ={errors.name && touched.name ? errors.name : ''}
                                         />
-                                        <span className='error'>{errors.name && touched.name ? errors.name : ''}</span>
+                                      
                                     </div>
                                     <div className='mb-4'>
                                         <Input
                                             name='email'
                                             type="email"
-                                            className="w-100 form-control border-0 py-3"
+                                         
                                             placeholder="Enter Your Email"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
                                             value={values.email}
+                                            errorText ={errors.email && touched.email ? errors.email : ''}
                                         />
-                                        <span className='error'>{errors.email && touched.email ? errors.email : ''}</span>
+                                      
                                     </div>
                                     <div className='mb-4'>
                                         <Input
                                             name='message'
+                                            className=''
                                             rows={5} cols={10}
                                             placeholder="Your Message"
                                             defaultValue={""}
                                             onChange={handleChange}
                                             onBlur={handleBlur}
                                             value={values.message}
+                                            errorText ={errors.message && touched.message ? errors.message : ''}
                                         />
-                                        <span className='error'>{errors.message && touched.message ? errors.message : ''}</span>
+                                       
                                     </div>
                                     <button className="w-100 btn form-control border-secondary py-3 bg-white text-primary " type="submit">Submit</button>
                                 </form>
