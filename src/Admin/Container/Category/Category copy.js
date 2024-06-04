@@ -16,18 +16,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 function Category(props) {
 
     const [open, setOpen] = useState(false);
-    const [data , setData] = useState([]);
-    const [update , setUpdate] = useState(null);
+    const [data, setData] = useState([]);
+    const [update, setUpdate] = useState(null);
     // console.log(update);
-   
-    const getdata = async()=>{
-        // let ldata = JSON.parse(localStorage.getItem('category'));
-        // if(ldata){
-        //     setData(ldata);
-        // }
 
+    const getdata = async () => {
         try {
-            const res = await fetch("http://localhost:6000/api/v1/categories/list-categories");
+            const res = await fetch("http://localhost:8000/api/v1/categories/list-categories");
             const data = await res.json();
             console.log(data.data);
             setData(data.data);
@@ -35,11 +30,17 @@ function Category(props) {
         } catch (err) {
             console.log(err);
         }
+        // let ldata = JSON.parse(localStorage.getItem('category'));
+
+        // if(ldata){
+        //     setData(ldata);
+        // }
+
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getdata();
-    },[])
+    }, [])
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -51,36 +52,39 @@ function Category(props) {
         formik.resetForm();
     };
 
-    const handleDelete = async(id) =>{
-        console.log(id);
+    const handleDelete = async (id) => {
+
         try {
-            await fetch("http://localhost:6000/api/v1/categories/delete-category/" + id, {
+            await fetch("http://localhost:8000/api/v1/categories/delete-categories/" + id, {
                 method: "DELETE"
             });
         } catch (error) {
             console.log(error);
         }
+
         getdata();
+
+
+        // console.log(id);
 
         // let newData = data.filter((item) => item.id !== id);
         // localStorage.setItem('category', JSON.stringify(newData));
 
-        // setData(newData);
     }
 
-    const handleEdit = (data) =>{
+    const handleEdit = (data) => {
         console.log(data);
         formik.setValues(data);
         setOpen(true);
 
-        setUpdate(data.id);
+        setUpdate(data._id);
 
     }
-    const handleUpdate = async(data) =>{
+    const handleUpdate = async (data) => {
         console.log(data);
 
         try {
-            await fetch("http://localhost:6000/api/v1/categories/update-category/" + data._id, {
+            await fetch("http://localhost:8000/api/v1/categories/update-categories/" + data._id, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -91,28 +95,16 @@ function Category(props) {
             console.log(error);
         }
         getdata();
-        
-        // let localData = JSON.parse(localStorage.getItem('category'));
-        // console.log(localData);
-  
-        // let index = localData.findIndex((a)=> a.id == update);
-        // console.log(index);
-
-        // localData[index] = values;
-        // localStorage.setItem('category', JSON.stringify(localData));
-
-        // getdata();
     }
 
     let categorySchema = object({
-        category: string().required().matches(/^[a-zA-Z'-\s]*$/, 'Invalid name').min(2, 'use a valid name').max(15, 'use a valid name'),
-        discription: string().required().min(10, 'Message is  too short')
+        name: string().required().matches(/^[a-zA-Z'-\s]*$/, 'Invalid name').min(2, 'use a valid name').max(15, 'use a valid name'),
+        description: string().required().min(10, 'Message is  too short')
     })
 
-    const handleAdd = async(data) => {
-
+    const handleAdd = async (data) => {
         try {
-            await fetch("http://localhost:6000/api/v1/categories/add-category", {
+            await fetch("http://localhost:8000/api/v1/categories/add-categories", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -125,56 +117,42 @@ function Category(props) {
         }
         getdata();
 
-        // const rNo = Math.floor(Math.random()*1000);
-        // console.log(data);
-
-        // let localData = JSON.parse(localStorage.getItem('category'));
-        // console.log(localData);
-
-        // if (localData) {
-        //     localData.push({...data , id: rNo});
-        //     localStorage.setItem('category', JSON.stringify(localData));
-        // } else {
-        //     localStorage.setItem('category', JSON.stringify([{...data , id: rNo}]));
-        // }
-        // getdata();
-
     }
 
     const formik = useFormik({
         initialValues: {
-            category: '',
-            discription: '',
+            name: '',
+            description: '',
         },
         validationSchema: categorySchema,
         onSubmit: (values, { resetForm }) => {
             handleClose();
             resetForm();
 
-            if(update){
+            if (update) {
                 handleUpdate(values);
-            }else{
+            } else {
                 handleAdd(values);
             }
         },
- 
+
     });
     const columns = [
-        { field: 'category', headerName: 'category', width: 200 },
-        { field: 'discription', headerName: 'discription', width: 200 },
+        { field: 'name', headerName: 'category', width: 200 },
+        { field: 'description', headerName: 'discription', width: 200 },
         {
             field: 'action',
             headerName: 'Delete',
             sortable: false,
             renderCell: (params) => (
-            <>
-            <DeleteIcon onClick={()=>handleDelete(params.row.id)} />
-            <EditIcon onClick={()=>handleEdit(params.row)} />
-            </>),
+                <>
+                    <DeleteIcon onClick={() => handleDelete(params.row._id)} />
+                    <EditIcon onClick={() => handleEdit(params.row)} />
+                </>),
         },
 
-    ];  
-    
+    ];
+
     const { handleSubmit, handleChange, handleBlur, errors, values, touched } = formik;
 
     return (
@@ -196,30 +174,32 @@ function Category(props) {
 
                             <TextField
                                 margin="dense"
-                                name="category"
+                                name="name"
+                                id="name"
                                 label="Enter category"
                                 type="text"
                                 fullWidth
                                 variant="standard"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.category}
-                                error={errors.category && touched.category ? true : false}
-                                helperText={errors.category}
+                                value={values.name}
+                                error={errors.name && touched.name ? true : false}
+                                helperText={errors.name}
                             />
 
                             <TextField
                                 margin="dense"
-                                name="discription"
+                                name="description"
+                                id="description"
                                 label="Enter category discription"
                                 type="text"
                                 fullWidth
                                 variant="standard"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.discription}
-                                error={errors.discription && touched.discription ? true : false}
-                                helperText={errors.discription}
+                                value={values.description}
+                                error={errors.description && touched.description ? true : false}
+                                helperText={errors.description}
                             />
                             <DialogActions>
                                 <Button onClick={handleClose}>Cancel</Button>
@@ -234,6 +214,7 @@ function Category(props) {
             <div className='p-5' style={{ width: '100%' }}>
                 <DataGrid
                     rows={data}
+                    getRowId={(row) => row._id}
                     columns={columns}
                     initialState={{
                         pagination: {
