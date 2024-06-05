@@ -138,7 +138,7 @@ function Category(props) {
 
     }
     let categorySchema = object({
-        name: string().required().matches(/^[a-zA-Z'-\s]*$/, 'Invalid name').min(2, 'use a valid name').max(15, 'use a valid name'),
+        name: string().required().matches(/^[a-zA-Z'-\s]*$/, 'Invalid name').min(2, 'use a valid name').max(20, 'use a valid name'),
         description: string().required().min(10, 'Message is  too short')
     })
 
@@ -162,7 +162,7 @@ function Category(props) {
     });
     const columns = [
         { field: 'name', headerName: 'category', width: 200 },
-        { field: 'description', headerName: 'discription', width: 200 },
+        { field: 'description', headerName: 'discription', width: 400 },
         {
             field: 'action',
             headerName: 'Delete',

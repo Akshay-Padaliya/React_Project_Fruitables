@@ -11,36 +11,49 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useEffect } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
+import axios from 'axios';
 
 
-function Category(props) {
+function SubCategory(props) {
 
     const [open, setOpen] = useState(false);
-    const [data, setData] = useState([]);
-    const [update, setUpdate] = useState(null);
-    // console.log(update);
-
-    const getdata = async () => {
+    const [data , setData] = useState([]);
+    const [categories , setCategories] = useState([]);
+    const [update , setUpdate] = useState(null);
+   
+    const getdata = async()=>{
+     
         try {
-            const res = await fetch("http://localhost:8000/api/v1/categories/list-categories");
-            const data = await res.json();
-            console.log(data.data);
-            setData(data.data);
+            await axios.get("http://localhost:9000/api/v1/subcategories/list-subcategories")
+            .then((response)=>{
+                console.log(response.data.data);
+                setData(response.data.data);
+            })
+            .catch((error)=>{
+                console.log(error);
+            })  
+        } catch (err) {
+            console.log(err);
+        }
+        try {
+            await axios.get("http://localhost:9000/api/v1/categories/list-categories")
+            .then((response)=>{
+                console.log(response.data.data);
+                setCategories(response.data.data);
+            })
+            .catch((error)=>{
+                console.log(error);
+            }) 
 
         } catch (err) {
             console.log(err);
         }
-        // let ldata = JSON.parse(localStorage.getItem('category'));
-
-        // if(ldata){
-        //     setData(ldata);
-        // }
-
     }
 
-    useEffect(() => {
+    useEffect(()=>{
         getdata();
-    }, [])
+    },[])
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -52,27 +65,23 @@ function Category(props) {
         formik.resetForm();
     };
 
-    const handleDelete = async (id) => {
-
+    const handleDelete = async(id) =>{
+        console.log(id);
         try {
-            await fetch("http://localhost:8000/api/v1/categories/delete-categories/" + id, {
-                method: "DELETE"
-            });
+            await axios.delete("http://localhost:9000/api/v1/subcategories/delete-subcategory/" + id)
+            .then((response)=>{
+                console.log(response.data.data);
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
         } catch (error) {
             console.log(error);
         }
-
         getdata();
-
-
-        // console.log(id);
-
-        // let newData = data.filter((item) => item.id !== id);
-        // localStorage.setItem('category', JSON.stringify(newData));
-
     }
 
-    const handleEdit = (data) => {
+    const handleEdit = (data) =>{
         console.log(data);
         formik.setValues(data);
         setOpen(true);
@@ -80,37 +89,32 @@ function Category(props) {
         setUpdate(data._id);
 
     }
-    const handleUpdate = async (data) => {
+    const handleUpdate = async(data) =>{
         console.log(data);
 
         try {
-            await fetch("http://localhost:8000/api/v1/categories/update-categories/" + data._id, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
+            await axios.put("http://localhost:9000/api/v1/subcategories/update-subcategory/" + data._id, data)
+            .then(res => {
+                console.log(res.data.data);
+            })
+            .catch((error) => {
+                console.log(error.message);
             })
         } catch (error) {
             console.log(error);
         }
         getdata();
+        
     }
+    const handleAdd = async(data) => {
 
-    let categorySchema = object({
-        name: string().required().matches(/^[a-zA-Z'-\s]*$/, 'Invalid name').min(2, 'use a valid name').max(15, 'use a valid name'),
-        description: string().required().min(10, 'Message is  too short')
-    })
-
-    const handleAdd = async (data) => {
         try {
-            await fetch("http://localhost:8000/api/v1/categories/add-categories", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-
+            await axios.post("http://localhost:9000/api/v1/subcategories/add-subcategory",data)
+            .then((response)=>{
+                console.log(response.data.data);
+            })
+            .catch((error)=>{
+               console.log(error);
             })
         } catch (err) {
             console.log(err);
@@ -118,41 +122,48 @@ function Category(props) {
         getdata();
 
     }
+    let subcategorySchema = object({
+        name: string().required().matches(/^[a-zA-Z'-\s]*$/, 'Invalid name').min(2, 'use a valid name').max(30, 'use a valid name'),
+        description: string().required().min(10, 'Message is  too short')
+    })
 
     const formik = useFormik({
         initialValues: {
             name: '',
             description: '',
+            categories_id: ''
         },
-        validationSchema: categorySchema,
+        validationSchema: subcategorySchema,
         onSubmit: (values, { resetForm }) => {
             handleClose();
             resetForm();
 
-            if (update) {
+            if(update){
                 handleUpdate(values);
-            } else {
+            }else{
                 handleAdd(values);
             }
         },
-
+ 
     });
     const columns = [
-        { field: 'name', headerName: 'category', width: 200 },
-        { field: 'description', headerName: 'discription', width: 200 },
+        { field: 'categories_id', headerName: 'Category', width: 300 },
+        { field: 'name', headerName: 'Subcategory', width: 200 },
+        { field: 'description', headerName: 'discription', width: 600 },
         {
             field: 'action',
             headerName: 'Delete',
             sortable: false,
+            width: 250,
             renderCell: (params) => (
-                <>
-                    <DeleteIcon onClick={() => handleDelete(params.row._id)} />
-                    <EditIcon onClick={() => handleEdit(params.row)} />
-                </>),
+            <>
+             <Button className='py-1 border'><DeleteIcon className='text-danger' onClick={()=>handleDelete(params.row._id)} /></Button>
+             <Button className='py-1 border'><EditIcon className='text-success' onClick={()=>handleEdit(params.row)} /></Button>
+            </>),
         },
 
-    ];
-
+    ];  
+    
     const { handleSubmit, handleChange, handleBlur, errors, values, touched } = formik;
 
     return (
@@ -161,22 +172,39 @@ function Category(props) {
             <React.Fragment >
                 <div className='m-4 mx-5 d-flex justify-content-end'>
                     <Button variant="outlined" color='primary' onClick={handleClickOpen}>
-                        Add Category
+                        Add SubCategory
                     </Button>
                 </div>
                 <Dialog
                     open={open}
                     onClose={handleClose}
                 >
-                    <DialogTitle className='text-cente'> Category </DialogTitle>
+                    <DialogTitle className='text-cente'> SubCategory </DialogTitle>
                     <form onSubmit={handleSubmit}>
                         <DialogContent style={{ width: 500 }}>
+                        <InputLabel id="demo-simple-select-filled-label">Category</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-filled-label"
+                        id="demo-simple-select-filled"
+                         margin="dense"
+                         name="categories_id"
+                         label="category"
+                         fullWidth
+                         variant="standard"
+                         onChange={handleChange}
+                         onBlur={handleBlur}
+                         error={errors.categories_id && touched.categories_id ? true : false}
+                         >
+                            {categories.map((v)=>(
+                                <MenuItem value = {v._id}> {v.name} </MenuItem>
+                            ))}
+                        </Select>
+                        <FormHelperText>{errors.categories_id}</FormHelperText>
 
                             <TextField
                                 margin="dense"
                                 name="name"
-                                id="name"
-                                label="Enter category"
+                                label="Enter name"
                                 type="text"
                                 fullWidth
                                 variant="standard"
@@ -190,8 +218,7 @@ function Category(props) {
                             <TextField
                                 margin="dense"
                                 name="description"
-                                id="description"
-                                label="Enter category discription"
+                                label="Enter category description"
                                 type="text"
                                 fullWidth
                                 variant="standard"
@@ -214,18 +241,18 @@ function Category(props) {
             <div className='p-5' style={{ width: '100%' }}>
                 <DataGrid
                     rows={data}
-                    getRowId={(row) => row._id}
                     columns={columns}
                     initialState={{
                         pagination: {
                             paginationModel: { page: 0, pageSize: 5 },
                         },
                     }}
-                    pageSizeOptions={[5, 10]}
+                    pageSizeOptions={[10, 20]}
                     checkboxSelection
+                    getRowId={(row)=>row._id}
                 />
             </div>
         </>
     );
 }
-export default Category;
+export default SubCategory;
