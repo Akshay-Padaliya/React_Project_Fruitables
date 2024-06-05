@@ -27,7 +27,7 @@ function Category(props) {
         // }
 
         try {
-            const res = await fetch("http://localhost:6000/api/v1/categories/list-categories");
+            const res = await fetch("http://localhost:9000/api/v1/categories/list-categories");
             const data = await res.json();
             console.log(data.data);
             setData(data.data);
@@ -54,7 +54,7 @@ function Category(props) {
     const handleDelete = async(id) =>{
         console.log(id);
         try {
-            await fetch("http://localhost:6000/api/v1/categories/delete-category/" + id, {
+            await fetch("http://localhost:9000/api/v1/categories/delete-category/" + id, {
                 method: "DELETE"
             });
         } catch (error) {
@@ -73,14 +73,14 @@ function Category(props) {
         formik.setValues(data);
         setOpen(true);
 
-        setUpdate(data.id);
+        setUpdate(data._id);
 
     }
     const handleUpdate = async(data) =>{
         console.log(data);
 
         try {
-            await fetch("http://localhost:6000/api/v1/categories/update-category/" + data._id, {
+            await fetch("http://localhost:9000/api/v1/categories/update-category/" + data._id, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -104,15 +104,12 @@ function Category(props) {
         // getdata();
     }
 
-    let categorySchema = object({
-        category: string().required().matches(/^[a-zA-Z'-\s]*$/, 'Invalid name').min(2, 'use a valid name').max(15, 'use a valid name'),
-        discription: string().required().min(10, 'Message is  too short')
-    })
+    
 
     const handleAdd = async(data) => {
 
         try {
-            await fetch("http://localhost:6000/api/v1/categories/add-category", {
+            await fetch("http://localhost:9000/api/v1/categories/add-category", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -140,11 +137,15 @@ function Category(props) {
         // getdata();
 
     }
+    let categorySchema = object({
+        name: string().required().matches(/^[a-zA-Z'-\s]*$/, 'Invalid name').min(2, 'use a valid name').max(15, 'use a valid name'),
+        description: string().required().min(10, 'Message is  too short')
+    })
 
     const formik = useFormik({
         initialValues: {
-            category: '',
-            discription: '',
+            name: '',
+            description: '',
         },
         validationSchema: categorySchema,
         onSubmit: (values, { resetForm }) => {
@@ -160,15 +161,15 @@ function Category(props) {
  
     });
     const columns = [
-        { field: 'category', headerName: 'category', width: 200 },
-        { field: 'discription', headerName: 'discription', width: 200 },
+        { field: 'name', headerName: 'category', width: 200 },
+        { field: 'description', headerName: 'discription', width: 200 },
         {
             field: 'action',
             headerName: 'Delete',
             sortable: false,
             renderCell: (params) => (
             <>
-            <DeleteIcon onClick={()=>handleDelete(params.row.id)} />
+            <DeleteIcon onClick={()=>handleDelete(params.row._id)} />
             <EditIcon onClick={()=>handleEdit(params.row)} />
             </>),
         },
@@ -196,30 +197,30 @@ function Category(props) {
 
                             <TextField
                                 margin="dense"
-                                name="category"
-                                label="Enter category"
+                                name="name"
+                                label="Enter name"
                                 type="text"
                                 fullWidth
                                 variant="standard"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.category}
-                                error={errors.category && touched.category ? true : false}
-                                helperText={errors.category}
+                                value={values.name}
+                                error={errors.name && touched.name ? true : false}
+                                helperText={errors.name}
                             />
 
                             <TextField
                                 margin="dense"
-                                name="discription"
-                                label="Enter category discription"
+                                name="description"
+                                label="Enter category description"
                                 type="text"
                                 fullWidth
                                 variant="standard"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.discription}
-                                error={errors.discription && touched.discription ? true : false}
-                                helperText={errors.discription}
+                                value={values.description}
+                                error={errors.description && touched.description ? true : false}
+                                helperText={errors.description}
                             />
                             <DialogActions>
                                 <Button onClick={handleClose}>Cancel</Button>
@@ -242,6 +243,7 @@ function Category(props) {
                     }}
                     pageSizeOptions={[5, 10]}
                     checkboxSelection
+                    getRowId={(row)=>row._id}
                 />
             </div>
         </>
