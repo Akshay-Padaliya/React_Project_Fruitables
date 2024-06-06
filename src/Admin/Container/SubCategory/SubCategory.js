@@ -147,7 +147,12 @@ function SubCategory(props) {
  
     });
     const columns = [
-        { field: 'categories_id', headerName: 'Category', width: 300 },
+        { field: 'categories_id', headerName: 'Category', width: 300 ,
+        renderCell : (params)=>{
+            const category = categories.find((v)=>v._id == params.row.categories_id )
+            return category ? category.name : ''
+        }
+        },
         { field: 'name', headerName: 'Subcategory', width: 200 },
         { field: 'description', headerName: 'discription', width: 600 },
         {
@@ -193,6 +198,7 @@ function SubCategory(props) {
                          variant="standard"
                          onChange={handleChange}
                          onBlur={handleBlur}
+                         value={values.categories_id}
                          error={errors.categories_id && touched.categories_id ? true : false}
                          >
                             {categories.map((v)=>(

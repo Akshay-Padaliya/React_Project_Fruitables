@@ -24,7 +24,6 @@ export const addCouponData = createAsyncThunk('coupon/addCouponData',
             console.log(error);
             return error.message
         }
-
     });
 
 export const editCouponData = createAsyncThunk('coupon/editCouponData',
@@ -48,7 +47,7 @@ export const deleteCouponData = createAsyncThunk('coupon/deleteCouponData',
             console.log(error.message);
             return error.message
         }
-    });
+    }); 
 
 
 
