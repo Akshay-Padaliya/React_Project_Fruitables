@@ -11,35 +11,22 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useEffect } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCategory, deleteCategory, getCategories, updateCategory } from '../../../Redux/Action/category.action';
 
 
 function Category(props) {
 
     const [open, setOpen] = useState(false);
-    const [data , setData] = useState([]);
-    const [update , setUpdate] = useState(null);
-    // console.log(update);
-   
-    const getdata = async()=>{
-        // let ldata = JSON.parse(localStorage.getItem('category'));
-        // if(ldata){
-        //     setData(ldata);
-        // }
+    const [update, setUpdate] = useState(null);
 
-        try {
-            const res = await fetch("http://localhost:9000/api/v1/categories/list-categories");
-            const data = await res.json();
-            console.log(data.data);
-            setData(data.data);
+    const dispatch = useDispatch();
+    const category = useSelector((state) => state.Categories);
+    console.log(category.categories);
 
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    useEffect(()=>{
-        getdata();
-    },[])
+    useEffect(() => {
+        dispatch(getCategories())
+    }, [])
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -51,24 +38,12 @@ function Category(props) {
         formik.resetForm();
     };
 
-    const handleDelete = async(id) =>{
-        console.log(id);
-        try {
-            await fetch("http://localhost:9000/api/v1/categories/delete-category/" + id, {
-                method: "DELETE"
-            });
-        } catch (error) {
-            console.log(error);
-        }
-        getdata();
-
-        // let newData = data.filter((item) => item.id !== id);
-        // localStorage.setItem('category', JSON.stringify(newData));
-
-        // setData(newData);
+    const handleDelete = (id) => {
+        // console.log(id);
+        dispatch(deleteCategory(id))
     }
 
-    const handleEdit = (data) =>{
+    const handleEdit = (data) => {
         console.log(data);
         formik.setValues(data);
         setOpen(true);
@@ -76,67 +51,7 @@ function Category(props) {
         setUpdate(data._id);
 
     }
-    const handleUpdate = async(data) =>{
-        console.log(data);
 
-        try {
-            await fetch("http://localhost:9000/api/v1/categories/update-category/" + data._id, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            })
-        } catch (error) {
-            console.log(error);
-        }
-        getdata();
-        
-        // let localData = JSON.parse(localStorage.getItem('category'));
-        // console.log(localData);
-  
-        // let index = localData.findIndex((a)=> a.id == update);
-        // console.log(index);
-
-        // localData[index] = values;
-        // localStorage.setItem('category', JSON.stringify(localData));
-
-        // getdata();
-    }
-
-    
-
-    const handleAdd = async(data) => {
-
-        try {
-            await fetch("http://localhost:9000/api/v1/categories/add-category", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-
-            })
-        } catch (err) {
-            console.log(err);
-        }
-        getdata();
-
-        // const rNo = Math.floor(Math.random()*1000);
-        // console.log(data);
-
-        // let localData = JSON.parse(localStorage.getItem('category'));
-        // console.log(localData);
-
-        // if (localData) {
-        //     localData.push({...data , id: rNo});
-        //     localStorage.setItem('category', JSON.stringify(localData));
-        // } else {
-        //     localStorage.setItem('category', JSON.stringify([{...data , id: rNo}]));
-        // }
-        // getdata();
-
-    }
     let categorySchema = object({
         name: string().required().matches(/^[a-zA-Z'-\s]*$/, 'Invalid name').min(2, 'use a valid name').max(20, 'use a valid name'),
         description: string().required().min(10, 'Message is  too short')
@@ -152,13 +67,13 @@ function Category(props) {
             handleClose();
             resetForm();
 
-            if(update){
-                handleUpdate(values);
-            }else{
-                handleAdd(values);
+            if (update) {
+                dispatch(updateCategory(values))
+            } else {
+                dispatch(addCategory(values))
             }
         },
- 
+
     });
     const columns = [
         { field: 'name', headerName: 'category', width: 200 },
@@ -168,14 +83,14 @@ function Category(props) {
             headerName: 'Delete',
             sortable: false,
             renderCell: (params) => (
-            <>
-            <DeleteIcon onClick={()=>handleDelete(params.row._id)} />
-            <EditIcon onClick={()=>handleEdit(params.row)} />
-            </>),
+                <>
+                    <DeleteIcon onClick={() => handleDelete(params.row._id)} />
+                    <EditIcon onClick={() => handleEdit(params.row)} />
+                </>),
         },
 
-    ];  
-    
+    ];
+
     const { handleSubmit, handleChange, handleBlur, errors, values, touched } = formik;
 
     return (
@@ -234,7 +149,7 @@ function Category(props) {
 
             <div className='p-5' style={{ width: '100%' }}>
                 <DataGrid
-                    rows={data}
+                    rows={category.categories}
                     columns={columns}
                     initialState={{
                         pagination: {
@@ -243,7 +158,7 @@ function Category(props) {
                     }}
                     pageSizeOptions={[5, 10]}
                     checkboxSelection
-                    getRowId={(row)=>row._id}
+                    getRowId={(row) => row._id}
                 />
             </div>
         </>

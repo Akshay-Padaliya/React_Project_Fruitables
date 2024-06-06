@@ -22,5 +22,8 @@ export const DELETE_TO_CART = 'DELETE_TO_CART';
 export const GET_DATA_TO_CART = 'GET_DATA_TO_CART';
 export const ERROR = 'ERROR';
 
-
+export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const ADD_CATEGORY = 'ADD_CATEGORY';
+export const DELETE_CATEGORY = 'DELETE_CATEGORY';
+export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
 
