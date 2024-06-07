@@ -25,8 +25,9 @@ export const addCategory = (data) => async(dispatch)=>{
             body: JSON.stringify(data)
 
         })
-        console.log(response.data);
-        dispatch({type: ADD_CATEGORY, payload : response.data})
+        const res = await response.json();
+        console.log(res.data);
+        dispatch({type: ADD_CATEGORY, payload : res.data})
 
     } catch (error) {
         dispatch(errorCategory(error.message))

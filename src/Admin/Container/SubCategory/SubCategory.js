@@ -11,7 +11,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useEffect } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
+import { Backdrop, CircularProgress, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
 import { addSubCategory, deleteSubCategory, getSubCategories, updateSubCategory } from '../../../Redux/Slice/subcategory.slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../../Redux/Action/category.action';
@@ -24,6 +24,7 @@ function SubCategory(props) {
 
     const subc = useSelector((state) => state.SubCategories)
     console.log(subc.subCategories);
+    console.log(subc.isloding);
 
     const category = useSelector((state) => state.Categories);
     console.log(category.categories);
@@ -111,8 +112,20 @@ function SubCategory(props) {
     const { handleSubmit, handleChange, handleBlur, errors, values, touched } = formik;
 
     return (
-
-        <>
+        <> {subc.isloding ? 
+        (
+            <h2>Loading......</h2>
+        // <Backdrop
+        //     sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        //     open={open}
+        //     onClick={handleClose}
+        //   >
+        //     <CircularProgress color="inherit" />
+        //   </Backdrop>
+        )
+        : subc.error ? <h2>{subc.error}</h2> :
+            (
+                <>
             <React.Fragment >
                 <div className='m-4 mx-5 d-flex justify-content-end'>
                     <Button variant="outlined" color='primary' onClick={handleClickOpen}>
@@ -199,7 +212,9 @@ function SubCategory(props) {
                     getRowId={(row) => row._id}
                 />
             </div>
+            </>
+            )}
         </>
     );
 }
-export default SubCategory;
+export default SubCategory; 
