@@ -50,6 +50,19 @@ export const updateSubCategory = createAsyncThunk(
     }
 );
 
+export const filteredSubCategory = createAsyncThunk(
+    'subCategory/filterd',
+    async (id) => {
+        try {
+            const response = await axios.get("http://localhost:9000/api/v1/subcategories/filter-subcategories/" + id)
+            return response.data.data
+        } catch (error) {
+            return error.massege
+        }
+    }
+);
+
+
 const initialState = {
     isloding: false,
     error: null,
@@ -65,6 +78,9 @@ const subcategoriesSlice = createSlice({
                 state.subCategories = state.subCategories.concat(action.payload)
             })
             .addCase(getSubCategories.fulfilled, (state, action) => {
+                state.subCategories = action.payload
+            })
+            .addCase(filteredSubCategory.fulfilled, (state, action) => {
                 state.subCategories = action.payload
             })
             .addCase(getSubCategories.rejected, (state, action) => {

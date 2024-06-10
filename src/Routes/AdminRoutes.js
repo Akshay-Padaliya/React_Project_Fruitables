@@ -10,6 +10,7 @@ import OrganicProducts from '../Admin/Container/OrganicProducts/OrganicProducts'
 import Coupon from '../Admin/Container/Coupon/Coupon';
 import Contact from '../Admin/Container/Contact/Contact';
 import SubCategory from '../Admin/Container/SubCategory/SubCategory';
+import Products from '../Admin/Container/Products/Products';
 
 function AdminRoutes(props) {
     return (
@@ -19,13 +20,13 @@ function AdminRoutes(props) {
                     <Route element={<PriveteRoutes />}>
                         <Route exact path='/category' element={<Category />} />
                         <Route exact path='/subcategory' element={<SubCategory />} />
+                        <Route exact path='/products' element={<Products />} />
                         <Route exact path='/Fruites' element={<Fruites />} />
                         <Route exact path='/Vegitable' element={<Vegitable />} />
                         <Route exact path='/facilites' element={<Facilites />} />
                         <Route exact path = '/organicProduct' element ={<OrganicProducts/>}/>
                         <Route exact path = '/coupon' element ={<Coupon/>}/>
                         <Route exact path = '/contact' element ={<Contact/>}/>
-
                     </Route>
                 </Routes>
             </Layout>

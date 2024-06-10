@@ -110,6 +110,7 @@ export default function Layout({children}) {
   const pagelink =[
     {title : "Category" , link:"/admin/category" , icon: <CategoryIcon sx={{ color: 'chocolate' }}/>},
     {title : "SubCategory" , link:"/admin/subcategory" , icon: <CategoryIcon sx={{ color: 'chocolate' }}/>},
+    {title : "Products" , link:"/admin/products" , icon: <CategoryIcon sx={{ color: 'chocolate' }}/>},
     {title : "Fruites" ,  link:"/admin/Fruites", icon: <AppleIcon sx={{ color: 'green' }}/>},
     {title : "Vegetables" , link:"/admin/Vegitable" , icon: <BakeryDiningIcon sx={{ color: 'indigo' }}/>},
     {title : "Facilites" , link:"/admin/facilites" , icon: <SpeakerNotesIcon sx={{ color: 'dodgerblue' }}/>},
