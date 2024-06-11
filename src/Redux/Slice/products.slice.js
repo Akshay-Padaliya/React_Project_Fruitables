@@ -8,7 +8,7 @@ export const getproducts = createAsyncThunk(
             const response = await axios.get("http://localhost:9000/api/v1/products/list-products")
             console.log(response.data);
             console.log(response.data.data);
-            return response.data.data
+            return response.data
         } catch (error) {
             return error.massege
         }
@@ -67,10 +67,10 @@ const productsSlice = createSlice({
             .addCase(getproducts.fulfilled, (state, action) => {
                 state.products = action.payload
             })
-            .addCase(getproducts.rejected, (state, action) => {
-                console.log(action.error);
-                state.error = action.error
-            })
+            // .addCase(getproducts.rejected, (state, action) => {
+            //     console.log(action.error);
+            //     state.error = action.error
+            // })
             .addCase(updateproduct.fulfilled, (state, action) => {
                 state.products = state.products.map((v) => v._id === action.payload._id ? action.payload : v)
             })

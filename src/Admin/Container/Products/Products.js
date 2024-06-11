@@ -5,14 +5,14 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { object, string } from 'yup';
+import { number, object, string } from 'yup';
 import { useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
 import { useEffect } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
-import { filteredSubCategory } from '../../../Redux/Slice/subcategory.slice';
+import { filteredSubCategory, getSubCategories } from '../../../Redux/Slice/subcategory.slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories } from '../../../Redux/Action/category.action';
 import { addproduct, deleteproduct, getproducts, updateproduct } from '../../../Redux/Slice/products.slice';
@@ -23,11 +23,14 @@ function Products(props) {
     const [open, setOpen] = useState(false);
     const [update, setUpdate] = useState(null);
 
-    const subc = useSelector((state) => state.SubCategories)
-    console.log(subc.subCategories);
+   
 
     const category = useSelector((state) => state.Categories);
     console.log(category.categories);
+
+    const subc = useSelector((state) => state.SubCategories)
+    console.log(subc.subCategories);
+
 
     const productsDATA = useSelector((state) => state.products);
     console.log(productsDATA.products);
@@ -35,8 +38,9 @@ function Products(props) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getproducts())
-        dispatch(getCategories())
+        // dispatch(getproducts());
+        dispatch(getCategories());
+        dispatch(getSubCategories());
     }, [])
 
     const handleClickOpen = () => {
@@ -58,27 +62,32 @@ function Products(props) {
         // console.log(data);
         formik.setValues(data);
         setOpen(true);
-
         setUpdate(data._id);
-
     }
 
-    const handleCategory = () => {
-       const id =  document.getElementsByName("categories_id").value
-        console.log(values.categories_id,id);
+    const handleCategory = (event) => {
+       let id =  event.target.value
+        // console.log(id);
+        setFieldValue('category_id', id);
+        setFieldValue('subcategory_id', '');
         dispatch(filteredSubCategory(id));
     }
-
+   
     let subcategorySchema = object({
         name: string().required().matches(/^[a-zA-Z'-\s]*$/, 'Invalid name').min(2, 'use a valid name').max(30, 'use a valid name'),
-        description: string().required().min(10, 'Message is  too short')
+        description: string().required().min(10, 'Message is  too short'),
+        category_id: string().required(),
+        subcategory_id:string().required(),
+        price: number().required()
     })
 
     const formik = useFormik({
         initialValues: {
             name: '',
             description: '',
-            categories_id: '',
+            price: '',
+            category_id: '',
+            subcategory_id: '',
         },
         validationSchema: subcategorySchema,
         onSubmit: (values, { resetForm }) => {
@@ -89,21 +98,29 @@ function Products(props) {
             }
             handleClose();
             resetForm();
-
         },
 
     });
     const columns = [
         {
-            field: 'categories_id', headerName: 'Category', width: 300,
+            field: 'category_id', headerName: 'Category', width: 100,
             renderCell: (params) => {
-                const categ = category.categories.find((v) => v._id == params.row.categories_id)
+                const categ = category.categories.find((v) => v._id == params.row.category_id)
                 // console.log(categ);
                 return categ ? categ.name : ''
             }
         },
-        { field: 'name', headerName: 'Subcategory', width: 200 },
-        { field: 'description', headerName: 'discription', width: 600 },
+        {
+            field: 'subcategory_id', headerName: 'SubCategory', width: 100,
+            renderCell: (params) => {
+                const subcateg = subc.subCategories.find((v) => v._id == params.row.subcategory_id)
+                // console.log(categ);
+                return subcateg ? subcateg.name : ''
+            }
+        },
+        { field: 'name', headerName: 'Product', width: 150 },
+        { field: 'description', headerName: 'discription', width: 300 },
+        { field: 'price', headerName: 'Price', width: 150 },
         {
             field: 'action',
             headerName: 'Delete',
@@ -115,16 +132,15 @@ function Products(props) {
                     <Button className='py-1 border'><EditIcon className='text-success' onClick={() => handleEdit(params.row)} /></Button>
                 </>),
         },
-
     ];
 
-    const { handleSubmit, handleChange, handleBlur, errors, values, touched } = formik;
+    const { handleSubmit, handleChange, handleBlur, errors, values, touched, setFieldValue } = formik;
 
     return (
 
         <>
             <React.Fragment >
-                <div className='m-4 mx-5 d-flex justify-content-end'>
+                <div className='m-4 mx-5 d-flex justify-content-start'>
                     <Button variant="outlined" color='primary' onClick={handleClickOpen}>
                         Add SubCategory
                     </Button>
@@ -140,23 +156,24 @@ function Products(props) {
                                 <InputLabel id="demo-simple-select-error-label">Category</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-error-label"
-                                    id="demo-simple-select-error"
+                                    id="category_id"
                                     margin="dense"
-                                    name="categories_id"
+                                    name="category_id"
                                     label="category"
                                     fullWidth
                                     variant="standard"
                                     onChange={handleCategory}
+                                    // onChange={handleChange}
                                     onBlur={handleBlur}
-                                    value={values.categories_id}
+                                    value={values.category_id}
                                     error=
-                                    {errors.categories_id && touched.categories_id ? true : false}
+                                    {errors.category_id && touched.category_id ? true : false}
                                 >
                                     {category.categories.map((v) => (
                                         <MenuItem value={v._id}> {v.name} </MenuItem>
                                     ))}
                                 </Select>
-                                <FormHelperText>{errors.categories_id}</FormHelperText>
+                                <FormHelperText>{errors.category_id}</FormHelperText>
                             </FormControl>
                             <FormControl variant="standard" sx={{ minWidth: 450 }}>
                                 <InputLabel id="demo-simple-select-error-label">SubCategory</InputLabel>
@@ -164,21 +181,21 @@ function Products(props) {
                                     labelId="demo-simple-select-error-label"
                                     id="demo-simple-select-error"
                                     margin="dense"
-                                    name="subcategories_id"
-                                    label="category"
+                                    name="subcategory_id"
+                                    label="Subcategory"
                                     fullWidth
                                     variant="standard"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    value={values.subcategories_id}
+                                    value={values.subcategory_id}
                                     error=
-                                    {errors.subcategories_id && touched.subcategories_id ? true : false}
+                                    {errors.subcategory_id && touched.subcategory_id ? true : false}
                                 >
-                                    {/* {subc.subCategories.map((v) => (
+                                    {subc.subCategories.map((v) => (
                                         <MenuItem value={v._id}> {v.name} </MenuItem>
-                                    ))} */}
+                                    ))}
                                 </Select>
-                                <FormHelperText>{errors.subcategories_id}</FormHelperText>
+                                <FormHelperText>{errors.subcategory_id}</FormHelperText>
                             </FormControl>
                             <TextField
                                 margin="dense"
@@ -197,7 +214,7 @@ function Products(props) {
                             <TextField
                                 margin="dense"
                                 name="description"
-                                label="Enter category description"
+                                label="Enter description"
                                 type="text"
                                 fullWidth
                                 variant="standard"
@@ -206,6 +223,19 @@ function Products(props) {
                                 value={values.description}
                                 error={errors.description && touched.description ? true : false}
                                 helperText={errors.description}
+                            />
+                            <TextField
+                                margin="dense"
+                                name="price"
+                                label="Enter price"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.price}
+                                error={errors.price && touched.price ? true : false}
+                                helperText={errors.price}
                             />
                             <DialogActions>
                                 <Button onClick={handleClose}>Cancel</Button>
@@ -219,8 +249,8 @@ function Products(props) {
 
             <div className='p-5' style={{ width: '100%' }}>
                 <DataGrid
-                    rows={productsDATA.products}
-                    columns={columns}
+                    rows={productsDATA.products }
+                    columns={columns }
                     initialState={{
                         pagination: {
                             paginationModel: { page: 0, pageSize: 5 },
