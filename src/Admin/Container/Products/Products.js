@@ -38,7 +38,7 @@ function Products(props) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // dispatch(getproducts());
+        dispatch(getproducts());
         dispatch(getCategories());
         dispatch(getSubCategories());
     }, [])

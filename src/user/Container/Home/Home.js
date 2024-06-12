@@ -5,6 +5,7 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { getOrganic } from '../../../Redux/Action/organic.action';
+import { getCategories } from '../../../Redux/Action/category.action';
 
 
 function Home(props) {
@@ -19,6 +20,7 @@ function Home(props) {
 
   useEffect(() => {
       dispatch(getOrganic());
+      
   }, [])
 
 

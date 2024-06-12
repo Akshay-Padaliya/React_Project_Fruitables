@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getOrganic } from '../../../Redux/Action/organic.action';
 import AddToCart from '../AddtoCart/AddToCart';
+import { getCategories } from '../../../Redux/Action/category.action';
+import { getproducts } from '../../../Redux/Slice/products.slice';
+import { getSubCategories } from '../../../Redux/Slice/subcategory.slice';
 // import { useMatch, Link, useParams, Switch, Route, Routes, useRoute , useRoutesMatch } from 'react-router-dom';
 
 function Shop(props) {
@@ -20,10 +23,24 @@ function Shop(props) {
     useEffect(() => {
         getdata()
         dispatch(getOrganic());
+        dispatch(getproducts());
+        dispatch(getCategories());
+        dispatch(getSubCategories());
     }, []);
 
     const productData = useSelector(state=> state.OrganicProducts);
     console.log(productData.Organic);
+
+    const category = useSelector((state) => state.Categories);
+    console.log(category.categories);
+
+    const subc = useSelector((state) => state.SubCategories)
+    console.log(subc.subCategories);
+
+
+    const productsDATA = useSelector((state) => state.products);
+    console.log(productsDATA.products);
+
 
     const getdata = async () => {
         const unique = [];
@@ -135,15 +152,15 @@ function Shop(props) {
                                                     <li>
                                                         <div className="d-flex justify-content-between fruite-name" onClick={() => setselectCat('')}>
                                                             <a href="#"><i className="fas fa-apple-alt me-2" />All</a>
-                                                            <span>({productData.Organic.length})</span>
+                                                            <span>({subc.subCategories.length})</span>
                                                         </div>
                                                     </li>
                                                     {
-                                                        catagory.map((n) => (
+                                                        category.categories.map((n) => (
                                                             <li>
                                                                 <div className="d-flex justify-content-between fruite-name" onClick={() => setselectCat(n)}>
-                                                                    <a href="#"><i className="fas fa-apple-alt me-2" />{n}</a>
-                                                                    <span>({productData.Organic.filter((v) => (v.name == n)).length})</span>
+                                                                    <a href="#"><i className="fas fa-apple-alt me-2" />{n.name}</a>
+                                                                    <span>({subc.subCategories.filter((v) => (v.categories_id == n._id)).length})</span>
                                                                 </div>
                                                             </li>
                                                         ))

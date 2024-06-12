@@ -3,14 +3,13 @@ import axios from "axios";
 
 export const getproducts = createAsyncThunk(
     'products/get',
-    async () => {
+    async (thunkAPI) => {
         try {
             const response = await axios.get("http://localhost:9000/api/v1/products/list-products")
             console.log(response.data);
-            console.log(response.data.data);
-            return response.data
+            return response.data.data
         } catch (error) {
-            return error.massege
+            return thunkAPI.rejecteWithValue(error.message) 
         }
     }
 );
@@ -31,7 +30,7 @@ export const deleteproduct = createAsyncThunk(
     'products/delete',
     async (id) => {
         try {
-            const response = await axios.delete("http://localhost:9000/api/v1/products/delete-product/" + id)
+            await axios.delete("http://localhost:9000/api/v1/products/delete-product/" + id)
             return id
         } catch (error) {
             return error.massege
@@ -67,10 +66,11 @@ const productsSlice = createSlice({
             .addCase(getproducts.fulfilled, (state, action) => {
                 state.products = action.payload
             })
-            // .addCase(getproducts.rejected, (state, action) => {
-            //     console.log(action.error);
-            //     state.error = action.error
-            // })
+            .addCase(getproducts.rejected, (state, action) => {
+                console.log(action.payload);
+                console.log(action.error);
+                state.error = action.payload
+            })
             .addCase(updateproduct.fulfilled, (state, action) => {
                 state.products = state.products.map((v) => v._id === action.payload._id ? action.payload : v)
             })
