@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { number, object, string } from 'yup';
+import { mixed, number, object, string } from 'yup';
 import { useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
 import { useEffect } from 'react';
@@ -23,7 +23,7 @@ function Products(props) {
     const [open, setOpen] = useState(false);
     const [update, setUpdate] = useState(null);
 
-   
+
 
     const category = useSelector((state) => state.Categories);
     console.log(category.categories);
@@ -66,19 +66,20 @@ function Products(props) {
     }
 
     const handleCategory = (event) => {
-       let id =  event.target.value
+        let id = event.target.value
         // console.log(id);
         setFieldValue('category_id', id);
         setFieldValue('subcategory_id', '');
         dispatch(filteredSubCategory(id));
     }
-   
+
     let subcategorySchema = object({
         name: string().required().matches(/^[a-zA-Z'-\s]*$/, 'Invalid name').min(2, 'use a valid name').max(30, 'use a valid name'),
         description: string().required().min(10, 'Message is  too short'),
         category_id: string().required(),
-        subcategory_id:string().required(),
-        price: number().required()
+        subcategory_id: string().required(),
+        price: number().required(),
+        product_image: mixed().required('A file is required'),
     })
 
     const formik = useFormik({
@@ -88,6 +89,7 @@ function Products(props) {
             price: '',
             category_id: '',
             subcategory_id: '',
+            product_image: '',
         },
         validationSchema: subcategorySchema,
         onSubmit: (values, { resetForm }) => {
@@ -118,6 +120,11 @@ function Products(props) {
                 return subcateg ? subcateg.name : ''
             }
         },
+        { field: 'product_image', headerName: 'Image', width: 150 
+            , renderCell: (params) => { 
+                console.log(params.row.product_image.url);
+                return <img src={params.row.product_image.url} alt={params.row.name} width={50} />  
+        }},
         { field: 'name', headerName: 'Product', width: 150 },
         { field: 'description', headerName: 'discription', width: 300 },
         { field: 'price', headerName: 'Price', width: 150 },
@@ -133,6 +140,10 @@ function Products(props) {
                 </>),
         },
     ];
+    const handleimg = (event) => {
+        console.log(event.currentTarget.files[0]);
+        formik.setFieldValue("product_image",event.currentTarget.files[0])
+    }
 
     const { handleSubmit, handleChange, handleBlur, errors, values, touched, setFieldValue } = formik;
 
@@ -150,7 +161,7 @@ function Products(props) {
                     onClose={handleClose}
                 >
                     <DialogTitle className='text-cente'> SubCategory </DialogTitle>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} enctype="multipart/form-data">
                         <DialogContent style={{ width: 500 }}>
                             <FormControl variant="standard" sx={{ minWidth: 450 }}>
                                 <InputLabel id="demo-simple-select-error-label">Category</InputLabel>
@@ -237,6 +248,20 @@ function Products(props) {
                                 error={errors.price && touched.price ? true : false}
                                 helperText={errors.price}
                             />
+
+                            <input type="file" name="product_image"  onChange={handleimg} />
+                            {/* <input
+                                margin="dense"
+                                name="product_image"
+                                type="file"
+                                fullWidth
+                                variant="standard"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.product_image}
+                                error={errors.product_image && touched.product_image ? true : false}
+                                helperText={errors.product_image}
+                            /> */}
                             <DialogActions>
                                 <Button onClick={handleClose}>Cancel</Button>
                                 <Button type="submit">{update ? 'Update' : 'Add'}</Button>
@@ -249,8 +274,8 @@ function Products(props) {
 
             <div className='p-5' style={{ width: '100%' }}>
                 <DataGrid
-                    rows={productsDATA.products }
-                    columns={columns }
+                    rows={productsDATA.products}
+                    columns={columns}
                     initialState={{
                         pagination: {
                             paginationModel: { page: 0, pageSize: 5 },

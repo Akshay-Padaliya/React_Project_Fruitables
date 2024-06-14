@@ -18,7 +18,11 @@ export const addproduct = createAsyncThunk(
     'products/add',
     async (data) => {
         try {
-            const response = await axios.post("http://localhost:9000/api/v1/products/add-product", data)
+            const response = await axios.post("http://localhost:9000/api/v1/products/add-product", data,{
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+            }})
+            console.log(response.data);
             return response.data.data
         } catch (error) {
             return error.massege
