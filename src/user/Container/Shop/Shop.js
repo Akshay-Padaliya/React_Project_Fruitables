@@ -28,7 +28,7 @@ function Shop(props) {
         dispatch(getSubCategories());
     }, []);
 
-    const productData = useSelector(state=> state.OrganicProducts);
+    const productData = useSelector(state => state.OrganicProducts);
     console.log(productData.Organic);
 
     const category = useSelector((state) => state.Categories);
@@ -79,7 +79,7 @@ function Shop(props) {
         }
 
 
-        let sorting = filterData ;
+        let sorting = filterData;
 
         if (sortdata !== '') {
 
@@ -90,11 +90,11 @@ function Shop(props) {
                 } else if (sortdata == 'hl') {
                     return (b.price - a.price);
                 }
-             
+
             })
         } else {
-           sorting = filterData;
-          
+            sorting = filterData;
+
         }
 
         return sorting;
@@ -165,7 +165,7 @@ function Shop(props) {
                                                             </li>
                                                         ))
                                                     }
-                                                   
+
                                                 </ul>
                                             </div>
                                         </div>
@@ -291,7 +291,7 @@ function Shop(props) {
                                                                 <div className="d-flex justify-content-between flex-lg-wrap">
                                                                     <p className="text-dark fs-5 fw-bold mb-0">${v.price} / kg</p>
                                                                     <Link to={`/shop`}>
-                                                                    <AddToCart  obj = {{pid:v.id ,qyt: 1}} />
+                                                                        <AddToCart obj={{ pid: v.id, qyt: 1 }} />
                                                                     </Link>
                                                                     {/* <a href="#" className="btn border border-secondary rounded-pill px-3 text-primary"><i className="fa fa-shopping-bag me-2 text-primary" /> Add to cart</a> */}
                                                                 </div>
