@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getDataToCart } from '../../../Redux/Action/addCart.action';
 import { ThemeContex } from '../../../Context/ThemeContex';
+import { getproducts } from '../../../Redux/Slice/products.slice';
+import { getCategories } from '../../../Redux/Action/category.action';
+import { getSubCategories } from '../../../Redux/Slice/subcategory.slice';
 
 
 function Header(props) {
@@ -12,10 +15,27 @@ function Header(props) {
 
   useEffect(() => {
     dispatch(getDataToCart());
+    dispatch(getproducts());
+    dispatch(getCategories());
+    dispatch(getSubCategories());
+
     // dispatch(getReviews());
   }, []);
   // const cartData = useSelector(state => state.cartProduct)
   // console.log(cartData.cart.length);
+
+
+  const category = useSelector((state) => state.Categories);
+  console.log(category.categories);
+
+  const subc = useSelector((state) => state.SubCategories)
+  console.log(subc.subCategories);
+
+
+  const productsDATA = useSelector((state) => state.products);
+  console.log(productsDATA.products);
+
+
 
   const cartdata = useSelector((state) => state.AddtoCart);
 
@@ -63,56 +83,40 @@ function Header(props) {
                   <NavLink to="/" className="nav-item nav-link active">Home</NavLink>
                   <NavLink to="/shop" className="nav-item nav-link">Shop</NavLink>
 
-                  {/* =========================================================== */}
+                  {/* ====================================== */}
 
-                  <div class="d-flex dropdown-hover-all">
-                    <div class="dropdown mt-3">
-                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton222" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown Hover
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton222">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <div class="dropdown dropend">
-                          <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Layouts</a>
-                          <div class="dropdown-menu" aria-labelledby="dropdown-layouts">
-                            <a class="dropdown-item" href="#">Basic</a>
-                            <a class="dropdown-item" href="#">Compact Aside</a>
-                            {/* <div class="dropdown-divider"></div> */}
+                  <div class="d-flex ">
+                    <div class="dropdown">
+                      <a href="#" className="nav-link dropdown-toggle" id="dropdownMenuButton222" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+                      <div class="dropdown-menu m-0 bg-light rounded-2 border-0" aria-labelledby="dropdownMenuButton222">
+                        {
+                          category.categories.map((n) => (
                             <div class="dropdown dropend">
-                              <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Custom</a>
-                              <div class="dropdown-menu" aria-labelledby="dropdown-layouts">
-                                <a class="dropdown-item" href="#">Fullscreen</a>
-                                <a class="dropdown-item" href="#">Empty</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Magic</a>
+                              <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{n.name}</a>
+                              <div class="dropdown-menu m-0 bg-light rounded-2 border-0" aria-labelledby="dropdown-layouts">
+                                 { subc.subCategories.map((v) => 
+                                 v.categories_id == n._id ? 
+                                      <div class="dropdown dropend">
+                                          <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{v.name}</a>
+                                          <div class="dropdown-menu m-0 bg-light rounded-2 border-0" aria-labelledby="dropdown-layouts">
+                                            {
+                                              productsDATA.products.map((a) => (
+                                                v._id == a.subcategory_id ?
+                                                  <a class="dropdown-item" href="#">{a.name}</a> : ''
+                                              ))
+                                            }
+  
+                                          </div>
+                                        </div> : ''
+                                 )}
                               </div>
                             </div>
-                          </div>
-                        </div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                          ))
+                        }
                       </div>
                     </div>
                   </div>
                   {/* ===================================================== */}
-
-
-                  <div className="nav-item dropdown">
-                    <a href="#" className="nav-link dropdown-toggle" id="dropdownMenuButton222" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">Categories</a>
-                    <div class="dropdown dropend">
-                          <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Layouts</a>
-                          <div class="dropdown-menu" aria-labelledby="dropdown-layouts">
-                            <a class="dropdown-item" href="#">Basic</a>
-                            <a class="dropdown-item" href="#">Compact Aside</a>
-                    <div className="dropdown-menu m-0 bg-light rounded-0">
-                      <NavLink to="/cart" className="dropdown-item">Cart</NavLink>
-                      <NavLink to="/chechOut" className="dropdown-item">Chackout</NavLink>
-                      <NavLink to="/testimonial" className="dropdown-item">Testimonial</NavLink>
-                      <NavLink to="/404page" className="dropdown-item">404 Page</NavLink>
-                    </div>
-                  </div>
-                  </div></div>
-
-
 
 
                   {/* +=================+++++++++++++++++++ */}
