@@ -79,7 +79,19 @@ function Products(props) {
         category_id: string().required(),
         subcategory_id: string().required(),
         price: number().required(),
-        product_image: mixed().required('A file is required'),
+        product_image: mixed().required('A file is required')
+            .test('file size', 'file size too large', (value) => {
+                if (value?.size) {
+                    return value && value.size <= 1024 * 1024 * 2;
+                }
+                return true
+            })
+            .test('format', 'file not supported', (value) => {
+                if (value?.type) {
+                    return ['image/jpeg', 'image/png', 'image/jpg'].includes(value.type);
+                }
+                return true
+            })
     })
 
     const formik = useFormik({
@@ -120,11 +132,13 @@ function Products(props) {
                 return subcateg ? subcateg.name : ''
             }
         },
-        { field: 'product_image', headerName: 'Image', width: 150 
-            , renderCell: (params) => { 
+        {
+            field: 'product_image', headerName: 'Image', width: 150
+            , renderCell: (params) => {
                 console.log(params.row.product_image.url);
-                return <img src={params.row.product_image.url} alt={params.row.name} width={50} />  
-        }},
+                return <img src={params.row.product_image.url} alt={params.row.name} width={50} />
+            }
+        },
         { field: 'name', headerName: 'Product', width: 150 },
         { field: 'description', headerName: 'discription', width: 300 },
         { field: 'price', headerName: 'Price', width: 150 },
@@ -142,7 +156,7 @@ function Products(props) {
     ];
     const handleimg = (event) => {
         console.log(event.currentTarget.files[0]);
-        formik.setFieldValue("product_image",event.currentTarget.files[0])
+        formik.setFieldValue("product_image", event.currentTarget.files[0])
     }
 
     const { handleSubmit, handleChange, handleBlur, errors, values, touched, setFieldValue } = formik;
@@ -153,14 +167,14 @@ function Products(props) {
             <React.Fragment >
                 <div className='m-4 mx-5 d-flex justify-content-start'>
                     <Button variant="outlined" color='primary' onClick={handleClickOpen}>
-                        Add SubCategory
+                        Add Product
                     </Button>
                 </div>
                 <Dialog
                     open={open}
                     onClose={handleClose}
                 >
-                    <DialogTitle className='text-cente'> SubCategory </DialogTitle>
+                    <DialogTitle className='text-cente'> Product </DialogTitle>
                     <form onSubmit={handleSubmit} enctype="multipart/form-data">
                         <DialogContent style={{ width: 500 }}>
                             <FormControl variant="standard" sx={{ minWidth: 450 }}>
@@ -249,19 +263,26 @@ function Products(props) {
                                 helperText={errors.price}
                             />
 
-                            <input type="file" name="product_image"  onChange={handleimg} />
-                            {/* <input
+                            {/* <input type="file" name="product_image"  onChange={handleimg} /> */}
+                            <input
                                 margin="dense"
                                 name="product_image"
                                 type="file"
                                 fullWidth
                                 variant="standard"
-                                onChange={handleChange}
+                                onChange={handleimg}
                                 onBlur={handleBlur}
-                                value={values.product_image}
                                 error={errors.product_image && touched.product_image ? true : false}
                                 helperText={errors.product_image}
-                            /> */}
+                            />
+                            {
+                                values?.product_image &&
+                                <img src={
+                                    values?.product_image.url ?
+                                        values?.product_image.url :
+                                        URL.createObjectURL(values.product_image)
+                                } width={50} height={50} />
+                            }
                             <DialogActions>
                                 <Button onClick={handleClose}>Cancel</Button>
                                 <Button type="submit">{update ? 'Update' : 'Add'}</Button>

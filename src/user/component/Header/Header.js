@@ -93,26 +93,15 @@ function Header(props) {
                           category.categories.map((n) => (
                             <div class="dropdown dropend">
                               <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{n.name}</a>
+
                               <div class="dropdown-menu m-0 bg-light rounded-2 border-0" aria-labelledby="dropdown-layouts">
-                                 { subc.subCategories.map((v) => 
-                                 v.categories_id == n._id ? 
-                                      <div class="dropdown dropend">
-                                          <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{v.name}</a>
-                                          <div class="dropdown-menu m-0 bg-light rounded-2 border-0" aria-labelledby="dropdown-layouts">
-                                            {
-                                              productsDATA.products.map((a) => (
-                                                v._id == a.subcategory_id ?
-                                                  <a class="dropdown-item" href="#">{a.name}</a> : ''
-                                              ))
-                                            }
-  
-                                          </div>
-                                        </div> : ''
-                                 )}
+                                {subc.subCategories.map((v) =>
+                                  v.categories_id == n._id ?
+                                    <a class="dropdown-item" href="#">{v.name}</a> : ''
+                                )}
                               </div>
                             </div>
-                          ))
-                        }
+                          ))}
                       </div>
                     </div>
                   </div>

@@ -44,8 +44,13 @@ export const deleteproduct = createAsyncThunk(
 export const updateproduct = createAsyncThunk(
     'products/update',
     async (data) => {
+        console.log(data)
         try {
-            const response = await axios.put("http://localhost:9000/api/v1/products/update-product/" + data._id, data)
+            const response = await axios.put("http://localhost:9000/api/v1/products/update-product/" + data._id, data,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                }})
+                console.log(response.data);
             return response.data.data
         } catch (error) {
             return error.massege
@@ -76,6 +81,7 @@ const productsSlice = createSlice({
                 state.error = action.payload
             })
             .addCase(updateproduct.fulfilled, (state, action) => {
+                console.log(action.payload);
                 state.products = state.products.map((v) => v._id === action.payload._id ? action.payload : v)
             })
             .addCase(deleteproduct.fulfilled, (state, action) => {
